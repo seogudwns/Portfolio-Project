@@ -19,6 +19,6 @@ const AwardSchema = new Schema({
     },
 }, { timestamps: true, });
 
-const AwardModel = new Model("Award", AwardSchema);
+const AwardModel = new model("Award", AwardSchema);
 
 export { AwardModel };
