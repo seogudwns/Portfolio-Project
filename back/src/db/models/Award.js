@@ -1,8 +1,8 @@
 import { AwardModel } from "../schemas/award";
 
 class Award {
-    static async create({ newAward }) {
-        const createdNewAward = await AwardModel.create(newAward);
+    static async create({ awardData }) {
+        const createdNewAward = await AwardModel.create(awardData);
         return createdNewAward;
     }
 
