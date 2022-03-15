@@ -46,8 +46,9 @@ class AwardService {
         return award;
     }
 
-    static async getAwardListByUserId() {
-
+    static async getAwardListByUserId({ user_id }) {
+        const awardList = await Award.findByUserId({ user_id });
+        return awardList;
     }
 }
 

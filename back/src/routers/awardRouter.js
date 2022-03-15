@@ -60,5 +60,13 @@ awardRouter.put("/awards/:id", async (req, res, next) => {
 
 // 특정 유저의 수상경력 리스트 조회
 awardRouter.get("/awardlist/:user_id", async (req, res, next) => {
-
+    try {
+        const user_id = req.params.user_id;
+        const awardList = await AwardService.getAwardListByUserId({ user_id });
+        res.status(200).json(awardList);
+    } catch (err) {
+        next(err);
+    }
 })
+
+export { awardRouter };
