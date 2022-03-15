@@ -41,7 +41,21 @@ awardRouter.get("/awards/:id", async (req, res, next) => {
 
 // 수상경력 수정
 awardRouter.put("/awards/:id", async (req, res, next) => {
+    try {
+        const award_id = req.params.id;
+        const title = req.body.title ?? null;
+        const description = req.body.description ?? null;
+        const updateValue = { title, description };
+        const updatedAward = await AwardService.updateAward({ award_id, updateValue });
 
+        if (updatedAward.errorMessage) {
+            throw new Error(updatedAward.errorMessage);
+        }
+        
+        res.status(200).json(updatedAward);
+    } catch (err) {
+        next(err);
+    }
 })
 
 // 특정 유저의 수상경력 리스트 조회

@@ -21,8 +21,29 @@ class AwardService {
         return award;
     }
 
-    static async updateAward() {
+    static async updateAward({ award_id, updateValue }) {
+        // award_id와 일치하는 award를 찾기
+        const award = await Award.findById({ award_id });
 
+        if (!award) {
+            const errorMessage = "일치하는 award_id가 없습니다."
+            return { errorMessage };
+        }
+
+        // 해당 award를 받은 정보로 업데이트
+        if (updateValue.title) {
+            const fieldToUpdate = "title";
+            const value = updateValue.title;
+            award = await Award.update({ award_id, fieldToUpdate, value });
+        }
+        
+        if (updateValue.description) {
+            const fieldToUpdate = "description";
+            const value = update.description;
+            award = await Award.update({ award_id, fieldToUpdate, value });
+        }
+
+        return award;
     }
 
     static async getAwardListByUserId() {
