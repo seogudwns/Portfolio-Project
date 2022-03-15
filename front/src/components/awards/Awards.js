@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Row, Button, Col } from "react-bootstrap";
 import AwardAddForm from './AwardAddForm';
 import Award from './Award';
-// import AwardEditForm from "./AwardEditForm";
-// import AwardCard from "./AwardCard";
-// import * as Api from "../../api";
+import * as Api from "../../api";
 
 
 
@@ -13,9 +11,9 @@ function Awards({ portfolioOwnerId, isEditable }) {
     const [awards, setAwards] = useState(null);
 
     const awardList = awards.map((award) => <Award award={award} isEditable={isEditable} setAwards={setAwards} />)
-    // useEffect(() => {
-    //     Api.get("users/awards", portfolioOwnerId).then((res) => setAwards(res.data));
-    // }, [portfolioOwnerId]);
+    useEffect(() => {
+        Api.get(`awards`, portfolioOwnerId).then((res) => setAwards(res.data));
+    }, [portfolioOwnerId]);
 
     return (
         <Card className="mb-2 ms-3 mr-5" style={{ width: "72rem" }}>
