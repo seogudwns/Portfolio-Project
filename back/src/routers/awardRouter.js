@@ -24,7 +24,19 @@ awardRouter.post("/awards/create", async (req, res, next) => {
 
 // 수상경력 조회(id)
 awardRouter.get("/awards/:id", async (req, res, next) => {
+    try {
+        const award_id = req.params.id;
+        const award = AwardService.getAwardById({ award_id });
 
+        // 에러 메세지가 있는 경우, 에러 처리
+        if (award.errorMessage) {
+            throw new Erorr(award.errorMessage);
+        }
+
+        res.status(200).json(award);
+    } catch (err) {
+        next(err);
+    }
 })
 
 // 수상경력 수정
