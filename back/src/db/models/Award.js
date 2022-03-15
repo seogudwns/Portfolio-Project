@@ -1,8 +1,8 @@
 import { AwardModel } from "../schemas/award";
 
 class Award {
-    static async create({ newAward }) {
-        const createdNewAward = await AwardModel.create(newAward);
+    static async create({ awardData }) {
+        const createdNewAward = await AwardModel.create(awardData);
         return createdNewAward;
     }
 
@@ -13,11 +13,10 @@ class Award {
 
     // fieldToUpdate: 업데이트할 필드 이름
     // toUpdate: 업데이트 대상 값(title, description)
-    static async udpate({ award_id, fieldToUpdate, toUpdate }) {
+    static async update({ award_id, fieldToUpdate, value }) {
         const filter = { id: award_id };
-        const update = { [fieldToUpdate]: toUpdate };
+        const update = { [fieldToUpdate]: value };
         const option = { returnOriginal: false };
-
         const updatedUser = await AwardModel.findOneAndUpdate(
             filter,
             update,
@@ -27,7 +26,7 @@ class Award {
     }
 
     static async findByUserId({ user_id }) {
-        const award = await AwardModel.fine({ user_id });
+        const award = await AwardModel.find({ user_id });
         return award;
     }
 }
