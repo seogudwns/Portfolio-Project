@@ -11,7 +11,7 @@ class AwardService {
     }
 
     static async getAwardById({ award_id }) {
-        const award = await Award.findById({award_id});
+        const award = await Award.findById({ award_id });
 
         // award_id에 해당하는 정보가 없을 때
         if (!award) {
