@@ -18,6 +18,7 @@ class AwardService {
             const errorMessage = "일치하는 award_id가 없습니다."
             return { errorMessage };
         }
+        
         return award;
     }
 
