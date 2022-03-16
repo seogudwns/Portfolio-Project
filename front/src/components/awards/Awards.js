@@ -20,17 +20,16 @@ function Awards({ portfolioOwnerId, isEditable }) {
     }, [portfolioOwnerId]);
 
     return (
-        <Card className="mb-2 ms-3 mr-5" style={{ width: "72rem" }}>
+        <Card>
             <Card.Body>
                 <Card.Title>수상이력</Card.Title>
                 {awardList}
                 {isEditable && (
                     <Col>
-                        <Row className="mt-3 text-center text-info">
+                        <Row className="mt-3 text-center mb-4">
                             <Col sm={{ span: 20 }}>
                                 <Button
                                     variant="primary"
-                                    size="sm"
                                     onClick={() => setIsAdding(true)}
                                 >
                                     +

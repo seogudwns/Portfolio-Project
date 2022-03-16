@@ -8,19 +8,20 @@ function UserCard({ award, setIsEditing, isEditable }) {
       <Card.Text>
           <Row className="align-items-center">
             <Col>
-              {title}
-              {description}
+              <span>{title}</span>
+              <br />
+              <span className="text-muted">{description}</span>
             </Col>
             {isEditable && (
-            <Col sm={{ span: 20 }}>
-              <Button
-                variant="outline-info"
-                size="sm"
-                onClick={() => setIsEditing(true)}
-                className="mr-3"
-              >
-                편집
-              </Button>
+            <Col lg={1} xs={true}>
+                <Button
+                  variant="outline-info"
+                  size="sm"
+                  onClick={() => setIsEditing(true)}
+                  className="mr-3"
+                >
+                  편집
+                </Button>
             </Col>
             )}
           </Row>
