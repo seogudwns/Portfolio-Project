@@ -11,12 +11,22 @@ class Education {
         return education;
     }
 
-    static async update() {
+    static async update({ education_id, fieldToUpdate, value }) {
+        const filter = { id: education_id };
+        const update = { [fieldToUpdate]: value };
+        const option = { returnOriginal: false };
+        const updateEdu = EducationModel.update(
+            filter,
+            update,
+            option,
+        );
 
+        return updateEdu;
     }
 
-    static async findByUserId() {
-
+    static async findByUserId({ user_id }) {
+        const education = await EducationModel.find({ user_id });
+        return education;
     }
 }
 

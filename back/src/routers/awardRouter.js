@@ -10,7 +10,7 @@ awardRouter.use(login_required);
 awardRouter.post("/award/create", async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
-            throw new Erorr("Content-Type을 application/json으로 설정해주세요.");
+            throw new Error("Content-Type을 application/json으로 설정해주세요.");
         }
 
         const { user_id, title, description } = req.body;
@@ -30,7 +30,7 @@ awardRouter.get("/awards/:id", async (req, res, next) => {
 
         // 에러 메세지가 있는 경우, 에러 처리
         if (award.errorMessage) {
-            throw new Erorr(award.errorMessage);
+            throw new Error(award.errorMessage);
         }
 
         res.status(200).json(award);
@@ -63,6 +63,7 @@ awardRouter.get("/awardlist/:user_id", async (req, res, next) => {
     try {
         const user_id = req.params.user_id;
         const awardList = await AwardService.getAwardListByUserId({ user_id });
+        
         res.status(200).json(awardList);
     } catch (err) {
         next(err);
