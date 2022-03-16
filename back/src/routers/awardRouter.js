@@ -30,7 +30,7 @@ awardRouter.get("/awards/:id", async (req, res, next) => {
 
         // 에러 메세지가 있는 경우, 에러 처리
         if (award.errorMessage) {
-            throw new Erorr(award.errorMessage);
+            throw new Error(award.errorMessage);
         }
 
         res.status(200).json(award);

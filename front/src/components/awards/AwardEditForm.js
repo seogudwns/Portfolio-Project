@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function AwardEditForm({ award, setIsEditing, setAwards }) {
+function AwardEditForm({ award, setIsEditing, setThisAward }) {
   //useState로 title 상태를 생성함.
   const [title, setTitle] = useState(award.title);
   //useState로 description 상태를 생성함.
@@ -16,11 +16,10 @@ function AwardEditForm({ award, setIsEditing, setAwards }) {
       title,
       description,
     });
-    // 수상 정보는 response의 data임.
-    const updatedAward = res.data;
-    // 해당 유저 정보로 award을 세팅함.
-
-    setAwards([updatedAward]);
+    // 해당 유저 정보로 awards을 세팅함.
+    const updatedAward = res.data; 
+    
+    setThisAward(updatedAward);
 
     // isEditing을 false로 세팅함.
     setIsEditing(false);

@@ -10,20 +10,19 @@ function Awards({ portfolioOwnerId, isEditable }) {
     const [isAdding, setIsAdding] = useState(false);
     const [awards, setAwards] = useState([]);
 
-    const awardList = awards.map((award) => <Award award={award} isEditable={isEditable} setAwards={setAwards} />)
     useEffect(() => {
-        Api.get(`awards`, portfolioOwnerId).then((res) => {
-            let data = [];
-            data.push(res.data);
-            setAwards(data)
+        Api.get(`awardlist`, portfolioOwnerId).then((res) => {
+            setAwards(res.data)
         });
     }, [portfolioOwnerId]);
+
+    const awardList = awards.map((award) => <Award award={award} isEditable={isEditable} setAwards={setAwards} />)
 
     return (
         <Card>
             <Card.Body>
                 <Card.Title>수상이력</Card.Title>
-                {awardList}
+                {awards && awardList}
                 {isEditable && (
                     <Col>
                         <Row className="mt-3 text-center mb-4">

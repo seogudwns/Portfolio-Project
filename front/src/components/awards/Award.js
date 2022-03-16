@@ -4,13 +4,13 @@ import AwardCard from './AwardCard';
 
 function Award({ award, isEditable, setAwards }) {
     const [ isEditing, setIsEditing ] = useState(false);
-
+    const [ thisAward, setThisAward ] = useState(award);
     return (
         <>
         {isEditing ? (
-            <AwardEditForm award={award} setIsEditing={setIsEditing} setAwards={setAwards} />
+            <AwardEditForm award={thisAward} setIsEditing={setIsEditing} setThisAward={setThisAward} />
         ) : (
-            <AwardCard award={award} isEditable={isEditable} setIsEditing={setIsEditing} />
+            <AwardCard award={thisAward} isEditable={isEditable} setIsEditing={setIsEditing} />
         )}
         </>
     );
