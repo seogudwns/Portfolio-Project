@@ -6,8 +6,8 @@ class EducationService {
     static async createEdu({ user_id, school, major, position }) {
         const education_id = uuidv4();
 
-        const eduData = { id: education_id, user_id, school, major, position };
-        const newEducation = await Education.create({ eduData });
+        const educationData = { id: education_id, user_id, school, major, position };
+        const newEducation = await Education.create({ educationData });
         return newEducation;
     }
 

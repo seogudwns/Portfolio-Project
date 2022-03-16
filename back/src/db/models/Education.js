@@ -15,7 +15,7 @@ class Education {
         const filter = { id: education_id };
         const update = { [fieldToUpdate]: value };
         const option = { returnOriginal: false };
-        const updateEdu = EducationModel.update(
+        const updateEdu = EducationModel.findOneAndUpdate(
             filter,
             update,
             option,
