@@ -8,11 +8,15 @@ import * as Api from "../../api";
 
 function Awards({ portfolioOwnerId, isEditable }) {
     const [isAdding, setIsAdding] = useState(false);
-    const [awards, setAwards] = useState(null);
+    const [awards, setAwards] = useState([]);
 
     const awardList = awards.map((award) => <Award award={award} isEditable={isEditable} setAwards={setAwards} />)
     useEffect(() => {
-        Api.get(`awards`, portfolioOwnerId).then((res) => setAwards(res.data));
+        Api.get(`awards`, portfolioOwnerId).then((res) => {
+            let data = [];
+            data.push(res.data);
+            setAwards(data)
+        });
     }, [portfolioOwnerId]);
 
     return (

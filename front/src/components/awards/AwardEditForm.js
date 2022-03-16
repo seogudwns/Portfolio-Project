@@ -19,7 +19,8 @@ function AwardEditForm({ award, setIsEditing, setAwards }) {
     // 수상 정보는 response의 data임.
     const updatedAward = res.data;
     // 해당 유저 정보로 award을 세팅함.
-    setAwards(updatedAward);
+
+    setAwards([updatedAward]);
 
     // isEditing을 false로 세팅함.
     setIsEditing(false);

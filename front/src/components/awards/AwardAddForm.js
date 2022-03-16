@@ -8,16 +8,19 @@ function AwardAddForm({ portfolioOwnerId, setIsAdding, setAwards }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const newAward = {
             user_id: portfolioOwnerId,
             title,
             description
         };
+        
         try {
             const res = await Api.post("award/create", newAward);
 
             setAwards((current) => ([ ...current, res.data])
             )
+            setIsAdding(false);
         } catch (e) {
             console.log("수상내역 등록에 실패하였습니다.", e);
         }
