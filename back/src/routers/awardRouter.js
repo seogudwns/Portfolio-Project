@@ -28,7 +28,6 @@ awardRouter.get("/awards/:id", async (req, res, next) => {
         const award_id = req.params.id;
         const award = await AwardService.getAwardById({ award_id });
 
-        // 에러 메세지가 있는 경우, 에러 처리
         if (award.errorMessage) {
             throw new Error(award.errorMessage);
         }
