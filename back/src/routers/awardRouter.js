@@ -7,7 +7,7 @@ const awardRouter = Router();
 awardRouter.use(login_required);
 
 // 수상경력 생성
-awardRouter.post("/award/create", async (req, res, next) => {
+awardRouter.post("/awards/create", async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
             throw new Erorr("Content-Type을 application/json으로 설정해주세요.");
@@ -26,7 +26,7 @@ awardRouter.post("/award/create", async (req, res, next) => {
 awardRouter.get("/awards/:id", async (req, res, next) => {
     try {
         const award_id = req.params.id;
-        const award = await AwardService.getAwardById({ award_id });
+        const award = AwardService.getAwardById({ award_id });
 
         // 에러 메세지가 있는 경우, 에러 처리
         if (award.errorMessage) {
