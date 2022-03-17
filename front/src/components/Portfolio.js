@@ -5,6 +5,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
+import Projects from "./projects/Projects";
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -61,11 +62,10 @@ function Portfolio() {
           />
         </Col>
         <Col>
-
-          <div style={{ textAlign: "center" }}>
-            학력 목록, 수상이력 목록, 프로젝트 목록, 자격증 목록 만들기
-          </div>
-
+            <Projects 
+              portfolioOwnerId={portfolioOwner.id}
+              isEditable={portfolioOwner.id === userState.user?.id}
+            />
         </Col>
       </Row>
     </Container>
