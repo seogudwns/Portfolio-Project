@@ -5,7 +5,7 @@ class AwardService {
     static async createAward({ user_id, title, description }) {
         const award_id = uuidv4();
 
-        const awardData = { id: award_id, user_id, title, description };
+        const awardData = { award_id, user_id, title, description };
         const newAward = await Award.create({awardData});
         return newAward;
     }
@@ -23,7 +23,7 @@ class AwardService {
 
     static async updateAward({ award_id, updateValue }) {
         // award_id와 일치하는 award를 찾기
-        let award = await Award.findById({ award_id });
+        const award = await Award.findById({ award_id });
 
         if (!award) {
             const errorMessage = "일치하는 award_id가 없습니다."
@@ -39,7 +39,7 @@ class AwardService {
         
         if (updateValue.description) {
             const fieldToUpdate = "description";
-            const value = updateValue.description;
+            const value = update.description;
             award = await Award.update({ award_id, fieldToUpdate, value });
         }
 
