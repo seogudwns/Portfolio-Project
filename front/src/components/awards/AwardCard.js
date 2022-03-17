@@ -1,6 +1,6 @@
 import { Card, Row, Button, Col } from "react-bootstrap";
 
-function UserCard({ award, setIsEditing, isEditable }) {
+function AwardCard({ award, setIsEditing, isEditable }) {
   const { title, description } = award;
 
   return (
@@ -30,4 +30,4 @@ function UserCard({ award, setIsEditing, isEditable }) {
   );
 }
 
-export default UserCard;
+export default AwardCard;
