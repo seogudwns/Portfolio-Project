@@ -5,7 +5,10 @@ import { Container, Col, Row } from "react-bootstrap";
 import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
+<<<<<<< HEAD
 import Educations from "./education/Educations";
+=======
+>>>>>>> 3015b7ccbeb552a4d44aa90547fcf4d1c9fb055b
 import Awards from "./awards/Awards";
 
 function Portfolio() {
@@ -63,6 +66,7 @@ function Portfolio() {
           />
         </Col>
         <Col>
+<<<<<<< HEAD
           <Educations 
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
@@ -77,6 +81,12 @@ function Portfolio() {
         <Col>
         </Col>
         <Col>
+=======
+            <Awards 
+              portfolioOwnerId={portfolioOwner.id}
+              isEditable={portfolioOwner.id === userState.user?.id}
+            />
+>>>>>>> 3015b7ccbeb552a4d44aa90547fcf4d1c9fb055b
         </Col>
       </Row>
     </Container>
