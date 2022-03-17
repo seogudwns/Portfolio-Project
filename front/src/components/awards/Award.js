@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AwardEditForm from './AwardEditForm';
 import AwardCard from './AwardCard';
 
-function Award({ award, isEditable, setAwards }) {
+function Award({ award, isEditable, }) {
     const [ isEditing, setIsEditing ] = useState(false);
     const [ thisAward, setThisAward ] = useState(award);
     return (
