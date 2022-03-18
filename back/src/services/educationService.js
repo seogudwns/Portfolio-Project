@@ -3,11 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 
 
 class EducationService {
+
     static async createEdu({ user_id, school, major, position }) {
         const education_id = uuidv4();
-
         const educationData = { id: education_id, user_id, school, major, position };
         const newEducation = await Education.create({ educationData });
+
         return newEducation;
     }
 
@@ -26,7 +27,7 @@ class EducationService {
         let education = await Education.findById({ education_id });
         
         if (!education) {
-            const errorMessage = "일치하는 award_id가 없습니다."
+            const errorMessage = "일치하는 award_id가 없습니다.";
             return { errorMessage };
         }
 

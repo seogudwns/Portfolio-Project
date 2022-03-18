@@ -14,7 +14,7 @@ class Education {
     static async update({ education_id, fieldToUpdate, value }) {
         const filter = { id: education_id };
         const update = { [fieldToUpdate]: value };
-        const option = { returnOriginal: false };
+        const option = { returnOriginal: false }; // * 새롭게 업데이트 된 객체를 반환하는 옵션
         const updateEdu = EducationModel.findOneAndUpdate(
             filter,
             update,
