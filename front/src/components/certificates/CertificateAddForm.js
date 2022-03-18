@@ -6,25 +6,26 @@ import * as Api from "../../api";
 function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [startDate, setStartDate] = useState(new Date())
+    const [when_date, setWhenDate] = useState(new Date())
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         e.stopPropagation();
         
-        // "certificate/create" 엔드포인트로 post요청
-        await Api.post("certificate/create", {
-          user_id: portfolioOwnerId,
-          title,
-          description,
-        });
-        
-        // "certificatelist/유저id" 엔드포인트로 get요청
-        const res = await Api.get("certificatelist", portfolioOwnerId);
-        
-        // res의 data로 세팅
-        setCertificates(res.data)
-        setIsAdding(false);
+        try {
+          // "certificate/create" 엔드포인트로 post요청
+          const res = await Api.post("certificate/create", {
+            user_id: portfolioOwnerId,
+            title,
+            description,
+            when_date,
+          });
+
+          setCertificates(current => [...current, res.data]);
+          setIsAdding(false);
+      } catch (e) {
+          console.log("자격증 정보를 등록하지 못했습니다.", e);
+      }
     };
 
     return (
@@ -48,7 +49,7 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
         </Form.Group>
 
         <div controlId="certificateEditDate" className="mt-3">
-          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+          <DatePicker selected={when_date} onChange={(date) => setWhenDate(date)} />
         </div>
 
         <Form.Group as={Row} className="mt-3 text-center">

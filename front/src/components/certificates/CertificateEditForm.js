@@ -6,23 +6,29 @@ import * as Api from "../../api";
 function CertificateEditForm({ certificate, setCertificates, setIsEditing }) {
   const [title, setTitle] = useState(certificate.title);
   const [description, setDescription] = useState(certificate.description);
-  const [startDate, setStartDate] = useState(new Date())  // 수정
+  const [when_date, setWhenDate] = useState(certificate.when_date)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    // "certificates/유저id" 엔드포인트로 PUT 요청
-    await Api.put(`certificates/${certificate.id}`, {
-      title,
-      description,
-    });
+    try {
+      // "certificates/유저id" 엔드포인트로 PUT 요청
+      await Api.put(`certificates/${certificate.id}`, {
+        title,
+        description,
+        when_date,
+      });
 
-    // "certificatelist/유저id" 엔드포인트로 GET 요청
-    const res = await Api.get("certificatelist", certificate.id);
+      // "certificatelist/유저id" 엔드포인트로 GET 요청
+      const res = await Api.get("certificatelist", certificate.id);
 
-    setCertificates([res.data]);
-    setIsEditing(false);
+      setCertificates([res.data]);
+      setIsEditing(false);
+    } catch (e) {
+      console.log("자격증 정보를 수정하지 못했습니다", e);
+    }
+    
   };
 
   return (
@@ -47,9 +53,9 @@ function CertificateEditForm({ certificate, setCertificates, setIsEditing }) {
             />
           </Form.Group>
 
-          <Form.Group controlId="certificateEditDate" className="mt-3">
-            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-          </Form.Group>
+          <div controlId="certificateEditDate" className="mt-3">
+            <DatePicker selected={when_date} onChange={(date) => setWhenDate(date)} />
+          </div>
 
           <Form.Group as={Row} className="mt-3 text-center">
             <Col sm={{ span: 20 }}>
