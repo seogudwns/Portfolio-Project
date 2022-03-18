@@ -25,6 +25,7 @@ function CertificateEditForm({ certificate, setCertificates, setIsEditing }) {
 
       setCertificates([res.data]);
       setIsEditing(false);
+      
     } catch (e) {
       console.log("자격증 정보를 수정하지 못했습니다", e);
     }
@@ -53,8 +54,10 @@ function CertificateEditForm({ certificate, setCertificates, setIsEditing }) {
             />
           </Form.Group>
 
-          <div controlId="certificateEditDate" className="mt-3">
-            <DatePicker selected={expired_date} onChange={(date) => setExpiredDate(date)} />
+          <div controlId="certificateEditDate" className="mt-3 row">
+            <div className="col-auto">
+              <DatePicker selected={expired_date} onChange={(date) => setExpiredDate(date)} />
+            </div>
           </div>
 
           <Form.Group as={Row} className="mt-3 text-center">

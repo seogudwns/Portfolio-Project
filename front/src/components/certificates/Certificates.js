@@ -16,7 +16,7 @@ function Certificates({ portfolioOwnerId, isEditable }) {
     }, [portfolioOwnerId]);
 
     return (
-        <Card className="mb-2 ms-3 mr-5" style={{ width: "72rem" }}>
+        <Card>
             <Card.Body>
                 <Card.Title>자격증</Card.Title>
                 {certificates.map((certificate) => (
@@ -27,16 +27,15 @@ function Certificates({ portfolioOwnerId, isEditable }) {
                     />
                 ))}
                 {isEditable && (
-                    <Row className="mt-3 text-center text-info">
+                    <Row className="mt-3 text-center mb-4">
                         <Col sm={{ span: 20 }}>
-                            <Button
-                                variant="primary"
-                                size="sm"
-                                onClick={() => setIsAdding(true)}>
-                            +
-                            </Button>
-                        </Col>
-                    </Row>
+                        <Button
+                            variant="primary"
+                            onClick={() => setIsAdding(true)}>
+                        +
+                        </Button>
+                    </Col>
+            </Row>
                 )}
                 {isAdding && (
                     <CertificateAddForm
