@@ -18,11 +18,11 @@ projectAuthRouter.post(
       }
 
       // req 에서 데이터 가져오기
-      const user_id = req.currentUserId;
+      const user_id = req.body.user_id;  //! 확인할 때 애러가 날 시 body.user_id로 바꿀 것..
       const title = req.body.title;
       const description = req.body.description ?? null;
-      const from_date = req.body.from_date;
-      const to_date = req.body.to_date;
+      const from_date = req.body.from_date ?? Date();  //! ?? null 이 작동을 안하네,,,, Date는 Date 함수로 써줘야함.
+      const to_date = req.body.to_date ?? Date();
 
 
       //db에 추가

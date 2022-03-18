@@ -1,7 +1,5 @@
 import { Project } from "../db";
-import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
-import jwt from "jsonwebtoken";
 
 class projectAuthService {
   static async addProject({
@@ -12,16 +10,17 @@ class projectAuthService {
     to_date
   }) {
 
-    const project = await Project.findByTitle({ title });
+    const existProject = await Project.findByTitle({ title, user_id });
 
-    if (project && project.user_id === user_id) {
+    if (existProject.length > 0) {
       const errorMessage = "중복된 이름의 프로젝트입니다. 변경 바랍니다."
       return { errorMessage }
     }
 
     const id = uuidv4();
-    const newdata = {
+    const newProject = {
       user_id,
+      id,
       title,
       description,
       from_date,
@@ -29,11 +28,11 @@ class projectAuthService {
     };
     //고유 아이디 생성 및 req로부터 받은 데이터 묶기
 
-    const newProject = await Project.create({ newdata });
-    newProject.errorMessage = null;
+    const newproject = await Project.create({ newProject });
+    newproject.errorMessage = null;
     // 프로젝트 등록
-
-    return newProject;
+    console.log(newproject);
+    return newproject;
   }
 
 
@@ -41,7 +40,7 @@ class projectAuthService {
   static async getProjectInfo({ user_id }) {
     const project = await Project.findByUserId({ user_id })
 
-    if (!project) {
+    if (project.length === 0) {
       const errorMessage = "프로젝트를 등록해주세요.";
       return { errorMessage };
     }
@@ -50,20 +49,19 @@ class projectAuthService {
   }
 
 
-  //* 만기일을 합칠까 하다가 따로 뺌.
-  //* 중복된 이름이 있으면 return err.. project_id는 업데이트 대상이 아니기 때문에 일부러 바깥으로 뺌.
-  //* 자격증 업데이트... toUpdate = { title, description, from_date, to_date }
+  // 프로젝트 수정 관련.
   static async setProject({ project_id, toUpdate }) {
 
     let project = await Project.findById({ project_id })
 
     // 요청받은 것과 중복된 이름의 자격증이 있는지 체크.
     const isTitle = toUpdate.title;
-    const isExist = await Project.findByTitle({ isTitle });
-    if (isExist && isExist.user_id === project.user_id) {
+    const user_id = project.user_id;
+    const isExist = await Project.findByTitle({ isTitle, user_id });
+    if (isExist.length > 0) {
       const errorMessage = "중복된 이름의 프로젝트가 존재합니다.";
       return { errorMessage }
-    } //! 나도 해깔리는 부분.. 같은 이름의 다른 유저가 작성한 자격증이 존재할 수 있으므로 겹으로 처리함.
+    }
 
     if (!project) {
       const errorMessage = "잘못 등록된 자격증입니다. 관리자에게 문의해주세요.";
@@ -98,6 +96,7 @@ class projectAuthService {
     return project;
   }
 
+
   //! 예시에서 구현 안된거
   static async getProject(project_id) {
     const project = await Project.findById({ project_id })
@@ -109,9 +108,6 @@ class projectAuthService {
 
     return project;
   }
-
 }
-
-
 
 export { projectAuthService };

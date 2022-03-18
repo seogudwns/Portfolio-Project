@@ -15,8 +15,8 @@ class Project {
   }
 
   //* 선언된 title을 가진 ((모든)) project를 불러옴.
-  static async findByTitle({ title }) {
-    const projects = await ProjectModel.find({ title });
+  static async findByTitle({ title, user_id }) {
+    const projects = await ProjectModel.find({ title, user_id });
     return projects;
   }
 
@@ -28,7 +28,7 @@ class Project {
 
   //* 고유 id를 통해 자격증 업데이트.
   static async update({ project_id, fieldToUpdate, newValue }) {
-    const filter = { id: project_id };
+    const filter = { project_id };  //! 역시나 이게 되는 이유를 파악할 필요가 있음.
     const update = { [fieldToUpdate]: newValue };
     const option = { returnOriginal: false };
 

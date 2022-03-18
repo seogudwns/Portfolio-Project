@@ -35,6 +35,6 @@ const ProjectSchema = new Schema(
   }
 );
 
-const ProjectModel = model("User", ProjectSchema);
+const ProjectModel = model("Project", ProjectSchema);
 
 export { ProjectModel };
