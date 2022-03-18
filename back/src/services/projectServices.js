@@ -11,126 +11,107 @@ class projectAuthService {
     from_date,
     to_date
   }) {
-    // 이메일 중복 확인
-    const user = await Project.findByEmail({ email });
-    if (user) {
-      const errorMessage =
-        "이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.";
-      return { errorMessage };
+
+    const project = await Project.findByTitle({ title });
+
+    if (project && project.user_id === user_id) {
+      const errorMessage = "중복된 이름의 프로젝트입니다. 변경 바랍니다."
+      return { errorMessage }
     }
 
-    // 비밀번호 해쉬화
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // id 는 유니크 값 부여
     const id = uuidv4();
-    const newUser = { id, name, email, password: hashedPassword };
-
-    // db에 저장
-    const createdNewUser = await User.create({ newUser });
-    createdNewUser.errorMessage = null; // 문제 없이 db 저장 완료되었으므로 에러가 없음.
-
-    return createdNewUser;
-  }
-
-  static async getUser({ email, password }) {
-    // 이메일 db에 존재 여부 확인
-    const user = await User.findByEmail({ email });
-    if (!user) {
-      const errorMessage =
-        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
-    }
-
-    // 비밀번호 일치 여부 확인
-    const correctPasswordHash = user.password;
-    const isPasswordCorrect = await bcrypt.compare(
-      password,
-      correctPasswordHash
-    );
-    if (!isPasswordCorrect) {
-      const errorMessage =
-        "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
-    }
-
-    // 로그인 성공 -> JWT 웹 토큰 생성
-    const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
-    const token = jwt.sign({ user_id: user.id }, secretKey);
-
-    // 반환할 loginuser 객체를 위한 변수 설정
-    const id = user.id;
-    const name = user.name;
-    const description = user.description;
-
-    const loginUser = {
-      token,
-      id,
-      email,
-      name,
+    const newdata = {
+      user_id,
+      title,
       description,
-      errorMessage: null,
+      from_date,
+      to_date
     };
+    //고유 아이디 생성 및 req로부터 받은 데이터 묶기
 
-    return loginUser;
+    const newProject = await Project.create({ newdata });
+    newProject.errorMessage = null;
+    // 프로젝트 등록
+
+    return newProject;
   }
 
-  static async getUsers() {
-    const users = await User.findAll();
-    return users;
-  }
 
-  static async setUser({ user_id, toUpdate }) {
-    // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
-    let user = await User.findById({ user_id });
+  // * 사용자와 동일한 user_id 정보를 가진 모든 프로젝트를 불러옴
+  static async getProjectInfo({ user_id }) {
+    const project = await Project.findByUserId({ user_id })
 
-    // db에서 찾지 못한 경우, 에러 메시지 반환
-    if (!user) {
-      const errorMessage =
-        "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+    if (!project) {
+      const errorMessage = "프로젝트를 등록해주세요.";
       return { errorMessage };
     }
 
-    // 업데이트 대상에 name이 있다면, 즉 name 값이 null 이 아니라면 업데이트 진행
-    if (toUpdate.name) {
-      const fieldToUpdate = "name";
-      const newValue = toUpdate.name;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
+    return project;
+  }
+
+
+  //* 만기일을 합칠까 하다가 따로 뺌.
+  //* 중복된 이름이 있으면 return err.. project_id는 업데이트 대상이 아니기 때문에 일부러 바깥으로 뺌.
+  //* 자격증 업데이트... toUpdate = { title, description, from_date, to_date }
+  static async setProject({ project_id, toUpdate }) {
+
+    let project = await Project.findById({ project_id })
+
+    // 요청받은 것과 중복된 이름의 자격증이 있는지 체크.
+    const isTitle = toUpdate.title;
+    const isExist = await Project.findByTitle({ isTitle });
+    if (isExist && isExist.user_id === project.user_id) {
+      const errorMessage = "중복된 이름의 프로젝트가 존재합니다.";
+      return { errorMessage }
+    } //! 나도 해깔리는 부분.. 같은 이름의 다른 유저가 작성한 자격증이 존재할 수 있으므로 겹으로 처리함.
+
+    if (!project) {
+      const errorMessage = "잘못 등록된 자격증입니다. 관리자에게 문의해주세요.";
+      return { errorMessage }
+    } //나오면 안되는 메세지.
+
+    // 차례대로 title, description, from_date, to_date 순으로 업뎃.
+    if (toUpdate.title !== null) {
+      const fieldToUpdate = "title";
+      const newValue = toUpdate.title;
+      project = await Project.update({ project_id, fieldToUpdate, newValue });
     }
 
-    if (toUpdate.email) {
-      const fieldToUpdate = "email";
-      const newValue = toUpdate.email;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
-    }
-
-    if (toUpdate.password) {
-      const fieldToUpdate = "password";
-      const newValue = toUpdate.password;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
-    }
-
-    if (toUpdate.description) {
+    if (toUpdate.description !== null) {
       const fieldToUpdate = "description";
       const newValue = toUpdate.description;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
+      project = await Project.update({ project_id, fieldToUpdate, newValue });
     }
 
-    return user;
-  }
-
-  static async getUserInfo({ user_id }) {
-    const user = await User.findById({ user_id });
-
-    // db에서 찾지 못한 경우, 에러 메시지 반환
-    if (!user) {
-      const errorMessage =
-        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
+    if (toUpdate.from_date !== project.from_date) {
+      const fieldToUpdate = "from_date";
+      const newValue = toUpdate.from_date;
+      project = await Project.update({ project_id, fieldToUpdate, newValue });
     }
 
-    return user;
+    if (toUpdate.to_date !== project.to_date) {
+      const fieldToUpdate = "to_date";
+      const newValue = toUpdate.to_date;
+      project = await Project.update({ project_id, fieldToUpdate, newValue });
+    }
+
+    return project;
   }
+
+  //! 예시에서 구현 안된거
+  static async getProject(project_id) {
+    const project = await Project.findById({ project_id })
+
+    if (!project) {
+      const errorMessage = "이 애러가 났다면 관리자가 글삭을 한 것일 가능성이 매우 높습니다.";
+      return { errorMessage }
+    }
+
+    return project;
+  }
+
 }
+
+
 
 export { projectAuthService };

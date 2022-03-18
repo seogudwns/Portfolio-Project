@@ -1,38 +1,44 @@
-import { UserModel } from "../schemas/user";
+import { ProjectModel } from "../schemas/project";
 
-class User {
-  static async create({ newUser }) {
-    const createdNewUser = await UserModel.create(newUser);
-    return createdNewUser;
+class Project {
+
+  //*생성
+  static async create({ newProject }) {
+    const createdNewProject = await ProjectModel.create(newProject);
+    return createdNewProject;
   }
 
-  static async findByEmail({ email }) {
-    const user = await UserModel.findOne({ email });
-    return user;
+  //*고유 아이디를 가진 project를 불러옴.
+  static async findById({ project_id }) {
+    const project = await ProjectModel.findOne({ project_id });
+    return project;
   }
 
-  static async findById({ user_id }) {
-    const user = await UserModel.findOne({ id: user_id });
-    return user;
+  //* 선언된 title을 가진 ((모든)) project를 불러옴.
+  static async findByTitle({ title }) {
+    const projects = await ProjectModel.find({ title });
+    return projects;
   }
 
-  static async findAll() {
-    const users = await UserModel.find({});
-    return users;
+  //* 선언된 user_id를 가진 ((모든)) project를 불러옴.
+  static async findByUserId({ user_id }) {
+    const projects = await ProjectModel.find({ user_id });
+    return projects;
   }
 
-  static async update({ user_id, fieldToUpdate, newValue }) {
-    const filter = { id: user_id };
+  //* 고유 id를 통해 자격증 업데이트.
+  static async update({ project_id, fieldToUpdate, newValue }) {
+    const filter = { id: project_id };
     const update = { [fieldToUpdate]: newValue };
     const option = { returnOriginal: false };
 
-    const updatedUser = await UserModel.findOneAndUpdate(
+    const updatedProject = await ProjectModel.findOneAndUpdate(
       filter,
       update,
       option
     );
-    return updatedUser;
+    return updatedProject;
   }
 }
 
-export { User };
+export { Project };
