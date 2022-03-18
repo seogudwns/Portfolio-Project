@@ -48,8 +48,10 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
           />
         </Form.Group>
 
-        <div controlId="certificateEditDate" className="mt-3">
-          <DatePicker selected={expired_date} onChange={(date) => setExpiredDate(date)} />
+        <div controlId="certificateEditDate" className="mt-3 row">
+          <div className="col-auto">
+            <DatePicker selected={expired_date} onChange={(date) => setExpiredDate(date)} />
+          </div>
         </div>
 
         <Form.Group as={Row} className="mt-3 text-center">
