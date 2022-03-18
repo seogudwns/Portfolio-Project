@@ -6,7 +6,7 @@ import * as Api from "../../api";
 function CertificateEditForm({ certificate, setCertificates, setIsEditing }) {
   const [title, setTitle] = useState(certificate.title);
   const [description, setDescription] = useState(certificate.description);
-  const [when_date, setWhenDate] = useState(certificate.when_date)
+  const [expired_date, setExpiredDate] = useState(certificate.expired_date)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +17,7 @@ function CertificateEditForm({ certificate, setCertificates, setIsEditing }) {
       await Api.put(`certificates/${certificate.id}`, {
         title,
         description,
-        when_date,
+        expired_date,
       });
 
       // "certificatelist/유저id" 엔드포인트로 GET 요청
@@ -54,7 +54,7 @@ function CertificateEditForm({ certificate, setCertificates, setIsEditing }) {
           </Form.Group>
 
           <div controlId="certificateEditDate" className="mt-3">
-            <DatePicker selected={when_date} onChange={(date) => setWhenDate(date)} />
+            <DatePicker selected={expired_date} onChange={(date) => setExpiredDate(date)} />
           </div>
 
           <Form.Group as={Row} className="mt-3 text-center">

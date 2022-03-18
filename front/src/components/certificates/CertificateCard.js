@@ -1,7 +1,7 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
 
 function CertificateCard({ certificate, isEditable, setIsEditing }) {
-  const { title, description, when_date } = certificate;
+  const { title, description, expired_date } = certificate;
 
   return (
     <>
@@ -10,7 +10,7 @@ function CertificateCard({ certificate, isEditable, setIsEditing }) {
             <Col>
               <span>{title}</span><br />
               <span>{description}</span>
-              <span>{when_date}</span>
+              <span>{expired_date}</span>
             </Col>
             {isEditable && (
               <Col xs lg="1">
