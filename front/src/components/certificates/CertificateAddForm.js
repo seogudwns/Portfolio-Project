@@ -8,6 +8,10 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
     const [description, setDescription] = useState("");
     const [expired_date , setExpiredDate] = useState(new Date())
 
+    const dateToString = (date) => {
+      return date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0')
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -18,7 +22,7 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
             user_id: portfolioOwnerId,
             title,
             description,
-            expired_date,
+            expired_date: dateToString(expired_date),
           });
 
           setCertificates(current => [...current, res.data]);

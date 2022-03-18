@@ -8,6 +8,10 @@ function CertificateEditForm({ certificate, setCertificates, setIsEditing }) {
   const [description, setDescription] = useState(certificate.description);
   const [expired_date, setExpiredDate] = useState(certificate.expired_date)
 
+  const dateToString = (date) => {
+    return date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0')
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -17,7 +21,7 @@ function CertificateEditForm({ certificate, setCertificates, setIsEditing }) {
       await Api.put(`certificates/${certificate.id}`, {
         title,
         description,
-        expired_date,
+        expired_date: dateToString(expired_date),
       });
 
       // "certificatelist/유저id" 엔드포인트로 GET 요청
