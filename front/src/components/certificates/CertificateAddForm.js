@@ -6,7 +6,7 @@ import * as Api from "../../api";
 function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [when_date, setWhenDate] = useState(new Date())
+    const [expired_date , setExpiredDate] = useState(new Date())
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,7 +18,7 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
             user_id: portfolioOwnerId,
             title,
             description,
-            when_date,
+            expired_date,
           });
 
           setCertificates(current => [...current, res.data]);
@@ -49,7 +49,7 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
         </Form.Group>
 
         <div controlId="certificateEditDate" className="mt-3">
-          <DatePicker selected={when_date} onChange={(date) => setWhenDate(date)} />
+          <DatePicker selected={expired_date} onChange={(date) => setExpiredDate(date)} />
         </div>
 
         <Form.Group as={Row} className="mt-3 text-center">
