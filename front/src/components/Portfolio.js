@@ -7,6 +7,7 @@ import * as Api from "../api";
 import User from "./user/User";
 import Educations from "./education/Educations";
 import Awards from "./awards/Awards";
+import Certificates from "./certificates/Certificates";
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -63,6 +64,7 @@ function Portfolio() {
           />
         </Col>
         <Col>
+<<<<<<< HEAD
           <Educations 
               portfolioOwnerId={portfolioOwner.id}
               isEditable={portfolioOwner.id === userState.user?.id}
@@ -71,6 +73,19 @@ function Portfolio() {
               portfolioOwnerId={portfolioOwner.id}
               isEditable={portfolioOwner.id === userState.user?.id}
           />
+=======
+          <div style={{ textAlign: "center" }}>
+            학력 목록, 수상이력 목록, 프로젝트 목록, 자격증 목록 만들기
+            <Awards 
+              portfolioOwnerId={portfolioOwner.id}
+              isEditable={portfolioOwner.id === userState.user?.id}
+            />
+            <Certificates 
+              portfolioOwnerId={portfolioOwner.id}
+              isEditable={portfolioOwner.id === userState.user?.id}
+            />
+          </div>
+>>>>>>> 6b254a95b0d3a25b259d0c869d92f441b9cb6bcc
         </Col>
       </Row>
     </Container>
