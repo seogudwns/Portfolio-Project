@@ -1,17 +1,17 @@
-import is from '@sindresorhus/is';
-import { Router } from 'express';
-import { login_required } from '../middlewares/login_required';
-import { AwardService } from '../services/awardService';
+import is from "@sindresorhus/is";
+import { Router } from "express";
+import { login_required } from "../middlewares/login_required";
+import { AwardService } from "../services/awardService";
 
 const awardRouter = Router();
 awardRouter.use(login_required);
 
 // 수상이력 생성
-awardRouter.post('/award/create', async (req, res, next) => {
+awardRouter.post("/award/create", async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
             throw new Error(
-                'Content-Type을 application/json으로 설정해주세요.',
+                "Content-Type을 application/json으로 설정해주세요.",
             );
         }
 
@@ -29,7 +29,7 @@ awardRouter.post('/award/create', async (req, res, next) => {
 });
 
 // 수상이력 조회(id)
-awardRouter.get('/awards/:id', async (req, res, next) => {
+awardRouter.get("/awards/:id", async (req, res, next) => {
     try {
         const award_id = req.params.id;
         const award = await AwardService.getAwardById({ award_id });
@@ -45,7 +45,7 @@ awardRouter.get('/awards/:id', async (req, res, next) => {
 });
 
 // 수상이력 수정
-awardRouter.put('/awards/:id', async (req, res, next) => {
+awardRouter.put("/awards/:id", async (req, res, next) => {
     try {
         const award_id = req.params.id;
         const title = req.body.title ?? null;
@@ -67,7 +67,7 @@ awardRouter.put('/awards/:id', async (req, res, next) => {
 });
 
 // 수상이력 삭제
-awardRouter.delete('/awards/:id', async (req, res, next) => {
+awardRouter.delete("/awards/:id", async (req, res, next) => {
     try {
         const award_id = req.params.id;
         console.log(award_id);
@@ -84,7 +84,7 @@ awardRouter.delete('/awards/:id', async (req, res, next) => {
 });
 
 // 특정 유저의 수상이력 리스트 조회
-awardRouter.get('/awardlist/:user_id', async (req, res, next) => {
+awardRouter.get("/awardlist/:user_id", async (req, res, next) => {
     try {
         const user_id = req.params.user_id;
         const awardList = await AwardService.getAwardListByUserId({ user_id });

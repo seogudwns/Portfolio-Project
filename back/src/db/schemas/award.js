@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
 const AwardSchema = new Schema(
     {
@@ -22,6 +22,6 @@ const AwardSchema = new Schema(
     { timestamps: true },
 );
 
-const AwardModel = new model('Award', AwardSchema);
+const AwardModel = new model("Award", AwardSchema);
 
 export { AwardModel };

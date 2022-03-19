@@ -1,5 +1,5 @@
-import { Award } from '../db/models/Award';
-import { v4 as uuidv4 } from 'uuid';
+import { Award } from "../db/models/Award";
+import { v4 as uuidv4 } from "uuid";
 
 class AwardService {
     static async createAward({ user_id, title, description }) {
@@ -15,7 +15,7 @@ class AwardService {
 
         // award_id에 해당하는 정보가 없을 때
         if (!award) {
-            const errorMessage = '일치하는 award_id가 없습니다.';
+            const errorMessage = "일치하는 award_id가 없습니다.";
             return { errorMessage };
         }
 
@@ -27,19 +27,19 @@ class AwardService {
         let award = await Award.findById({ award_id });
 
         if (!award) {
-            const errorMessage = '일치하는 award_id가 없습니다.';
+            const errorMessage = "일치하는 award_id가 없습니다.";
             return { errorMessage };
         }
 
         // 해당 award를 받은 정보로 업데이트
         if (updateValue.title) {
-            const fieldToUpdate = 'title';
+            const fieldToUpdate = "title";
             const value = updateValue.title;
             award = await Award.update({ award_id, fieldToUpdate, value });
         }
 
         if (updateValue.description) {
-            const fieldToUpdate = 'description';
+            const fieldToUpdate = "description";
             const value = updateValue.description;
             award = await Award.update({ award_id, fieldToUpdate, value });
         }
@@ -56,7 +56,7 @@ class AwardService {
         const deletedAward = await Award.delete({ award_id });
 
         if (!deletedAward) {
-            const errorMessage = '일치하는 award_id가 없습니다.';
+            const errorMessage = "일치하는 award_id가 없습니다.";
             return { errorMessage };
         }
 
