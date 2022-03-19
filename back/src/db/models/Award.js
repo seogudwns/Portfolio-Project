@@ -12,9 +12,9 @@ class Award {
     }
 
     /*
-    * fieldToUpdate: 업데이트할 필드 이름
-    * toUpdate: 업데이트 대상 값(title, description)
-    */
+     * fieldToUpdate: 업데이트할 필드 이름
+     * toUpdate: 업데이트 대상 값(title, description)
+     */
     static async update({ award_id, fieldToUpdate, value }) {
         const filter = { id: award_id };
         const update = { [fieldToUpdate]: value };
@@ -22,15 +22,20 @@ class Award {
         const updatedUser = await AwardModel.findOneAndUpdate(
             filter,
             update,
-            option
+            option,
         );
-        
+
         return updatedUser;
     }
 
     static async findByUserId({ user_id }) {
         const award = await AwardModel.find({ user_id });
         return award;
+    }
+
+    static async delete({ award_id }) {
+        const deletedAward = await AwardModel.deleteOne({ id: award_id });
+        return deletedAward;
     }
 }
 
