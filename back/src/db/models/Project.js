@@ -41,6 +41,12 @@ class Project {
         console.log(updatedProject);
         return updatedProject;
     }
+
+    static async removeById(project_id) {
+        const deleteone = await ProjectModel.remove({ id: project_id });
+
+        return deleteone;
+    }
 }
 
 export { Project };

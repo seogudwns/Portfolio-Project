@@ -108,6 +108,19 @@ class projectAuthService {
 
         return project;
     }
+
+
+    static async deleteProject(project_id) {
+        const deleteone = await Certificate.removeById(project_id);
+
+        if (!deleteone) {
+            const errorMessage = '해당 프로젝트가 존재하지 않습니다.'
+            return { errorMessage }
+        }
+
+        return deleteone;
+    }
+
 }
 
 export { projectAuthService };

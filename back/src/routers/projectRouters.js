@@ -119,4 +119,25 @@ projectAuthRouter.get('/projects/:id',
 );
 
 
+//! 나중에 delete front로 사용하시면 뭘 뜨게 하면 좋을지 아이디어 주세요오~~~~ 구현만 해놓음
+projectAuthRouter.delete('/projects/:id',
+    login_required,
+    async function (req, res, next) {
+        try {
+            const project_id = req.params.id;
+
+            const deleteProject = await projectAuthService.deleteProject(project_id);
+
+            if (deleteProject.errorMessage) {
+                throw new Error(deleteProject.errorMessage);
+            }
+
+            res.status(200).send(deleteProject);
+        } catch (error) {
+            next(error);
+        }
+    }
+)
+
+
 export { projectAuthRouter };
