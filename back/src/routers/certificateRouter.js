@@ -64,7 +64,7 @@ certificateRouter.post(
 
 //******************************************************** 4. user_id : user_id를 포함한 모든 자격증 가져오기.
 certificateRouter.get(
-    "/certificatelists/:user_id",
+    "/certificatelist/:user_id",
     login_required,
     async function (req, res, next) {
         try {
