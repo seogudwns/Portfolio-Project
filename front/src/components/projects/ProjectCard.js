@@ -1,12 +1,12 @@
 import { Card, Row, Button, Col } from "react-bootstrap";
-// import * as Api from "../../api"
+import * as Api from "../../api";
 function ProjectCard({ project, setIsEditing, isEditable, setThisProject }) {
   const { title, description, from_date, to_date } = project;
 
   const deleteHandler = async () => {
-    // await Api.delete(`project/${project.id}`)
     if (window.confirm("Are you sure you want to delete this project?")) {
       setThisProject(null);
+      await Api.delete(`project/${project.id}`);
     }
   };
   return (
