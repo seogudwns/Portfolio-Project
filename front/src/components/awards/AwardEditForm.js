@@ -2,27 +2,38 @@ import React, { useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function AwardEditForm({ award, setIsEditing, setThisAward }) {
+function AwardEditForm({ award, setIsEditing, setAwards }) {
   //useState로 title 상태를 생성함.
   const [title, setTitle] = useState(award.title);
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(award.description);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
-    // "awards/유저id" 엔드포인트로 PUT 요청함.
-    const res = await Api.put(`awards/${award.id}`, {
-      title,
-      description,
-    });
-    // 해당 유저 정보로 awards을 세팅함.
-    const updatedAward = res.data; 
-    
-    setThisAward(updatedAward);
+    try {
+      // "awards/유저id" 엔드포인트로 PUT 요청함.
+      const res = await Api.put(`awards/${award.id}`, {
+        title,
+        description,
+      });
+      // 해당 유저 정보로 awards을 세팅함.
+      const updatedAward = res.data;
 
-    // isEditing을 false로 세팅함.
-    setIsEditing(false);
+      setAwards(current => {
+        return current.map(item => {
+          if (item.id === award.id) {
+            return updatedAward;
+          }
+          return item;
+        });
+      });
+
+      // isEditing을 false로 세팅함.
+      setIsEditing(false);
+    } catch (err) {
+      alert("수상정보를 수정하지 못했습니다.", err);
+    }
   };
 
   return (
@@ -34,7 +45,7 @@ function AwardEditForm({ award, setIsEditing, setThisAward }) {
               type="text"
               placeholder="수상내역"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={e => setTitle(e.target.value)}
             />
           </Form.Group>
 
@@ -43,7 +54,7 @@ function AwardEditForm({ award, setIsEditing, setThisAward }) {
               type="text"
               placeholder="상세내역"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={e => setDescription(e.target.value)}
             />
           </Form.Group>
 
