@@ -9,7 +9,10 @@ function Projects({ portfolioOwnerId, isEditable }) {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    Api.get("projectlist", portfolioOwnerId).then(res => setProjects(res.data));
+    Api.get("projectlist", portfolioOwnerId).then(res => {
+      console.log(res.data);
+      return setProjects(res.data);
+    });
   }, [portfolioOwnerId]);
 
   const projectlist = projects.map(project => (
