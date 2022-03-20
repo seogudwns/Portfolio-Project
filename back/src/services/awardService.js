@@ -1,4 +1,4 @@
-import { Award } from "../db/models/Award";
+import { Award } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class AwardService {
