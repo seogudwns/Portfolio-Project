@@ -1,11 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
-
 import { UserStateContext } from "../App";
 import * as Api from "../api";
+
 import User from "./user/User";
-import Projects from "./projects/Projects";
+
+import Educations from "./education/Educations";
+import Awards from "./awards/Awards";
+import Certificates from "./certificates/Certificates";
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -17,7 +20,7 @@ function Portfolio() {
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
   const userState = useContext(UserStateContext);
 
-  const fetchPorfolioOwner = async (ownerId) => {
+  const fetchPorfolioOwner = async ownerId => {
     // 유저 id를 가지고 "/users/유저id" 엔드포인트로 요청해 사용자 정보를 불러옴.
     const res = await Api.get("users", ownerId);
     // 사용자 정보는 response의 data임.
@@ -62,10 +65,18 @@ function Portfolio() {
           />
         </Col>
         <Col>
-            <Projects 
-              portfolioOwnerId={portfolioOwner.id}
-              isEditable={portfolioOwner.id === userState.user?.id}
-            />
+          <Educations
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
+          />
+          <Awards
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
+          />
+          <Certificates
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
+          />
         </Col>
       </Row>
     </Container>

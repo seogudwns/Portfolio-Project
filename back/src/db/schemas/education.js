@@ -1,34 +1,31 @@
 import { Schema, model } from "mongoose";
 
-const UserSchema = new Schema(
+const educationSchema = new Schema(
     {
         id: {
             type: String,
             required: true,
         },
-        email: {
+        user_id: {
             type: String,
             required: true,
         },
-        name: {
+        school: {
             type: String,
             required: true,
         },
-        password: {
+        major: {
             type: String,
             required: true,
         },
-        description: {
+        position: {
             type: String,
-            required: false,
-            default: "설명이 아직 없습니다. 추가해 주세요.",
+            required: true,
         },
     },
-    {
-        timestamps: true,
-    },
+    { timestamps: true },
 );
 
-const UserModel = model("User", UserSchema);
+const EducationModel = new model("Education", educationSchema);
 
-export { UserModel };
+export { EducationModel };
