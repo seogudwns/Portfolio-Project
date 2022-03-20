@@ -7,10 +7,10 @@ function ProjectCard({ project, setIsEditing, isEditable, setProjects }) {
   const deleteHandler = async () => {
     try {
       if (window.confirm("정말로 프로젝트를 삭제 하시겠습니까?")) {
+        await Api.delete(`projects/${project.id}`);
         setProjects(current => {
           return current.filter(item => item.id !== id);
         });
-        await Api.delete(`projects/${project.id}`);
       }
     } catch (e) {
       alert("프로젝트를 삭제하지 못했습니다.", e);
