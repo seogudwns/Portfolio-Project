@@ -19,6 +19,7 @@ class Award {
         const filter = { id: award_id }; // * id를 기준으로 필터링한다는 것을 직관적으로 알 수 있는 변수명으로 리네이밍(filteredId?)
         const update = { [fieldToUpdate]: value };
         const option = { returnOriginal: false };
+
         const updatedUser = await AwardModel.findOneAndUpdate(
             filter,
             update,
