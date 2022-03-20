@@ -7,10 +7,10 @@ function AwardCard({ award, setIsEditing, isEditable, setAwards }) {
   const deleteHandler = async () => {
     try {
       if (window.confirm("정말로 수상정보를 삭제 하시겠습니까?")) {
+        await Api.delete(`awards/${award.id}`);
         setAwards(current => {
           return current.filter(item => item.id !== id);
         });
-        await Api.delete(`awards/${award.id}`);
       }
     } catch (e) {
       alert("수상정보를 제대로 삭제하지 못했습니다.", e);

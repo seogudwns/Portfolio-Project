@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
+
 import * as Api from "../../api";
+import dateToString from "../../utils/dateToString";
 
 function ProjectEditForm({ project, setIsEditing, setProjects }) {
   //useState로 title 상태를 생성함.
@@ -12,16 +14,6 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
   const [fromDate, setFromDate] = useState(new Date(project.from_date));
   //useState로 toDate 상태를 생성함.
   const [toDate, setToDate] = useState(new Date(project.to_date));
-
-  const dateToString = date => {
-    return (
-      date.getFullYear() +
-      "-" +
-      (date.getMonth() + 1).toString().padStart(2, "0") +
-      "-" +
-      date.getDate().toString().padStart(2, "0")
-    );
-  };
 
   const from_date = dateToString(fromDate);
   const to_date = dateToString(toDate);
