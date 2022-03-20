@@ -1,16 +1,19 @@
 import { Card, Row, Button, Col } from "react-bootstrap";
 import * as Api from "../../api";
+
 function ProjectCard({ project, setIsEditing, isEditable, setProjects }) {
-  const { title, description, from_date, to_date } = project;
+  const { title, description, from_date, to_date, id } = project;
 
   const deleteHandler = async () => {
     try {
       if (window.confirm("정말로 프로젝트를 삭제 하시겠습니까?")) {
-        setProjects(null);
-        await Api.delete(`project/${project.id}`);
+        setProjects(current => {
+          return current.filter(item => item.id !== id);
+        });
+        await Api.delete(`projects/${project.id}`);
       }
     } catch (e) {
-      alert("프로젝트를 제대로 삭제하지 못했습니다.", e);
+      alert("프로젝트를 삭제하지 못했습니다.", e);
     }
   };
   return (
