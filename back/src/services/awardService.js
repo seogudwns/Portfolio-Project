@@ -1,23 +1,24 @@
-import { Award } from "../db/models/Award";
+import { Award } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class AwardService {
     static async createAward({ user_id, title, description }) {
         const award_id = uuidv4();
 
-        const awardData = { award_id, user_id, title, description };
-        const newAward = await Award.create({awardData});
+        const awardData = { id: award_id, user_id, title, description };
+        const newAward = await Award.create({ awardData });
         return newAward;
     }
 
     static async getAwardById({ award_id }) {
-        const award = await Award.findById({award_id});
+        const award = await Award.findById({ award_id });
 
         // award_id에 해당하는 정보가 없을 때
         if (!award) {
-            const errorMessage = "일치하는 award_id가 없습니다."
+            const errorMessage = "일치하는 award_id가 없습니다.";
             return { errorMessage };
         }
+
         return award;
     }
 
@@ -26,7 +27,7 @@ class AwardService {
         const award = await Award.findById({ award_id });
 
         if (!award) {
-            const errorMessage = "일치하는 award_id가 없습니다."
+            const errorMessage = "일치하는 award_id가 없습니다.";
             return { errorMessage };
         }
 
@@ -36,7 +37,7 @@ class AwardService {
             const value = updateValue.title;
             award = await Award.update({ award_id, fieldToUpdate, value });
         }
-        
+
         if (updateValue.description) {
             const fieldToUpdate = "description";
             const value = update.description;
@@ -49,6 +50,17 @@ class AwardService {
     static async getAwardListByUserId({ user_id }) {
         const awardList = await Award.findByUserId({ user_id });
         return awardList;
+    }
+
+    static async deleteAward({ award_id }) {
+        const deletedAward = await Award.delete({ award_id });
+
+        if (!deletedAward) {
+            const errorMessage = "일치하는 award_id가 없습니다.";
+            return { errorMessage };
+        }
+
+        return deletedAward;
     }
 }
 

@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const AwardSchema = new Schema(
+const educationSchema = new Schema(
     {
         id: {
             type: String,
@@ -10,11 +10,15 @@ const AwardSchema = new Schema(
             type: String,
             required: true,
         },
-        title: {
+        school: {
             type: String,
             required: true,
         },
-        description: {
+        major: {
+            type: String,
+            required: true,
+        },
+        position: {
             type: String,
             required: true,
         },
@@ -22,6 +26,6 @@ const AwardSchema = new Schema(
     { timestamps: true },
 );
 
-const AwardModel = new model("Award", AwardSchema);
+const EducationModel = new model("Education", educationSchema);
 
-export { AwardModel };
+export { EducationModel };
