@@ -34,7 +34,7 @@ awardRouter.post("/award/create", async (req, res, next) => {
 awardRouter.get("/awards/:id", async (req, res, next) => {
     try {
         const award_id = req.params.id;
-        const award = await AwardService.getAwardById({ award_id });
+        const award = AwardService.getAwardById({ award_id });
 
         if (award.errorMessage) {
             throw new Error(award.errorMessage);
