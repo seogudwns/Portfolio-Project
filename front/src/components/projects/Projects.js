@@ -10,8 +10,7 @@ function Projects({ portfolioOwnerId, isEditable }) {
 
   useEffect(() => {
     Api.get("projectlist", portfolioOwnerId).then(res => {
-      console.log(res.data);
-      return setProjects(res.data);
+      setProjects(res.data);
     });
   }, [portfolioOwnerId]);
 
@@ -27,7 +26,7 @@ function Projects({ portfolioOwnerId, isEditable }) {
     <Card>
       <Card.Body>
         <Card.Title>프로젝트</Card.Title>
-        {projects && projectlist}
+        {projectlist}
         {isEditable && (
           <Col>
             <Row className="mt-3 text-center mb-4">

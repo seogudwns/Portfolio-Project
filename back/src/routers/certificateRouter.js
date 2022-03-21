@@ -79,7 +79,7 @@ certificateRouter.get(
                 throw new Error(currentCertificateInfo.errorMessage);
             }
 
-            res.status(200).send(currentCertificateInfo);
+            res.status(200).json(currentCertificateInfo);
         } catch (error) {
             next(error);
         }
@@ -112,7 +112,7 @@ certificateRouter.put(
                 throw new Error(updateCertificate.errorMessage);
             }
 
-            res.status(200).send(updateCertificate);
+            res.status(200).json(updateCertificate);
         } catch (error) {
             next(error);
         }
@@ -160,7 +160,7 @@ certificateRouter.put(
                 throw new Error(updateCertificate.errorMessage);
             }
 
-            res.status(200).send(updateCertificate);
+            res.status(200).json(updateCertificate);
         } catch (error) {
             next(error);
         }
@@ -180,7 +180,7 @@ certificateRouter.get("/certificates/:id", async function (req, res, next) {
             throw new Error(searchCertificate.errorMessage);
         }
 
-        res.status(200).send(searchCertificate);
+        res.status(200).json(searchCertificate);
     } catch (error) {
         next(error);
     }
@@ -202,7 +202,7 @@ certificateRouter.delete(
             }
 
             //? 여기 뭘로 redirect를 하면 좋을까??? --
-            res.status(200).send(deleteCertificate);
+            res.status(200).json(deleteCertificate);
         } catch (error) {
             next(error);
         }

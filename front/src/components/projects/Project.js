@@ -2,25 +2,24 @@ import React, { useState } from "react";
 import ProjectEditForm from "./ProjectEditForm";
 import ProjectCard from "./ProjectCard";
 
-function Project({ project, isEditable }) {
+function Project({ project, isEditable, setProjects }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [thisProject, setThisProject] = useState(project);
 
   return (
     <>
       {isEditing ? (
         <ProjectEditForm
-          project={thisProject}
+          project={project}
           setIsEditing={setIsEditing}
-          setThisProject={setThisProject}
+          setProjects={setProjects}
         />
       ) : (
-        thisProject && (
+        project && (
           <ProjectCard
-            project={thisProject}
+            project={project}
             isEditable={isEditable}
             setIsEditing={setIsEditing}
-            setThisProject={setThisProject}
+            setProjects={setProjects}
           />
         )
       )}

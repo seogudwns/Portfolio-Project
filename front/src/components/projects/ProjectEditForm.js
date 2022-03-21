@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
-import * as Api from "../../api";
 
-function ProjectEditForm({ project, setIsEditing, setThisProject }) {
+import * as Api from "../../api";
+import dateToString from "../../utils/dateToString";
+
+function ProjectEditForm({ project, setIsEditing, setProjects }) {
   //useState로 title 상태를 생성함.
   const [title, setTitle] = useState(project.title);
   //useState로 description 상태를 생성함.
@@ -13,16 +15,6 @@ function ProjectEditForm({ project, setIsEditing, setThisProject }) {
   //useState로 toDate 상태를 생성함.
   const [toDate, setToDate] = useState(new Date(project.to_date));
 
-  const dateToString = date => {
-    return (
-      date.getFullYear() +
-      "-" +
-      (date.getMonth() + 1).toString().padStart(2, "0") +
-      "-" +
-      date.getDate().toString().padStart(2, "0")
-    );
-  };
-
   const from_date = dateToString(fromDate);
   const to_date = dateToString(toDate);
 
@@ -30,19 +22,23 @@ function ProjectEditForm({ project, setIsEditing, setThisProject }) {
     e.preventDefault();
 
     // "project/유저id" 엔드포인트로 PUT 요청함.
-    const res = await Api.put(`project/${project.id}`, {
-      title,
-      description,
-      from_date,
-      to_date,
-    });
-    // 해당 유저 정보로 project를 세팅함.
-    const updatedProject = res.data;
+    try {
+      const res = await Api.put(`project/${project.id}`, {
+        title,
+        description,
+        from_date,
+        to_date,
+      });
+      // 해당 유저 정보로 project를 세팅함.
+      const updatedProject = res.data;
 
-    setThisProject(updatedProject);
+      setProjects(updatedProject);
 
-    // isEditing을 false로 세팅함.
-    setIsEditing(false);
+      // isEditing을 false로 세팅함.
+      setIsEditing(false);
+    } catch (err) {
+      alert("프로젝트를 수정하지 못했습니다.", err);
+    }
   };
 
   return (
