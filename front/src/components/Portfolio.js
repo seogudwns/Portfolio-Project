@@ -7,6 +7,8 @@ import * as Api from "../api";
 import User from "./user/User";
 import Educations from "./education/Educations";
 import Awards from "./awards/Awards";
+import Certificates from "./certificates/Certificates";
+import Projects from "./projects/Projects";
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ function Portfolio() {
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
   const userState = useContext(UserStateContext);
 
-  const fetchPorfolioOwner = async (ownerId) => {
+  const fetchPorfolioOwner = async ownerId => {
     // 유저 id를 가지고 "/users/유저id" 엔드포인트로 요청해 사용자 정보를 불러옴.
     const res = await Api.get("users", ownerId);
     // 사용자 정보는 response의 data임.
@@ -63,13 +65,21 @@ function Portfolio() {
           />
         </Col>
         <Col>
-          <Educations 
-              portfolioOwnerId={portfolioOwner.id}
-              isEditable={portfolioOwner.id === userState.user?.id}
+          <Educations
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
           />
-          <Awards 
-              portfolioOwnerId={portfolioOwner.id}
-              isEditable={portfolioOwner.id === userState.user?.id}
+          <Awards
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
+          />
+          <Certificates
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
+          />
+          <Projects
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
           />
         </Col>
       </Row>
