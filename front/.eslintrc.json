@@ -1,10 +1,11 @@
 {
+  "root": true,
   "env": {
     "browser": true,
     "es2021": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
+  "extends": ["eslint:recommended"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -12,10 +13,9 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": ["react"],
   "rules": {
-    "prettier/prettier": ["warn"],
-    "indent": ["error", "tab"],
+    "no-unused-vars": ["warn"],
     "quotes": ["warn", "double"],
     "semi": ["error", "always"],
     "prefer-const": [
@@ -30,7 +30,7 @@
     "no-new-object": ["warn"],
     "object-shorthand": ["warn"],
     "no-multi-assign": ["warn"],
-    "no-array-constructor": ["warn", "properties"],
+    "no-array-constructor": ["warn"],
     "prefer-template": ["warn"],
     "space-before-function-paren": [
       "warn",
@@ -43,18 +43,15 @@
     "space-before-blocks": ["warn", "always"],
     "prefer-arrow-callback": ["warn"],
     "arrow-spacing": ["warn"],
-    "arrow-parens": ["warn"],
-    "no-confusing-arrow": [
-      "warn",
-      { "allowParens": true, "onlyOneSimpleParam": false }
-    ],
+    "arrow-parens": ["warn", "as-needed"],
+    "no-confusing-arrow": ["warn", { "onlyOneSimpleParam": false }],
     "no-duplicate-imports": ["error"],
     "no-case-declarations": ["warn"],
     "brace-style": ["error"],
     "keyword-spacing": ["warn"],
     "newline-per-chained-call": ["warn", { "ignoreChainWithDepth": 2 }],
     "no-whitespace-before-property": ["warn"],
-    "padded-blocks": ["warn"],
+    "padded-blocks": ["warn", "never"],
     "space-in-parens": ["error"],
     "array-bracket-spacing": ["warn"],
     "object-curly-spacing": ["warn", "always", { "objectsInObjects": false }],

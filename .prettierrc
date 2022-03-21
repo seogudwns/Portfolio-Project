@@ -1,5 +1,4 @@
 {
-  "arrowParens": "avoid",
   "bracketSpacing": true,
   "endOfLine": "auto",
   "jsxBracketSameLine": false,
@@ -8,5 +7,5 @@
   "printWidth": 80,
   "semi": true,
   "tabWidth": 2,
-  "trailingComma": "es5"
+  "trailingComma": "all"
 }
