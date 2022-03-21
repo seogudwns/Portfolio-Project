@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Card, Row, Button, Col } from "react-bootstrap";
-import AwardAddForm from "./AwardAddForm";
-import Award from "./Award";
+import Project from "./Project";
+import ProjectAddForm from "./ProjectAddForm";
 import * as Api from "../../api";
 
-function Awards({ portfolioOwnerId, isEditable }) {
+function Projects({ portfolioOwnerId, isEditable }) {
   const [isAdding, setIsAdding] = useState(false);
-  const [awards, setAwards] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    Api.get(`awardlist`, portfolioOwnerId).then(res => {
-      setAwards(res.data);
+    Api.get("projectlist", portfolioOwnerId).then(res => {
+      setProjects(res.data);
     });
   }, [portfolioOwnerId]);
 
-  const awardList = awards.map(award => (
-    <Award award={award} isEditable={isEditable} setAwards={setAwards} />
+  const projectlist = projects.map(project => (
+    <Project
+      project={project}
+      isEditable={isEditable}
+      setProjects={setProjects}
+    />
   ));
 
   return (
     <Card>
       <Card.Body>
-        <Card.Title>수상이력</Card.Title>
-        {awardList}
+        <Card.Title>프로젝트</Card.Title>
+        {projectlist}
         {isEditable && (
           <Col>
             <Row className="mt-3 text-center mb-4">
@@ -41,10 +45,10 @@ function Awards({ portfolioOwnerId, isEditable }) {
           </Col>
         )}
         {isAdding && (
-          <AwardAddForm
+          <ProjectAddForm
             portfolioOwnerId={portfolioOwnerId}
             setIsAdding={setIsAdding}
-            setAwards={setAwards}
+            setProjects={setProjects}
           />
         )}
       </Card.Body>
@@ -52,4 +56,4 @@ function Awards({ portfolioOwnerId, isEditable }) {
   );
 }
 
-export default Awards;
+export default Projects;

@@ -28,6 +28,14 @@ class Education {
         const education = await EducationModel.find({ user_id });
         return education;
     }
+
+    static async delete({ education_id }) {
+        const deletedEducation = await EducationModel.deleteOne({
+            id: education_id,
+        });
+
+        return deletedEducation;
+    }
 }
 
 export { Education };

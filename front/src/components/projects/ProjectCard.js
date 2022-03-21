@@ -1,22 +1,21 @@
 import { Card, Row, Button, Col } from "react-bootstrap";
 import * as Api from "../../api";
 
-function AwardCard({ award, setIsEditing, isEditable, setAwards }) {
-  const { title, description, id } = award;
+function ProjectCard({ project, setIsEditing, isEditable, setProjects }) {
+  const { title, description, from_date, to_date, id } = project;
 
   const deleteHandler = async () => {
     try {
-      if (window.confirm("정말로 수상정보를 삭제 하시겠습니까?")) {
-        await Api.delete(`awards/${award.id}`);
-        setAwards(current => {
+      if (window.confirm("정말로 프로젝트를 삭제 하시겠습니까?")) {
+        await Api.delete(`projects/${project.id}`);
+        setProjects(current => {
           return current.filter(item => item.id !== id);
         });
       }
     } catch (e) {
-      alert("수상정보를 제대로 삭제하지 못했습니다.", e);
+      alert("프로젝트를 삭제하지 못했습니다.", e);
     }
   };
-
   return (
     <>
       <Card.Text>
@@ -25,6 +24,8 @@ function AwardCard({ award, setIsEditing, isEditable, setAwards }) {
             <span>{title}</span>
             <br />
             <span className="text-muted">{description}</span>
+            <br />
+            <span className="text-muted">{`${from_date} ~ ${to_date}`}</span>
           </Col>
           {isEditable && (
             <Col lg={1} xs={true}>
@@ -52,4 +53,4 @@ function AwardCard({ award, setIsEditing, isEditable, setAwards }) {
   );
 }
 
-export default AwardCard;
+export default ProjectCard;
