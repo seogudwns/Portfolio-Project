@@ -1,2 +1,11 @@
-node_modules
+node_modules/
+.DS_Store
+.prettierrc
 .yarn
+
+//혹여나 문제가 생길 가능성이 있으니 아래꺼는 병합 생략해주세요.
+yarn.lock
+package.json
+package-lock.json
+babel.config.json
+.env
