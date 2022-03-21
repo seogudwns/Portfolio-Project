@@ -39,6 +39,7 @@
     "dotenv": "^16.0.0",
     "eslint": "^8.11.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
     "nodemon": "^2.0.15"
   },
   "jest": {
