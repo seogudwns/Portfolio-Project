@@ -26,7 +26,7 @@ const certificateRouter = Router();
 certificateRouter.post(
     "/certificate/create",
     login_required,
-    async function (req, res, next) {
+    async (req, res, next) => {
         try {
             if (is.emptyObject(req.body)) {
                 throw new Error(
@@ -66,7 +66,7 @@ certificateRouter.post(
 certificateRouter.get(
     "/certificatelist/:user_id",
     login_required,
-    async function (req, res, next) {
+    async (req, res, next) => {
         try {
             // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
             const user_id = req.params.user_id;
@@ -91,7 +91,7 @@ certificateRouter.get(
 certificateRouter.put(
     "/certificates/:id",
     login_required,
-    async function (req, res, next) {
+    async (req, res, next) => {
         try {
             // req에서 데이터 가져오기
             const certificate_id = req.params.id;
@@ -145,7 +145,7 @@ certificateRouter.put(
 certificateRouter.put(
     "/certificate/date_update",
     login_required,
-    async function (req, res, next) {
+    async (req, res, next) => {
         try {
             const certificate_id = req.body.certificate_id;
             const newExpiredDate = req.body.expired_date;
@@ -168,7 +168,7 @@ certificateRouter.put(
 );
 
 //! 현재 이게 있는 의미를 모르겠기에 login_required는 제외.. 뭐 추가는 어렵지 않으니.... 이건 잘 되네....ㅠㅠ,,,
-certificateRouter.get("/certificates/:id", async function (req, res, next) {
+certificateRouter.get("/certificates/:id", async (req, res, next) => {
     try {
         const certificate_id = req.params.id;
 
@@ -190,7 +190,7 @@ certificateRouter.get("/certificates/:id", async function (req, res, next) {
 certificateRouter.delete(
     "/certificates/:id",
     login_required,
-    async function (req, res, next) {
+    async (req, res, next) => {
         try {
             const certificate_id = req.params.id;
 
