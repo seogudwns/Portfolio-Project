@@ -127,4 +127,19 @@ userAuthRouter.get("/users/:id", login_required, async (req, res, next) => {
     }
 });
 
+userAuthRouter.delete("/users/:id", login_required, async (req, res, next) => {
+    try {
+        const user_id = req.params.id;
+        const deletdUser = await userAuthService.deleteUser({ user_id });
+
+        if (deletdUser.errorMessage) {
+            throw new Error(deletdUser.errorMessage);
+        }
+
+        res.status(200).json(deletdUser);
+    } catch (err) {
+        next(err);
+    }
+});
+
 export { userAuthRouter };
