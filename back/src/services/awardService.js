@@ -24,7 +24,7 @@ class AwardService {
 
     static async updateAward({ award_id, updateValue }) {
         // award_id와 일치하는 award를 찾기
-        const award = await Award.findById({ award_id });
+        let award = await Award.findById({ award_id });
 
         if (!award) {
             const errorMessage = "일치하는 award_id가 없습니다.";
@@ -40,7 +40,7 @@ class AwardService {
 
         if (updateValue.description) {
             const fieldToUpdate = "description";
-            const value = update.description;
+            const value = updateValue.description;
             award = await Award.update({ award_id, fieldToUpdate, value });
         }
 
