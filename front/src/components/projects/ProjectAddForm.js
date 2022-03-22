@@ -8,6 +8,7 @@ import dateToString from "../../utils/dateToString";
 function ProjectAddForm({ portfolioOwnerId, setIsAdding, setProjects }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [result, setResult] = useState("");
   const [fromDate, setFromDate] = useState(new Date());
   const [toDate, setToDate] = useState(new Date());
 
@@ -21,6 +22,7 @@ function ProjectAddForm({ portfolioOwnerId, setIsAdding, setProjects }) {
       user_id: portfolioOwnerId,
       title,
       description,
+      result,
       from_date,
       to_date,
     };
@@ -54,6 +56,15 @@ function ProjectAddForm({ portfolioOwnerId, setIsAdding, setProjects }) {
             placeholder="상세내역"
             value={description}
             onChange={e => setDescription(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="projectAddResult" className="mt-3">
+          <Form.Control
+            type="text"
+            placeholder="결과물 및 링크"
+            value={result}
+            onChange={e => setResult(e.target.value)}
           />
         </Form.Group>
 

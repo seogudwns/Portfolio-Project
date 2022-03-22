@@ -2,7 +2,7 @@ import { Card, Row, Button, Col } from "react-bootstrap";
 import * as Api from "../../api";
 
 function ProjectCard({ project, setIsEditing, isEditable, setProjects }) {
-  const { title, description, from_date, to_date, id } = project;
+  const { title, description, from_date, to_date, result, id } = project;
 
   const deleteHandler = async () => {
     try {
@@ -16,6 +16,21 @@ function ProjectCard({ project, setIsEditing, isEditable, setProjects }) {
       alert("프로젝트를 삭제하지 못했습니다.", e);
     }
   };
+
+  const URLCheck = str => {
+    let regex =
+      /(([a-zA-Z0-9]+:\/\/)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\.[A-Za-z]{2,4})(:[0-9]+)?(\/.*)?)/;
+
+    const resultURL = str.replace(regex, '<a target="_blank" href="$1">$1</a>');
+
+    return (
+      <span
+        className="text-muted"
+        dangerouslySetInnerHTML={{ __html: resultURL }}
+      ></span>
+    );
+  };
+
   return (
     <>
       <Card.Text>
@@ -24,6 +39,8 @@ function ProjectCard({ project, setIsEditing, isEditable, setProjects }) {
             <span>{title}</span>
             <br />
             <span className="text-muted">{description}</span>
+            <br />
+            {result && URLCheck(result)}
             <br />
             <span className="text-muted">{`${from_date} ~ ${to_date}`}</span>
           </Col>
