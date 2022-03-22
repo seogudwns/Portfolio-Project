@@ -7,8 +7,6 @@ const awardRouter = Router();
 awardRouter.use(login_required);
 
 // 수상이력 생성
-// REST API 규칙에 맞게 작성하려면 create같은 단어는 빼기(이미 post method에 해당 의미를 담고 있다)
-// 그냥 "/award"만
 awardRouter.post("/awards", async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
@@ -17,11 +15,12 @@ awardRouter.post("/awards", async (req, res, next) => {
             );
         }
 
-        const { user_id, title, description } = req.body;
+        const { user_id, title, description, when_date } = req.body;
         const newAward = await AwardService.createAward({
             user_id,
             title,
             description,
+            when_date,
         });
 
         res.status(201).json(newAward);
@@ -52,7 +51,8 @@ awardRouter.put("/awards/:id", async (req, res, next) => {
         const award_id = req.params.id;
         const title = req.body.title ?? null;
         const description = req.body.description ?? null;
-        const updateValue = { title, description };
+        const when_date = req.body.when_date ?? null;
+        const updateValue = { title, description, when_date };
         const updatedAward = await AwardService.updateAward({
             award_id,
             updateValue,
