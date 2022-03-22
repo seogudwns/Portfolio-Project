@@ -14,12 +14,15 @@ educationRouter.post("/education/create", async (req, res, next) => {
             );
         }
 
-        const { user_id, school, major, position } = req.body;
+        const { user_id, school, major, position, from_date, to_date } =
+            req.body;
         const newEdu = await EducationService.createEdu({
             user_id,
             school,
             major,
             position,
+            from_date,
+            to_date,
         });
 
         res.status(201).json(newEdu);
