@@ -12,7 +12,7 @@ function AwardAddForm({ portfolioOwnerId, setIsAdding, setAwards }) {
 
   const when_date = dateToString(awardDate);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newAward = {
@@ -25,7 +25,7 @@ function AwardAddForm({ portfolioOwnerId, setIsAdding, setAwards }) {
     try {
       const res = await Api.post("award/create", newAward);
 
-      setAwards(current => [...current, res.data]);
+      setAwards((current) => [...current, res.data]);
       setIsAdding(false);
     } catch (e) {
       console.log("수상내역 등록에 실패하였습니다.", e);
@@ -38,7 +38,7 @@ function AwardAddForm({ portfolioOwnerId, setIsAdding, setAwards }) {
           type="text"
           placeholder="수상내역"
           value={title}
-          onChange={e => setTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </Form.Group>
 
@@ -47,7 +47,7 @@ function AwardAddForm({ portfolioOwnerId, setIsAdding, setAwards }) {
           type="text"
           placeholder="상세내역 및 링크"
           value={description}
-          onChange={e => setDescription(e.target.value)}
+          onChange={(e) => setDescription(e.target.value)}
         />
       </Form.Group>
 
@@ -56,7 +56,7 @@ function AwardAddForm({ portfolioOwnerId, setIsAdding, setAwards }) {
           <Col xs="auto">
             <DatePicker
               selected={awardDate}
-              onChange={date => setAwardDate(date)}
+              onChange={(date) => setAwardDate(date)}
             />
           </Col>
         </Row>

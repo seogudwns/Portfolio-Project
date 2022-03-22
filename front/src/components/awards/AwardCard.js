@@ -8,8 +8,8 @@ function AwardCard({ award, setIsEditing, isEditable, setAwards }) {
     try {
       if (window.confirm("정말로 수상정보를 삭제 하시겠습니까?")) {
         await Api.delete(`awards/${award.id}`);
-        setAwards(current => {
-          return current.filter(item => item.id !== id);
+        setAwards((current) => {
+          return current.filter((item) => item.id !== id);
         });
       }
     } catch (e) {
@@ -17,8 +17,8 @@ function AwardCard({ award, setIsEditing, isEditable, setAwards }) {
     }
   };
 
-  const URLCheck = str => {
-    let regex =
+  const URLCheck = (str) => {
+    const regex =
       /(([a-zA-Z0-9]+:\/\/)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\.[A-Za-z]{2,4})(:[0-9]+)?(\/.*)?)/;
 
     const resultURL = str.replace(regex, '<a target="_blank" href="$1">$1</a>');
