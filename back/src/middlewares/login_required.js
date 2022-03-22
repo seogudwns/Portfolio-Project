@@ -22,7 +22,7 @@ function login_required(req, res, next) {
         req.currentUserId = user_id;
         next();
     } catch (error) {
-        res.status(400).json({ errorMessage: error.message });
+        res.status(400).json({ errorMessage: error.message }); // 토큰 만료시, { "jwt expired" } 객체 반환
         return;
     }
 }

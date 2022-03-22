@@ -51,7 +51,8 @@ class userAuthService {
         // 로그인 성공 -> JWT 웹 토큰 생성
         const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
         const token = jwt.sign({ user_id: user.id }, secretKey, {
-            expiresIn: "30s",
+            expiresIn: "30s", // 테스트용으로 빠르게 확인하기 위한 세팅
+            // expiresIn: "6h",
         });
 
         // 반환할 loginuser 객체를 위한 변수 설정
