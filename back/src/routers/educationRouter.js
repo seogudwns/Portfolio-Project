@@ -71,7 +71,9 @@ educationRouter.put("/educations/:id", async (req, res, next) => {
         const school = req.body.school ?? null;
         const major = req.body.major ?? null;
         const position = req.body.position ?? null;
-        const updateValue = { school, major, position };
+        const from_date = req.body.from_date ?? null;
+        const to_date = req.body.to_date ?? null;
+        const updateValue = { school, major, position, from_date, to_date };
         const updatedEdu = await EducationService.updateEdu({
             education_id,
             updateValue,

@@ -74,6 +74,26 @@ class EducationService {
             });
         }
 
+        if (updateValue.from_date) {
+            const fieldToUpdate = "from_date";
+            const value = updateValue.from_date;
+            education = await Education.update({
+                education_id,
+                fieldToUpdate,
+                value,
+            });
+        }
+
+        if (updateValue.to_date) {
+            const fieldToUpdate = "to_date";
+            const value = updateValue.to_date;
+            education = await Education.update({
+                education_id,
+                fieldToUpdate,
+                value,
+            });
+        }
+
         return education;
     }
 
