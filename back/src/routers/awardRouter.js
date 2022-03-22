@@ -9,7 +9,7 @@ awardRouter.use(login_required);
 // 수상이력 생성
 // REST API 규칙에 맞게 작성하려면 create같은 단어는 빼기(이미 post method에 해당 의미를 담고 있다)
 // 그냥 "/award"만
-awardRouter.post("/award/create", async (req, res, next) => {
+awardRouter.post("/awards", async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
             throw new Error(
