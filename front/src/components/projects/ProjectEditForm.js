@@ -10,6 +10,8 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
   const [title, setTitle] = useState(project.title);
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(project.description);
+  //useState로 result 상태를 생성함.
+  const [result, setResult] = useState(project.result);
   //useState로 fromDate 상태를 생성함.
   const [fromDate, setFromDate] = useState(new Date(project.from_date));
   //useState로 toDate 상태를 생성함.
@@ -26,13 +28,21 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
       const res = await Api.put(`project/${project.id}`, {
         title,
         description,
+        result,
         from_date,
         to_date,
       });
       // 해당 유저 정보로 project를 세팅함.
       const updatedProject = res.data;
 
-      setProjects(updatedProject);
+      setProjects(current => {
+        return current.map(item => {
+          if (item.id === project.id) {
+            return updatedProject;
+          }
+          return item;
+        });
+      });
 
       // isEditing을 false로 세팅함.
       setIsEditing(false);
@@ -60,6 +70,15 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
               placeholder="상세내역"
               value={description}
               onChange={e => setDescription(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="projectEditResult">
+            <Form.Control
+              type="text"
+              placeholder="결과물 및 링크"
+              value={result}
+              onChange={e => setResult(e.target.value)}
             />
           </Form.Group>
 

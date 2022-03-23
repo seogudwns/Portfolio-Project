@@ -1,24 +1,31 @@
 import React, { useState } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
+import DatePicker from "react-datepicker";
+
 import * as Api from "../../api";
+import dateToString from "../../utils/dateToString";
 
 function AwardAddForm({ portfolioOwnerId, setIsAdding, setAwards }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [awardDate, setAwardDate] = useState(new Date());
 
-  const handleSubmit = async e => {
+  const when_date = dateToString(awardDate);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newAward = {
       user_id: portfolioOwnerId,
       title,
       description,
+      when_date,
     };
 
     try {
       const res = await Api.post("award/create", newAward);
 
-      setAwards(current => [...current, res.data]);
+      setAwards((current) => [...current, res.data]);
       setIsAdding(false);
     } catch (e) {
       console.log("수상내역 등록에 실패하였습니다.", e);
@@ -31,17 +38,28 @@ function AwardAddForm({ portfolioOwnerId, setIsAdding, setAwards }) {
           type="text"
           placeholder="수상내역"
           value={title}
-          onChange={e => setTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </Form.Group>
 
       <Form.Group controlId="awardAddDescription" className="mt-3">
         <Form.Control
           type="text"
-          placeholder="상세내역"
+          placeholder="상세내역 및 링크"
           value={description}
-          onChange={e => setDescription(e.target.value)}
+          onChange={(e) => setDescription(e.target.value)}
         />
+      </Form.Group>
+
+      <Form.Group className="mt-3">
+        <Row className="mt-3">
+          <Col xs="auto">
+            <DatePicker
+              selected={awardDate}
+              onChange={(date) => setAwardDate(date)}
+            />
+          </Col>
+        </Row>
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">
