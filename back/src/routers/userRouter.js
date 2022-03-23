@@ -5,7 +5,7 @@ import { userAuthService } from "../services/userService";
 
 const userAuthRouter = Router();
 
-userAuthRouter.post("/user/register", async (req, res, next) => {
+userAuthRouter.post("/users/register", async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
             throw new Error(
@@ -35,7 +35,7 @@ userAuthRouter.post("/user/register", async (req, res, next) => {
     }
 });
 
-userAuthRouter.post("/user/login", async (req, res, next) => {
+userAuthRouter.post("/users/login", async (req, res, next) => {
     try {
         // req (request) 에서 데이터 가져오기
         const email = req.body.email;
@@ -64,7 +64,7 @@ userAuthRouter.get("/userlist", login_required, async (req, res, next) => {
     }
 });
 
-userAuthRouter.get("/user/current", login_required, async (req, res, next) => {
+userAuthRouter.get("/users/current", login_required, async (req, res, next) => {
     try {
         // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
         const user_id = req.currentUserId;
