@@ -1,37 +1,20 @@
 import { Card, Row, Button, Col } from "react-bootstrap";
 import * as Api from "../../api";
 
-function ProjectCard({ project, setIsEditing, isEditable, setProjects }) {
-    const { title, description, from_date, to_date, result, id } = project;
+function OtherCard({ other, setIsEditing, isEditable, setOthers }) {
+    const { title, description, date, id } = other;
 
     const deleteHandler = async () => {
         try {
-            if (window.confirm("정말로 프로젝트를 삭제 하시겠습니까?")) {
-                await Api.delete(`projects/${project.id}`);
-                setProjects((current) => {
+            if (window.confirm("정말로 기타활동을 삭제 하시겠습니까?")) {
+                await Api.delete(`others/${other.id}`);
+                setOthers((current) => {
                     return current.filter((item) => item.id !== id);
                 });
             }
         } catch (err) {
-            alert("프로젝트를 삭제하지 못했습니다.", err);
+            alert("기타활동을 삭제하지 못했습니다.", err);
         }
-    };
-
-    const URLCheck = (str) => {
-        const regex =
-            /(([a-zA-Z0-9]+:\/\/)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\.[A-Za-z]{2,4})(:[0-9]+)?(\/.*)?)/;
-
-        const resultURL = str.replace(
-            regex,
-            '<a target="_blank" href="$1">$1</a>',
-        );
-
-        return (
-            <span
-                className="text-muted"
-                dangerouslySetInnerHTML={{ __html: resultURL }}
-            ></span>
-        );
     };
 
     return (
@@ -42,9 +25,7 @@ function ProjectCard({ project, setIsEditing, isEditable, setProjects }) {
                     <br />
                     <span className="text-muted">{description}</span>
                     <br />
-                    {result && URLCheck(result)}
-                    <br />
-                    <span className="text-muted">{`${from_date} ~ ${to_date}`}</span>
+                    <span className="text-muted">{date}</span>
                 </Col>
                 {isEditable && (
                     <Col lg={1} xs={true}>
@@ -71,4 +52,4 @@ function ProjectCard({ project, setIsEditing, isEditable, setProjects }) {
     );
 }
 
-export default ProjectCard;
+export default OtherCard;

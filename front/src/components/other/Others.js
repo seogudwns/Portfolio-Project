@@ -1,32 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Card, Row, Button, Col } from "react-bootstrap";
-import Project from "./Project";
-import ProjectAddForm from "./ProjectAddForm";
+import Other from "./Other";
+import OtherAddForm from "./OtherAddForm";
 import * as Api from "../../api";
 
-function Projects({ portfolioOwnerId, isEditable }) {
+function Others({ portfolioOwnerId, isEditable }) {
     const [isAdding, setIsAdding] = useState(false);
-    const [projects, setProjects] = useState([]);
+    const [others, setOthers] = useState([]);
 
     useEffect(() => {
-        Api.get("projectlist", portfolioOwnerId).then((res) => {
-            setProjects(res.data);
+        Api.get("otherlist", portfolioOwnerId).then((res) => {
+            setOthers(res.data);
         });
     }, [portfolioOwnerId]);
 
-    const projectlist = projects.map((project) => (
-        <Project
-            project={project}
-            isEditable={isEditable}
-            setProjects={setProjects}
-        />
-    ));
+    const otherlist = others.map((other) => {
+        <Other other={other} isEditable={isEditable} setOthers={setOthers} />;
+    });
 
     return (
         <Card>
             <Card.Body>
-                <Card.Title>프로젝트</Card.Title>
-                {projectlist}
+                <Card.Title>기타활동</Card.Title>
+                {otherlist}
                 {isEditable && (
                     <Col>
                         <Row className="mt-3 text-center mb-4">
@@ -51,10 +47,10 @@ function Projects({ portfolioOwnerId, isEditable }) {
                     </Col>
                 )}
                 {isAdding && (
-                    <ProjectAddForm
+                    <OtherAddForm
                         portfolioOwnerId={portfolioOwnerId}
                         setIsAdding={setIsAdding}
-                        setProjects={setProjects}
+                        setOthers={setOthers}
                     />
                 )}
             </Card.Body>
@@ -62,4 +58,4 @@ function Projects({ portfolioOwnerId, isEditable }) {
     );
 }
 
-export default Projects;
+export default Others;
