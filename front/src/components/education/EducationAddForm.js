@@ -8,8 +8,9 @@
  **/
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import EducationForm from "./EducationForm";
 
+import dateToString from "../../utils/dateToString";
+import EducationForm from "./EducationForm";
 import * as Api from "../../api";
 
 function EducationAddForm({ portfolioOwnerId, setIsAdding, setEducations }) {
@@ -29,6 +30,8 @@ function EducationAddForm({ portfolioOwnerId, setIsAdding, setEducations }) {
                 school,
                 major,
                 position,
+                from_date: dateToString(fromDate),
+                to_date: dateToString(toDate),
             });
             const newEducation = res.data;
 
@@ -45,9 +48,13 @@ function EducationAddForm({ portfolioOwnerId, setIsAdding, setEducations }) {
                 school={school}
                 major={major}
                 position={position}
+                fromDate={fromDate}
+                toDate={toDate}
                 setSchool={setSchool}
                 setMajor={setMajor}
                 setPosition={setPosition}
+                setFromDate={setFromDate}
+                setToDate={setToDate}
                 setIsAdding={setIsAdding}
                 type="ADDING"
             />

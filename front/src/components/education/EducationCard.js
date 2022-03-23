@@ -28,6 +28,11 @@ function EducationCard({ education, isEditable, setIsEditing, setEducations }) {
                         <span className="text-muted">
                             {education?.major} ({education?.position})
                         </span>
+                        <br />
+                        <span>
+                            {`${education?.from_date.substr(0, 7)} ~ 
+                            ${education?.to_date.substr(0, 7)}`}
+                        </span>
                     </Col>
                     {isEditable && (
                         <Col lg={1} xs={true}>

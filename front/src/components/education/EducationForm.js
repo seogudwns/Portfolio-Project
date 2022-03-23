@@ -1,12 +1,17 @@
 import { Form, Button, Row, Col } from "react-bootstrap";
+import DatePicker from "react-datepicker";
 
 function EducationForm({
     school,
     major,
     position,
+    fromDate,
+    toDate,
     setSchool,
     setMajor,
     setPosition,
+    setFromDate,
+    setToDate,
     setIsAdding,
     setIsEditing,
     type,
@@ -31,6 +36,25 @@ function EducationForm({
                     value={major}
                     onChange={(event) => setMajor(event.target.value)}
                 />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="EducationDate">
+                <Row className="mb-3">
+                    <Col xs="auto">재학 기간</Col>
+
+                    <Col xs="auto">
+                        <DatePicker
+                            selected={fromDate}
+                            onChange={(date) => setFromDate(date)}
+                        />
+                    </Col>
+                    <Col xs="auto">
+                        <DatePicker
+                            selected={toDate}
+                            onChange={(date) => setToDate(date)}
+                        />
+                    </Col>
+                </Row>
             </Form.Group>
 
             <div
@@ -76,7 +100,7 @@ function EducationForm({
                 />
             </div>
 
-            <Form.Group as={Row} className="mt-3 text-center">
+            <Form.Group as={Row} className="mb-3 text-center">
                 <Col sm={{ span: 20 }}>
                     <Button variant="primary" type="submit" className="me-3">
                         확인

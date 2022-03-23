@@ -9,14 +9,17 @@
  **/
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import EducationForm from "./EducationForm";
 
+import dateToString from "../../utils/dateToString";
+import EducationForm from "./EducationForm";
 import * as Api from "../../api";
 
 function EducationEditForm({ setIsEditing, education, setEducations }) {
     const [school, setSchool] = useState(education.school);
     const [major, setMajor] = useState(education.major);
     const [position, setPosition] = useState(education.position);
+    const [fromDate, setFromDate] = useState(new Date(education.from_date));
+    const [toDate, setToDate] = useState(new Date(education.to_date));
 
     const handleEditSubmit = async (event) => {
         event.preventDefault();
@@ -27,6 +30,8 @@ function EducationEditForm({ setIsEditing, education, setEducations }) {
                 school,
                 major,
                 position,
+                from_date: dateToString(fromDate),
+                to_date: dateToString(toDate),
             });
             const editEducation = res.data;
 
@@ -52,9 +57,13 @@ function EducationEditForm({ setIsEditing, education, setEducations }) {
                 school={school}
                 major={major}
                 position={position}
+                fromDate={fromDate}
+                toDate={toDate}
                 setSchool={setSchool}
                 setMajor={setMajor}
                 setPosition={setPosition}
+                setFromDate={setFromDate}
+                setToDate={setToDate}
                 setIsEditing={setIsEditing}
                 type="EDITING"
             />

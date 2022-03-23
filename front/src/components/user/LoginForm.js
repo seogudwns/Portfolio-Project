@@ -35,7 +35,7 @@ function LoginForm() {
         e.preventDefault();
 
         try {
-            // "user/login" 엔드포인트로 post요청함.
+            // "users/login" 엔드포인트로 post요청함.
             const res = await Api.post("users/login", {
                 email,
                 password,
