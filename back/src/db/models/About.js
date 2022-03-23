@@ -6,8 +6,9 @@ class About {
         return createdNewAbout;
     }
 
-    static async findById() {
-        return;
+    static async findById({ about_id }) {
+        const about = await AboutModel.findOne({ id: about_id });
+        return about;
     }
 
     static async update() {

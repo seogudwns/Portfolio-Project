@@ -6,12 +6,6 @@ import { login_required } from "../middlewares/login_required";
 const aboutRouter = Router();
 aboutRouter.use(login_required);
 
-/**"user_id": "af4ff0af-2a5f-4eea-99f2-d18b42aba419",
-    "blog": "http://elice-project.test",
-    "skill": ["javascript", "node.js", "express", "react"],
-    "position": "웹 백엔드",
-    "hobby": "에러 디버깅" */
-
 aboutRouter.post("/abouts", async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
@@ -24,6 +18,21 @@ aboutRouter.post("/abouts", async (req, res, next) => {
         const newAbout = await AboutService.createAbout(req.body);
 
         req.status(201).json(newAbout);
+    } catch (err) {
+        next(err);
+    }
+});
+
+aboutRouter.get("/abouts/:id", async (req, res, next) => {
+    try {
+        const about_id = req.params.id;
+        const about = await AboutService.getAboutById({ about_id });
+
+        if (about.errorMessage) {
+            throw new Error(about.errorMessage);
+        }
+
+        res.status(200).json(about);
     } catch (err) {
         next(err);
     }

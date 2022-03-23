@@ -17,6 +17,17 @@ class AboutService {
         const newAbout = await About.create({ AboutData });
         return newAbout;
     }
+
+    static async getAboutById({ about_id }) {
+        const about = await About.findById({ about_id });
+
+        if (!about) {
+            const errorMessage = "일치하는 about_id가 없습니다.";
+            return { errorMessage };
+        }
+
+        return about;
+    }
 }
 
 export { AboutService };
