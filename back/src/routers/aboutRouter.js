@@ -61,4 +61,19 @@ aboutRouter.put("/abouts/:id", async (req, res, next) => {
     }
 });
 
+aboutRouter.delete("/abouts/:id", async (req, res, next) => {
+    try {
+        const about_id = req.params.id;
+        const deletedAbout = await AboutService.deleteAbout({ about_id });
+
+        if (deletedAbout.errorMessage) {
+            throw new Error(deletedAbout.errorMessage);
+        }
+
+        res.status(200).json(deletedAbout);
+    } catch (err) {
+        next(err);
+    }
+});
+
 export { aboutRouter };

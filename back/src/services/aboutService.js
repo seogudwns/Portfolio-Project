@@ -63,6 +63,17 @@ class AboutService {
 
         return about;
     }
+
+    static async deleteAbout({ about_id }) {
+        const deletedAbout = await About.delete({ about_id });
+
+        if (!deletedAbout) {
+            const errorMessage = "일치하는 about_id가 없습니다.";
+            return { errorMessage };
+        }
+
+        return deletedAbout;
+    }
 }
 
 export { AboutService };

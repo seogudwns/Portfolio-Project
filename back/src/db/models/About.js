@@ -29,8 +29,9 @@ class About {
         return;
     }
 
-    static async delete() {
-        return;
+    static async delete({ about_id }) {
+        const deletedAbout = await AboutModel.deleteOne({ id: about_id });
+        return deletedAbout;
     }
 }
 
