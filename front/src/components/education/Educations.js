@@ -9,11 +9,12 @@ import * as Api from "../../api";
 
 function Educations({ portfolioOwnerId, isEditable }) {
     // useState 훅으로 isAdding 상태를 생성하여, 추가 폼을 나타낼지 말지 결정
+
     const [isAdding, setIsAdding] = useState(false);
     const [educations, setEducations] = useState([]);
 
     const handleAddClick = () => {
-        setIsAdding(true);
+        setIsAdding((current) => !current);
     };
 
     // "educationlist/유저id" 엔드포인트로 GET 요청
@@ -41,7 +42,7 @@ function Educations({ portfolioOwnerId, isEditable }) {
                                 className="btn btn-primary"
                                 onClick={handleAddClick}
                             >
-                                +
+                                {!isAdding ? "+" : "-"}
                             </Button>
                         </Col>
                     </Row>
