@@ -15,7 +15,7 @@ const certificateRouter = Router();
 
 //************************************************************** 1. 자격증 생성. done
 certificateRouter.post(
-    "/certificate/create",
+    "/certificates/create",
     login_required,
     async (req, res, next) => {
         try {
@@ -82,6 +82,7 @@ certificateRouter.put(
     async (req, res, next) => {
         try {
             // req에서 데이터 가져오기
+            const user_id = req.currentUserId;
             const certificate_id = req.params.id;
             const title = req.body.title ?? null;
             const description = req.body.description ?? null;
@@ -91,6 +92,7 @@ certificateRouter.put(
 
             const updateCertificate =
                 await certificateAuthService.setCertificate({
+                    user_id,
                     certificate_id,
                     toUpdate,
                 });

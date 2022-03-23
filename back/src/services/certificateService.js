@@ -49,28 +49,37 @@ class certificateAuthService {
     }
 
     //* 자격증 업데이트... toUpdate = {title, description, expired_date }
-    static async setCertificate({certificate_id, toUpdate}) {
+    static async setCertificate({
+        user_id, 
+        certificate_id, 
+        toUpdate}) {
         let certificate = await Certificate.findById({certificate_id});
         
-        //! 깔끔하게 끝나는데 뭔가 찜찜함...,,, 뭘까?...
-        let changecounter = 0;
+        if (user_id !== certificate.user_id) {
+            const errorMessage = "수정권한이 없는 게시글입니다.";
+            return {errorMessage}   //! 다른 유저의 토큰을 가지고 글을 수정했을 때 수정이 가능함.... 
+        }
 
+        let changecounter = 0;
+        
         // const isTitle = toUpdate.title;
-        // const user_id = certificate.user_id;
         // const isExist = await Certificate.findByTitle({
         //     title: isTitle,
         //     user_id,
         // });
 
-        // if (isExist.length > 0) {   //! 같은 타이틀을 가진 게시물이 있으면 error처리.. 이거 자기 자신까지 count한다... 어떻게 빼지? 내용만 수정하고 싶은 케이스에 대해 문제됨.
-        //     const errorMessage = "중복된 이름의 자격증이 존재합니다.";
-        //     return { errorMessage };
+        // if (isExist.length > 0) {   //! 같은 타이틀을 가진 게시물이 있으면 error처리.. 이거 자기 자신까지 count한다... 
+        // //! 어떻게 빼지? 내용만 수정하고 싶은 케이스에 대해 문제가 발생됨.
+        //     if (!certificate in isExist) { //! 작동 안함... 구현에 대한 조언 여쭤보기.
+        //         const errorMessage = "중복된 이름의 자격증이 존재합니다.";
+        //         return { errorMessage };
+        //     }
         // } //! 나도 해깔리기에... 같은 이름의 다른 유저가 작성한 자격증이 존재할 수 있으므로 겹으로 처리함. .... 
 
         if (!certificate) {
             const errorMessage =
                 "잘못 등록된 자격증입니다. 관리자에게 문의해주세요.";
-            return { errorMessage };
+            return {errorMessage};
         } //나오면 안되는 메세지.
 
         // 차례대로 title, description, expired_date 순으로 업뎃.
