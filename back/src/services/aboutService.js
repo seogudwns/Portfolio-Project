@@ -74,6 +74,11 @@ class AboutService {
 
         return deletedAbout;
     }
+
+    static async getAboutListByUserId({ user_id }) {
+        const aboutList = await About.findByUserId({ user_id });
+        return aboutList;
+    }
 }
 
 export { AboutService };

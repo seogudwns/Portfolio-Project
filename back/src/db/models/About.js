@@ -25,8 +25,9 @@ class About {
         return updatedAbout;
     }
 
-    static async findByUserId() {
-        return;
+    static async findByUserId({ user_id }) {
+        const about = await AboutModel.find({ user_id });
+        return about;
     }
 
     static async delete({ about_id }) {

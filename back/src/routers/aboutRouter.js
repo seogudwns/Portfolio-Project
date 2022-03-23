@@ -76,4 +76,15 @@ aboutRouter.delete("/abouts/:id", async (req, res, next) => {
     }
 });
 
+aboutRouter.get("/aboutlist/:user_id", async (req, res, next) => {
+    try {
+        const user_id = req.params.user_id;
+        const aboutList = await AboutService.getAboutListByUserId({ user_id });
+
+        res.status(200).json(aboutList);
+    } catch (err) {
+        next(err);
+    }
+});
+
 export { aboutRouter };
