@@ -14,16 +14,7 @@ educationRouter.post("/educations", async (req, res, next) => {
             );
         }
 
-        const { user_id, school, major, position, from_date, to_date } =
-            req.body;
-        const newEdu = await EducationService.createEdu({
-            user_id,
-            school,
-            major,
-            position,
-            from_date,
-            to_date,
-        });
+        const newEdu = await EducationService.createEdu(req.body);
 
         res.status(201).json(newEdu);
     } catch (err) {
