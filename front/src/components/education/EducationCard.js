@@ -2,6 +2,7 @@
 // 본인 id 일 경우 편집 버튼 보이기
 import React from "react";
 import { Card, Row, Col, Button } from "react-bootstrap";
+
 import * as Api from "../../api";
 
 function EducationCard({ education, isEditable, setIsEditing, setEducations }) {
@@ -26,6 +27,11 @@ function EducationCard({ education, isEditable, setIsEditing, setEducations }) {
                         <br />
                         <span className="text-muted">
                             {education?.major} ({education?.position})
+                        </span>
+                        <br />
+                        <span>
+                            {`${education?.from_date.substr(0, 7)} ~ 
+                            ${education?.to_date.substr(0, 7)}`}
                         </span>
                     </Col>
                     {isEditable && (

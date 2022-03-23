@@ -8,24 +8,30 @@
  **/
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import EducationForm from "./EducationForm";
 
+import dateToString from "../../utils/dateToString";
+import EducationForm from "./EducationForm";
 import * as Api from "../../api";
 
 function EducationAddForm({ portfolioOwnerId, setIsAdding, setEducations }) {
+    // education 정보 - 기능 개선으로 Date 추가
     const [school, setSchool] = useState("");
     const [major, setMajor] = useState("");
     const [position, setPosition] = useState("재학중");
+    const [fromDate, setFromDate] = useState("");
+    const [toDate, setToDate] = useState("");
 
     const handleAddSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            const res = await Api.post("education/create", {
+            const res = await Api.post("educations", {
                 user_id: portfolioOwnerId,
                 school,
                 major,
                 position,
+                from_date: dateToString(fromDate),
+                to_date: dateToString(toDate),
             });
             const newEducation = res.data;
 
@@ -42,9 +48,13 @@ function EducationAddForm({ portfolioOwnerId, setIsAdding, setEducations }) {
                 school={school}
                 major={major}
                 position={position}
+                fromDate={fromDate}
+                toDate={toDate}
                 setSchool={setSchool}
                 setMajor={setMajor}
                 setPosition={setPosition}
+                setFromDate={setFromDate}
+                setToDate={setToDate}
                 setIsAdding={setIsAdding}
                 type="ADDING"
             />
