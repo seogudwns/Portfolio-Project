@@ -1,12 +1,12 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
-import { projectAuthService } from "../services/projectServices";
+import { projectService } from "../services/projectService";
 
-const projectAuthRouter = Router();
+const projectRouter = Router();
 
 //******************************************************** 1. project 생성
-projectAuthRouter.post(
+projectRouter.post(
     "/projects",
     login_required,
     async function (req, res, next) {
@@ -26,7 +26,7 @@ projectAuthRouter.post(
             const to_date = req.body.to_date ?? null;
 
             //db에 추가
-            const newProject = await projectAuthService.addProject({
+            const newProject = await projectService.addProject({
                 user_id,
                 title,
                 description,
@@ -47,14 +47,14 @@ projectAuthRouter.post(
 );
 
 //******************************************************** 4. user_id : user_id를 포함한 모든 project 가져오기. ~
-projectAuthRouter.get(
+projectRouter.get(
     "/projectlist/:user_id",
     login_required,
     async function (req, res, next) {
         try {
             // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
             const user_id = req.currentUserId;
-            const currentProjectInfo = await projectAuthService.getProjectInfo({
+            const currentProjectInfo = await projectService.getProjectInfo({
                 user_id,
             });
 
@@ -70,7 +70,7 @@ projectAuthRouter.get(
 );
 
 //********************************************************************* 3. 수정기능
-projectAuthRouter.put(
+projectRouter.put(
     "/projects/:id",
     login_required,
     async function (req, res, next) {
@@ -86,7 +86,7 @@ projectAuthRouter.put(
 
             const toUpdate = { title, description, result, from_date, to_date };
 
-            const updateProject = await projectAuthService.setProject({
+            const updateProject = await projectService.setProject({
                 user_id,
                 project_id,
                 toUpdate,
@@ -105,14 +105,14 @@ projectAuthRouter.put(
 );
 
 //**************************************** 삭제
-projectAuthRouter.delete(
+projectRouter.delete(
     "/projects/:id",
     login_required,
     async function (req, res, next) {
         try {
             const project_id = req.params.id;
 
-            const deleteProject = await projectAuthService.deleteProject(
+            const deleteProject = await projectService.deleteProject(
                 project_id
             );
 
@@ -128,11 +128,11 @@ projectAuthRouter.delete(
 );
 
 //* project_id별 정보 가져오기.
-projectAuthRouter.get("/projects/:id", async function (req, res, next) {
+projectRouter.get("/projects/:id", async function (req, res, next) {
     try {
         const project_id = req.params.id;
 
-        const searchProject = await projectAuthService.getProject(project_id);
+        const searchProject = await projectService.getProject(project_id);
 
         if (searchProject.errorMessage) {
             // throw new Error(searchProject.errorMessage);
@@ -144,4 +144,4 @@ projectAuthRouter.get("/projects/:id", async function (req, res, next) {
     }
 });
 
-export { projectAuthRouter };
+export { projectRouter };

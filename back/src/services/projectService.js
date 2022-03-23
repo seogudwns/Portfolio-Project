@@ -1,7 +1,7 @@
 import { Project } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
-class projectAuthService {
+class projectService {
     static async addProject({
         user_id,
         title,
@@ -168,4 +168,4 @@ class projectAuthService {
     }
 }
 
-export { projectAuthService };
+export { projectService };
