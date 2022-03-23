@@ -13,9 +13,12 @@ import EducationForm from "./EducationForm";
 import * as Api from "../../api";
 
 function EducationAddForm({ portfolioOwnerId, setIsAdding, setEducations }) {
+    // education 정보 - 기능 개선으로 Date 추가
     const [school, setSchool] = useState("");
     const [major, setMajor] = useState("");
     const [position, setPosition] = useState("재학중");
+    const [fromDate, setFromDate] = useState("");
+    const [toDate, setToDate] = useState("");
 
     const handleAddSubmit = async (event) => {
         event.preventDefault();

@@ -13,7 +13,7 @@ function EducationForm({
 }) {
     return (
         <>
-            <Form.Group className="mb-3" controlId="EducationSchoolAdd">
+            <Form.Group className="mb-3" controlId="EducationSchool">
                 <Form.Control
                     type="text"
                     placeholder="학교 이름"
@@ -23,7 +23,7 @@ function EducationForm({
                 />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="EducationMajorAdd">
+            <Form.Group className="mb-3" controlId="EducationMajor">
                 <Form.Control
                     type="text"
                     placeholder="전공"
@@ -85,6 +85,9 @@ function EducationForm({
                         variant="secondary"
                         onClick={() => {
                             if (type === "ADDING") {
+                                setSchool("");
+                                setMajor("");
+                                setPosition("재학중");
                                 return setIsAdding(false);
                             } else if (type === "EDITING") {
                                 return setIsEditing(false);
