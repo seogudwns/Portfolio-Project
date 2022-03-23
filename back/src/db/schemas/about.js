@@ -5,6 +5,10 @@ const AboutSchema = new Schema({
         type: String,
         required: true,
     },
+    user_id: {
+        type: String,
+        required: true,
+    },
     blog: {
         type: String,
         required: false,
