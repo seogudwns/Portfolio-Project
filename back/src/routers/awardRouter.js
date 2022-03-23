@@ -15,13 +15,7 @@ awardRouter.post("/awards", async (req, res, next) => {
             );
         }
 
-        const { user_id, title, description, when_date } = req.body;
-        const newAward = await AwardService.createAward({
-            user_id,
-            title,
-            description,
-            when_date,
-        });
+        const newAward = await AwardService.createAward(req.body);
 
         res.status(201).json(newAward);
     } catch (err) {

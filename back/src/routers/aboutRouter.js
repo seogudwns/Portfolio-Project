@@ -14,10 +14,9 @@ aboutRouter.post("/abouts", async (req, res, next) => {
             );
         }
 
-        // const { user_id, blog, skill, position, hobby } = req.body;
         const newAbout = await AboutService.createAbout(req.body);
 
-        req.status(201).json(newAbout);
+        res.status(201).json(newAbout);
     } catch (err) {
         next(err);
     }
@@ -41,10 +40,10 @@ aboutRouter.get("/abouts/:id", async (req, res, next) => {
 aboutRouter.put("/abouts/:id", async (req, res, next) => {
     try {
         const about_id = req.params.id;
-        const blog = req.params.blog ?? null;
-        const skill = req.params.skill ?? null;
-        const position = req.params.position ?? null;
-        const hobby = req.params.hobby ?? null;
+        const blog = req.body.blog ?? null;
+        const skill = req.body.skill ?? null;
+        const position = req.body.position ?? null;
+        const hobby = req.body.hobby ?? null;
         const updateValue = { blog, skill, position, hobby };
         const updatedAbout = await AboutService.updateAbout({
             about_id,
