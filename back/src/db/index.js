@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
 import { User } from "./models/User";
-import { Education } from "./models/Education";
-import { Award } from "./models/Award";
-import { Project } from "./models/Project";
 import { Certificate } from "./models/Certificate";
 
 const DB_URL =
