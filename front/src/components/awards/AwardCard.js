@@ -12,8 +12,8 @@ function AwardCard({ award, setIsEditing, isEditable, setAwards }) {
           return current.filter((item) => item.id !== id);
         });
       }
-    } catch (e) {
-      alert("수상정보를 제대로 삭제하지 못했습니다.", e);
+    } catch (err) {
+      alert("수상정보를 제대로 삭제하지 못했습니다.", err);
     }
   };
 

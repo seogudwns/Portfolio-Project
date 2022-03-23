@@ -8,17 +8,17 @@ function ProjectCard({ project, setIsEditing, isEditable, setProjects }) {
     try {
       if (window.confirm("정말로 프로젝트를 삭제 하시겠습니까?")) {
         await Api.delete(`projects/${project.id}`);
-        setProjects(current => {
-          return current.filter(item => item.id !== id);
+        setProjects((current) => {
+          return current.filter((item) => item.id !== id);
         });
       }
-    } catch (e) {
-      alert("프로젝트를 삭제하지 못했습니다.", e);
+    } catch (err) {
+      alert("프로젝트를 삭제하지 못했습니다.", err);
     }
   };
 
-  const URLCheck = str => {
-    let regex =
+  const URLCheck = (str) => {
+    const regex =
       /(([a-zA-Z0-9]+:\/\/)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\.[A-Za-z]{2,4})(:[0-9]+)?(\/.*)?)/;
 
     const resultURL = str.replace(regex, '<a target="_blank" href="$1">$1</a>');

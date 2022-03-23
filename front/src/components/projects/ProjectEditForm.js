@@ -20,8 +20,8 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
   const from_date = dateToString(fromDate);
   const to_date = dateToString(toDate);
 
-  const handleSubmit = async e => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     // "project/유저id" 엔드포인트로 PUT 요청함.
     try {
@@ -35,8 +35,8 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
       // 해당 유저 정보로 project를 세팅함.
       const updatedProject = res.data;
 
-      setProjects(current => {
-        return current.map(item => {
+      setProjects((current) => {
+        return current.map((item) => {
           if (item.id === project.id) {
             return updatedProject;
           }
@@ -60,7 +60,7 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
               type="text"
               placeholder="프로젝트 제목"
               value={title}
-              onChange={e => setTitle(e.target.value)}
+              onChange={(event) => setTitle(event.target.value)}
             />
           </Form.Group>
 
@@ -69,7 +69,7 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
               type="text"
               placeholder="상세내역"
               value={description}
-              onChange={e => setDescription(e.target.value)}
+              onChange={(event) => setDescription(event.target.value)}
             />
           </Form.Group>
 
@@ -78,7 +78,7 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
               type="text"
               placeholder="결과물 및 링크"
               value={result}
-              onChange={e => setResult(e.target.value)}
+              onChange={(event) => setResult(event.target.value)}
             />
           </Form.Group>
 
@@ -87,13 +87,13 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
               <Col xs="auto">
                 <DatePicker
                   selected={fromDate}
-                  onChange={date => setFromDate(date)}
+                  onChange={(date) => setFromDate(date)}
                 />
               </Col>
               <Col xs="auto">
                 <DatePicker
                   selected={toDate}
-                  onChange={date => setToDate(date)}
+                  onChange={(date) => setToDate(date)}
                 />
               </Col>
             </Row>

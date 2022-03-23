@@ -19,8 +19,8 @@ function AwardEditForm({ award, setIsEditing, setAwards }) {
 
   const when_date = dateToString(awardDate);
 
-  const handleSubmit = async e => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     try {
       // "awards/유저id" 엔드포인트로 PUT 요청함.
@@ -32,8 +32,8 @@ function AwardEditForm({ award, setIsEditing, setAwards }) {
       // 해당 유저 정보로 awards을 세팅함.
       const updatedAward = res.data;
 
-      setAwards(current => {
-        return current.map(item => {
+      setAwards((current) => {
+        return current.map((item) => {
           if (item.id === award.id) {
             return updatedAward;
           }
@@ -57,7 +57,7 @@ function AwardEditForm({ award, setIsEditing, setAwards }) {
               type="text"
               placeholder="수상내역"
               value={title}
-              onChange={e => setTitle(e.target.value)}
+              onChange={(event) => setTitle(event.target.value)}
             />
           </Form.Group>
 
@@ -66,7 +66,7 @@ function AwardEditForm({ award, setIsEditing, setAwards }) {
               type="text"
               placeholder="상세내역 및 링크"
               value={description}
-              onChange={e => setDescription(e.target.value)}
+              onChange={(event) => setDescription(event.target.value)}
             />
           </Form.Group>
 
@@ -75,7 +75,7 @@ function AwardEditForm({ award, setIsEditing, setAwards }) {
               <Col xs="auto">
                 <DatePicker
                   selected={awardDate}
-                  onChange={date => setAwardDate(date)}
+                  onChange={(date) => setAwardDate(date)}
                 />
               </Col>
             </Row>
