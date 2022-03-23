@@ -27,8 +27,7 @@ class Project {
 
     //* 고유 id를 통해 자격증 업데이트.
     static async update({ project_id, fieldToUpdate, newValue }) {
-        const filter = { project_id }; //! 역시나 이게 되는 이유를 파악할 필요가 있음.
-        console.log(filter);
+        const filter = { id: project_id };
         const update = { [fieldToUpdate]: newValue };
         const option = { returnOriginal: false };
 
@@ -37,12 +36,12 @@ class Project {
             update,
             option
         );
-        console.log(updatedProject);
+
         return updatedProject;
     }
 
     static async removeById(project_id) {
-        const deleteone = await ProjectModel.remove({ id: project_id });
+        const deleteone = await ProjectModel.deleteOne({ id: project_id });
 
         return deleteone;
     }

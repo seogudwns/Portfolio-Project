@@ -7,7 +7,7 @@ const projectAuthRouter = Router();
 
 //******************************************************** 1. project 생성
 projectAuthRouter.post(
-    "/project/create",
+    "/projects",
     login_required,
     async function (req, res, next) {
         try {
@@ -18,12 +18,12 @@ projectAuthRouter.post(
             }
 
             // req 에서 데이터 가져오기
-            const user_id = req.body.user_id; //! 아무리 생각해도 여기서 받으면 안되는 것 같음.
+            const user_id = req.currentUserId;
             const title = req.body.title;
             const description = req.body.description ?? null;
             const result = req.body.result ?? null;
-            const from_date = req.body.from_date ?? Date(); //! ?? null 이 작동을 안하네,,,, Date는 Date 함수로 써줘야함.
-            const to_date = req.body.to_date ?? Date();
+            const from_date = req.body.from_date ?? null; //! ?? null 이 작동을 안하네,,,, Date는 Date 함수로 써줘야함.
+            const to_date = req.body.to_date ?? null;
 
             //db에 추가
             const newProject = await projectAuthService.addProject({
@@ -48,12 +48,12 @@ projectAuthRouter.post(
 
 //******************************************************** 4. user_id : user_id를 포함한 모든 project 가져오기. ~
 projectAuthRouter.get(
-    "/projectlists/:user_id",
+    "/projectlist/:user_id",
     login_required,
     async function (req, res, next) {
         try {
             // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
-            const user_id = req.params.user_id;
+            const user_id = req.currentUserId;
             const currentProjectInfo = await projectAuthService.getProjectInfo({
                 user_id,
             });
@@ -76,16 +76,18 @@ projectAuthRouter.put(
     async function (req, res, next) {
         try {
             // req에서 데이터 가져오기
+            const user_id = req.currentUserId;
             const project_id = req.params.id;
             const title = req.body.title ?? null;
             const description = req.body.description ?? null;
             const result = req.body.result ?? null;
-            const from_date = req.body.from_date;
-            const to_date = req.body.to_date;
+            const from_date = req.body.from_date ?? null;
+            const to_date = req.body.to_date ?? null;
 
             const toUpdate = { title, description, result, from_date, to_date };
 
             const updateProject = await projectAuthService.setProject({
+                user_id,
                 project_id,
                 toUpdate,
             });
@@ -102,24 +104,7 @@ projectAuthRouter.put(
     }
 );
 
-//! 자격증과 마찬가지로 현재 이게 있는 의미를 모르겠기에 login_required는 제외
-projectAuthRouter.get("/projects/:id", async function (req, res, next) {
-    try {
-        const project_id = req.params.id;
-
-        const searchProject = await projectAuthService.getProject(project_id);
-
-        if (searchProject.errorMessage) {
-            // throw new Error(searchProject.errorMessage);
-        }
-
-        res.status(200).send(searchProject);
-    } catch (error) {
-        next(error);
-    }
-});
-
-//! 나중에 delete front로 사용하시면 뭘 뜨게 하면 좋을지 아이디어 주세요오~~~~ 구현만 해놓음
+//**************************************** 삭제
 projectAuthRouter.delete(
     "/projects/:id",
     login_required,
@@ -141,5 +126,22 @@ projectAuthRouter.delete(
         }
     }
 );
+
+//* project_id별 정보 가져오기.
+projectAuthRouter.get("/projects/:id", async function (req, res, next) {
+    try {
+        const project_id = req.params.id;
+
+        const searchProject = await projectAuthService.getProject(project_id);
+
+        if (searchProject.errorMessage) {
+            // throw new Error(searchProject.errorMessage);
+        }
+
+        res.status(200).send(searchProject);
+    } catch (error) {
+        next(error);
+    }
+});
 
 export { projectAuthRouter };

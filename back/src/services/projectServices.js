@@ -32,7 +32,7 @@ class projectAuthService {
         const newproject = await Project.create({ newProject });
         newproject.errorMessage = null;
         // 프로젝트 등록
-        console.log(newproject);
+        
         return newproject;
     }
 
@@ -48,18 +48,28 @@ class projectAuthService {
         return project;
     }
 
-    // 프로젝트 수정 관련.
-    static async setProject({ project_id, toUpdate }) {
+    // 프로젝트 업데이트.
+    static async setProject({ 
+        user_id, 
+        project_id, 
+        toUpdate, 
+    }) {
         let project = await Project.findById({ project_id });
 
-        // 요청받은 것과 중복된 이름의 자격증이 있는지 체크.
-        const isTitle = toUpdate.title;
-        const user_id = project.user_id;
-        const isExist = await Project.findByTitle({ isTitle, user_id });
-        if (isExist.length > 0) {
-            const errorMessage = "중복된 이름의 프로젝트가 존재합니다.";
-            return { errorMessage };
+        if (user_id !== project.user_id) {
+            const errorMessage = "수정권한이 없는 게시글입니다.";
+            return {errorMessage}   //! 다른 유저의 토큰을 가지고 글을 수정했을 때 수정이 가능하기에 추가.
         }
+
+        // 요청받은 것과 중복된 이름의 자격증이 있는지 체크.
+        // const isTitle = toUpdate.title;
+        // const user_id = project.user_id;
+        // const isExist = await Project.findByTitle({ isTitle, user_id });
+        
+        // if (isExist.length > 0) {
+        //     const errorMessage = "중복된 이름의 프로젝트가 존재합니다.";
+        //     return { errorMessage };
+        // }
 
         if (!project) {
             const errorMessage =
@@ -67,8 +77,11 @@ class projectAuthService {
             return { errorMessage };
         } //나오면 안되는 메세지.
 
+        let changecounter = 0;  //* 수정이 되는지 체크하는 counter.
+
         // 차례대로 title, description, from_date, to_date 순으로 업뎃.
         if (toUpdate.title !== null) {
+            changecounter++;
             const fieldToUpdate = "title";
             const newValue = toUpdate.title;
             project = await Project.update({
@@ -79,6 +92,7 @@ class projectAuthService {
         }
 
         if (toUpdate.description !== null) {
+            changecounter++;
             const fieldToUpdate = "description";
             const newValue = toUpdate.description;
             project = await Project.update({
@@ -89,6 +103,7 @@ class projectAuthService {
         }
 
         if (toUpdate.result !== null) {
+            changecounter++;
             const fieldToUpdate = "result";
             const newValue = toUpdate.result;
             project = await Project.update({
@@ -99,6 +114,7 @@ class projectAuthService {
         }
 
         if (toUpdate.from_date !== project.from_date) {
+            changecounter++;
             const fieldToUpdate = "from_date";
             const newValue = toUpdate.from_date;
             project = await Project.update({
@@ -106,9 +122,10 @@ class projectAuthService {
                 fieldToUpdate,
                 newValue,
             });
-        } //! 이거 항상 바뀜.. 해결방법?
+        }
 
         if (toUpdate.to_date !== project.to_date) {
+            changecounter++;
             const fieldToUpdate = "to_date";
             const newValue = toUpdate.to_date;
             project = await Project.update({
@@ -116,12 +133,17 @@ class projectAuthService {
                 fieldToUpdate,
                 newValue,
             });
-        } //! 마찬가지.. 해결방법?
+        }
+
+        if (changecounter === 0) {
+            const errorMessage = "변경사항이 없습니다.";
+            return {errorMessage}
+        }
 
         return project;
     }
 
-    //! 예시에서 구현 안된거
+    //! 보기용
     static async getProject(project_id) {
         const project = await Project.findById({ project_id });
 

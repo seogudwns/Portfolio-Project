@@ -25,14 +25,12 @@ const ProjectSchema = new Schema(
             default: "",
         },
         from_date: {
-            type: Date,
+            type: String,
             required: true,
-            default: Date(),
         },
         to_date: {
-            type: Date,
+            type: String,
             required: true,
-            default: Date(),
         },
     },
     {
