@@ -37,3 +37,28 @@ aboutRouter.get("/abouts/:id", async (req, res, next) => {
         next(err);
     }
 });
+
+aboutRouter.put("/abouts/:id", async (req, res, next) => {
+    try {
+        const about_id = req.params.id;
+        const blog = req.params.blog ?? null;
+        const skill = req.params.skill ?? null;
+        const position = req.params.position ?? null;
+        const hobby = req.params.hobby ?? null;
+        const updateValue = { blog, skill, position, hobby };
+        const updatedAbout = await AboutService.updateAbout({
+            about_id,
+            updateValue,
+        });
+
+        if (updatedAbout.errorMessage) {
+            throw new Error(updatedAbout.errorMessage);
+        }
+
+        res.status(200).json(updatedAbout);
+    } catch (err) {
+        next(err);
+    }
+});
+
+export { aboutRouter };

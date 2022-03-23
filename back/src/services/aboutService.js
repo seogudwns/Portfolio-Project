@@ -1,4 +1,4 @@
-import { About } from "../db/models/About";
+import { About } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class AboutService {
@@ -24,6 +24,41 @@ class AboutService {
         if (!about) {
             const errorMessage = "일치하는 about_id가 없습니다.";
             return { errorMessage };
+        }
+
+        return about;
+    }
+
+    static async updateAbout({ about_id, updateValue }) {
+        let about = await About.findById({ about_id });
+
+        if (!about) {
+            const errorMessage = "일치하는 about_id가 없습니다.";
+            return { errorMessage };
+        }
+
+        if (updateValue.blog) {
+            const fieldToUpdate = "blog";
+            const value = updateValue.blog;
+            about = await About.update({ about_id, fieldToUpdate, value });
+        }
+
+        if (updateValue.skill) {
+            const fieldToUpdate = "skill";
+            const value = updateValue.skill;
+            about = await About.update({ about_id, fieldToUpdate, value });
+        }
+
+        if (updateValue.position) {
+            const fieldToUpdate = "position";
+            const value = updateValue.position;
+            about = await About.update({ about_id, fieldToUpdate, value });
+        }
+
+        if (updateValue.hobby) {
+            const fieldToUpdate = "hobby";
+            const value = updateValue.hobby;
+            about = await About.update({ about_id, fieldToUpdate, value });
         }
 
         return about;
