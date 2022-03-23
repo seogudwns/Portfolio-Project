@@ -7,110 +7,49 @@
  * 취소 버튼
  **/
 import React, { useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import EducationForm from "./EducationForm";
+
 import * as Api from "../../api";
 
 function EducationAddForm({ portfolioOwnerId, setIsAdding, setEducations }) {
-  const [school, setSchool] = useState("");
-  const [major, setMajor] = useState("");
-  const [position, setPosition] = useState("재학중");
+    const [school, setSchool] = useState("");
+    const [major, setMajor] = useState("");
+    const [position, setPosition] = useState("재학중");
 
-  const handleAddSubmit = async e => {
-    e.preventDefault();
+    const handleAddSubmit = async (event) => {
+        event.preventDefault();
 
-    try {
-      const res = await Api.post("education/create", {
-        user_id: portfolioOwnerId,
-        school,
-        major,
-        position,
-      });
-      const newEducation = res.data;
+        try {
+            const res = await Api.post("education/create", {
+                user_id: portfolioOwnerId,
+                school,
+                major,
+                position,
+            });
+            const newEducation = res.data;
 
-      setEducations(current => [...current, newEducation]);
-      setIsAdding(false);
-    } catch (err) {
-      console.log("학력 정보를 등록하지 못했습니다", err);
-    }
-  };
+            setEducations((current) => [...current, newEducation]);
+            setIsAdding(false);
+        } catch (err) {
+            alert("학력 정보를 등록하지 못했습니다", err);
+        }
+    };
 
-  return (
-    <Form onSubmit={handleAddSubmit}>
-      <Form.Group className="mb-3" controlId="EducationSchoolAdd">
-        <Form.Control
-          type="text"
-          placeholder="학교 이름"
-          autoComplete="off"
-          value={school}
-          onChange={e => setSchool(e.target.value)}
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="EducationMajorAdd">
-        <Form.Control
-          type="text"
-          placeholder="전공"
-          autoComplete="off"
-          value={major}
-          onChange={e => setMajor(e.target.value)}
-        />
-      </Form.Group>
-
-      <div
-        key={"inline-radio"}
-        className="mb-3"
-        onChange={e => setPosition(e.target.value)}
-      >
-        <Form.Check
-          inline
-          label="재학중"
-          name="position"
-          type={"radio"}
-          id={"inline-radio-1"}
-          value={"재학중"}
-          checked={position === "재학중"}
-        />
-        <Form.Check
-          inline
-          label="학사졸업"
-          name="position"
-          type={"radio"}
-          id={"inline-radio-2"}
-          value={"학사졸업"}
-          checked={position === "학사졸업"}
-        />
-        <Form.Check
-          inline
-          label="석사졸업"
-          name="position"
-          type={"radio"}
-          id={"inline-radio-3"}
-          value={"석사졸업"}
-          checked={position === "석사졸업"}
-        />
-        <Form.Check
-          inline
-          label="박사졸업"
-          name="position"
-          type={"radio"}
-          id={"inline-radio-4"}
-          value={"박사졸업"}
-          checked={position === "박사졸업"}
-        />
-      </div>
-
-      <Form.Group as={Row} className="mt-3 text-center">
-        <Col sm={{ span: 20 }}>
-          <Button variant="primary" type="submit" className="me-3">
-            확인
-          </Button>
-          <Button variant="secondary" onClick={() => setIsAdding(false)}>
-            취소
-          </Button>
-        </Col>
-      </Form.Group>
-    </Form>
-  );
+    return (
+        <Form onSubmit={handleAddSubmit}>
+            <EducationForm
+                school={school}
+                major={major}
+                position={position}
+                setSchool={setSchool}
+                setMajor={setMajor}
+                setPosition={setPosition}
+                setIsAdding={setIsAdding}
+                type="ADDING"
+            />
+        </Form>
+    );
 }
 
 export default EducationAddForm;
