@@ -8,6 +8,16 @@ function CertificateCard({
   setCertificates,
 }) {
   const { id, title, description, expired_date } = certificate;
+  const now = new Date();
+
+  const isValid = () => {
+    const date = stringToDate(expired_date);
+    return date >= now.setDate(now.getDate() - 1);
+  };
+
+  const stringToDate = (date) => {
+    return new Date(date);
+  };
 
   const deleteHandler = async () => {
     try {
@@ -31,7 +41,13 @@ function CertificateCard({
             <br />
             <span className="text-muted">{description}</span>
             <br />
-            <span className="text-muted">{expired_date}</span>
+            {isValid() ? (
+              <span className="text-muted">{expired_date}</span>
+            ) : (
+              <span className="text-muted">
+                <s>{expired_date}</s> 자격증이 만료되었습니다.
+              </span>
+            )}
           </Col>
           {isEditable && (
             <Col xs lg="1">
