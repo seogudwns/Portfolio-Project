@@ -21,7 +21,7 @@ function EducationAddForm({ portfolioOwnerId, setIsAdding, setEducations }) {
         event.preventDefault();
 
         try {
-            const res = await Api.post("education/create", {
+            const res = await Api.post("educations", {
                 user_id: portfolioOwnerId,
                 school,
                 major,
