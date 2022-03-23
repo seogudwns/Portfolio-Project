@@ -1,8 +1,9 @@
 import { AboutModel } from "../schemas/about";
 
 class About {
-    static async create() {
-        return;
+    static async create({ AboutData }) {
+        const createdNewAbout = await AboutModel.create(AboutData);
+        return createdNewAbout;
     }
 
     static async findById() {

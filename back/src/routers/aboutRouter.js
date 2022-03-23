@@ -22,6 +22,8 @@ aboutRouter.post("/abouts", async (req, res, next) => {
 
         // const { user_id, blog, skill, position, hobby } = req.body;
         const newAbout = await AboutService.createAbout(req.body);
+
+        req.status(201).json(newAbout);
     } catch (err) {
         next(err);
     }
