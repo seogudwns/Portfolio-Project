@@ -8,21 +8,13 @@ class certificateAuthService {
             title,
             user_id,
         }); //! typeof certificate === object
-        //! object의 길이를 통해 해결, 검색은 유저의 아이디와 제목이 둘 다 같은 경우 되게 함.
+        //! object의 길이를 통해 해결, 검색은 유저의 아이디와 제목이 둘 다 같은 경우 되게 함.     
         if (existCertificate.length > 0) {
-            const errorMessage = "중복된 이름의 자격증입니다. 변경 바랍니다.";
+            const errorMessage = "중복된 이름의 자격증이 있습니다. 해당 자격증을 삭제 혹은 변경 바랍니다.";
             return { errorMessage };
-        } //TODO : 아래껄로 바꾸고 싶다..
+        }
 
-        // if (certificate.title===title) {
-        //   if (certificate.expired_date===expired_date) {
-        //     const errorMessage = "동일한 자격증이 존재합니다. 날짜를 갱신해주세요."
-        //     return {errorMessage}
-        //   }
-        // }   expired_date에 대한 해결방법(날짜가 겹치는 경우, 날짜가 겹치지 않는 경우) 고민해봐야 함...
-        //(동일한 이름의 날짜가 겹치는 케이스의 경우 위의 메시지, 동일한 이름이지만 날짜가 겹치지 않는 경우 생성 가능하게 만들어야 함..)
-
-        const id = uuidv4();
+        const id = uuidv4();  //! _id를 이걸로 교체할 방법을 찾지 못함...ㅠㅠ
         const newCertificate = {
             user_id,
             id,
@@ -36,7 +28,7 @@ class certificateAuthService {
             newCertificate,
         });
 
-        //! 'js 파일끼리 연동이 될 때는 항상 변수명까지 똑같이 만들어야 전달이 된다... 왜????'
+        //! "js 파일끼리 연동이 될 때는 항상 변수명까지 똑같이 만들어야 전달이 된다... 왜????""
 
         createNewCertificate.errorMessage = null;
         // 자격증 등록
@@ -56,32 +48,43 @@ class certificateAuthService {
         return certificate;
     }
 
-    //* 만기일을 합칠까 하다가 따로 뺌.
-    //* 중복된 이름이 있으면 return err.. certificate_id는 업데이트 대상이 아니기 때문에 일부러 바깥으로 뺌.
-    //* 자격증 업데이트... toUpdate = { certificate_id, title, description, expired_date }
-    static async setCertificate({ certificate_id, toUpdate }) {
-        let certificate = await Certificate.findById({ certificate_id });
-        //! '내가 뭔가 잘못 생각하고 있는 중인가??.. 여기 뜯어볼 것..!.. 작동은 하는데 명백히 이상함.
+    //* 자격증 업데이트... toUpdate = {title, description, expired_date }
+    static async setCertificate({
+        user_id, 
+        certificate_id, 
+        toUpdate}) {
+        let certificate = await Certificate.findById({certificate_id});
+        
+        if (user_id !== certificate.user_id) {
+            const errorMessage = "수정권한이 없는 게시글입니다.";
+            return {errorMessage}   //! 다른 유저의 토큰을 가지고 글을 수정했을 때 수정이 가능함.... 
+        }
 
-        const isTitle = toUpdate.title;
-        const user_id = certificate.user_id;
-        const isExist = await Certificate.findByTitle({
-            title: isTitle,
-            user_id,
-        });
-        if (isExist.length > 0) {
-            const errorMessage = "중복된 이름의 자격증이 존재합니다.";
-            return { errorMessage };
-        } //! 나도 해깔리기에... 같은 이름의 다른 유저가 작성한 자격증이 존재할 수 있으므로 겹으로 처리함.
+        let changecounter = 0;
+        
+        // const isTitle = toUpdate.title;
+        // const isExist = await Certificate.findByTitle({
+        //     title: isTitle,
+        //     user_id,
+        // });
+
+        // if (isExist.length > 0) {   //! 같은 타이틀을 가진 게시물이 있으면 error처리.. 이거 자기 자신까지 count한다... 
+        // //! 어떻게 빼지? 내용만 수정하고 싶은 케이스에 대해 문제가 발생됨.
+        //     if (!certificate in isExist) { //! 작동 안함... 구현에 대한 조언 여쭤보기.
+        //         const errorMessage = "중복된 이름의 자격증이 존재합니다.";
+        //         return { errorMessage };
+        //     }
+        // } //! 나도 해깔리기에... 같은 이름의 다른 유저가 작성한 자격증이 존재할 수 있으므로 겹으로 처리함. .... 
 
         if (!certificate) {
             const errorMessage =
                 "잘못 등록된 자격증입니다. 관리자에게 문의해주세요.";
-            return { errorMessage };
+            return {errorMessage};
         } //나오면 안되는 메세지.
 
         // 차례대로 title, description, expired_date 순으로 업뎃.
-        if (toUpdate.title !== null) {
+        if (toUpdate.title !== certificate.title) {
+            changecounter++;
             const fieldToUpdate = "title";
             const newValue = toUpdate.title;
             certificate = await Certificate.update({
@@ -91,7 +94,8 @@ class certificateAuthService {
             });
         }
 
-        if (toUpdate.description !== null) {
+        if (toUpdate.description !== certificate.description) {
+            changecounter++;
             const fieldToUpdate = "description";
             const newValue = toUpdate.description;
             certificate = await Certificate.update({
@@ -102,6 +106,7 @@ class certificateAuthService {
         }
 
         if (toUpdate.expired_date !== certificate.expired_date) {
+            changecounter++;
             const fieldToUpdate = "expired_date";
             const newValue = toUpdate.expired_date;
             certificate = await Certificate.update({
@@ -110,12 +115,17 @@ class certificateAuthService {
                 newValue,
             });
         }
+        
+        if (changecounter === 0) {
+            const errorMessage = "변경사항이 없습니다.";
+            return {errorMessage}
+        }
 
         return certificate;
     }
 
     //* 자격증 만기일 갱신
-    static async set2Certificate(certificate_id, newExpiredDate) {
+    static async set2Certificate({certificate_id, newExpiredDate}) {
         let certificate = await Certificate.findById({ certificate_id });
 
         if (certificate.expired_date === newExpiredDate) {
@@ -133,8 +143,8 @@ class certificateAuthService {
         return certificate;
     }
 
-    //! 예시에서 구현 안된거
-    static async getCertificate(certificate_id) {
+    //! 보기용
+    static async getCertificate({certificate_id}) {
         const certificate = await Certificate.findById({ certificate_id });
 
         if (!certificate) {
@@ -146,8 +156,9 @@ class certificateAuthService {
         return certificate;
     }
 
-    static async deleteCertificate(certificate_id) {
-        const deleteone = await Certificate.removeById(certificate_id);
+    // * 삭제설정.
+    static async deleteCertificate({certificate_id}) {
+        const deleteone = await Certificate.removeById({certificate_id});
 
         if (!deleteone) {
             const errorMessage = "해당 자격증이 존재하지 않습니다.";
