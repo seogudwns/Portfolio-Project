@@ -2,7 +2,14 @@ import { Education } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class EducationService {
-    static async createEdu({ user_id, school, major, position }) {
+    static async createEdu({
+        user_id,
+        school,
+        major,
+        position,
+        from_date,
+        to_date,
+    }) {
         const education_id = uuidv4();
         const educationData = {
             id: education_id,
@@ -10,6 +17,8 @@ class EducationService {
             school,
             major,
             position,
+            from_date,
+            to_date,
         };
         const newEducation = await Education.create({ educationData });
 
@@ -58,6 +67,26 @@ class EducationService {
         if (updateValue.position) {
             const fieldToUpdate = "position";
             const value = updateValue.position;
+            education = await Education.update({
+                education_id,
+                fieldToUpdate,
+                value,
+            });
+        }
+
+        if (updateValue.from_date) {
+            const fieldToUpdate = "from_date";
+            const value = updateValue.from_date;
+            education = await Education.update({
+                education_id,
+                fieldToUpdate,
+                value,
+            });
+        }
+
+        if (updateValue.to_date) {
+            const fieldToUpdate = "to_date";
+            const value = updateValue.to_date;
             education = await Education.update({
                 education_id,
                 fieldToUpdate,

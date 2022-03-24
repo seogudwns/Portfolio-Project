@@ -1,10 +1,10 @@
 import { Schema, model } from "mongoose";
 
-const ProjectSchema = new Schema(
+const OtherSchema = new Schema(
     {
         id: {
             type: String,
-            required: true,
+            required: true,  //model의 아이디.. 여기선 other_id
         },
         user_id: {
             type: String,
@@ -12,14 +12,9 @@ const ProjectSchema = new Schema(
         },
         title: {
             type: String,
-            required: true,
+            required: false, //* 제목이 없는 경우까지 있을 수 있기 때문에.
         },
         description: {
-            type: String,
-            required: false,
-            default: "",
-        },
-        result: {
             type: String,
             required: false,
             default: "",
@@ -38,6 +33,6 @@ const ProjectSchema = new Schema(
     }
 );
 
-const ProjectModel = model("Project", ProjectSchema);
+const OtherModel = model("Other", OtherSchema);
 
-export { ProjectModel };
+export { OtherModel };

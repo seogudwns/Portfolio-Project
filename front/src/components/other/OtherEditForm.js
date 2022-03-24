@@ -5,34 +5,33 @@ import DatePicker from "react-datepicker";
 import * as Api from "../../api";
 import dateToString from "../../utils/dateToString";
 
-function AwardEditForm({ award, setIsEditing, setAwards }) {
-    //useState로 title 상태를 생성함.
-    const [title, setTitle] = useState(award.title);
-    //useState로 description 상태를 생성함.
-    const [description, setDescription] = useState(award.description);
-    //useState로 date 상태를 생성함.
+function OtherEditForm({ other, setIsEditing, setOthers }) {
+    const [title, setTitle] = useState(other.title);
+    const [description, setDescription] = useState(other.description);
+    const [fromDate, setFromDate] = useState(new Date(other.from_date));
+    const [toDate, setToDate] = useState(new Date(other.to_date));
 
-    const [awardDate, setAwardDate] = useState(new Date(award.when_date));
-
-    const when_date = dateToString(awardDate);
+    const from_date = dateToString(fromDate);
+    const to_date = dateToString(toDate);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        // "project/유저id" 엔드포인트로 PUT 요청함.
         try {
-            // "awards/유저id" 엔드포인트로 PUT 요청함.
-            const res = await Api.put(`awards/${award.id}`, {
+            const res = await Api.put(`others/${other.id}`, {
                 title,
                 description,
-                when_date,
+                from_date,
+                to_date,
             });
-            // 해당 유저 정보로 awards을 세팅함.
-            const updatedAward = res.data;
+            // 해당 유저 정보로 project를 세팅함.
+            const updatedOther = res.data;
 
-            setAwards((current) => {
+            setOthers((current) => {
                 return current.map((item) => {
-                    if (item.id === award.id) {
-                        return updatedAward;
+                    if (item.id === other.id) {
+                        return updatedOther;
                     }
                     return item;
                 });
@@ -41,7 +40,7 @@ function AwardEditForm({ award, setIsEditing, setAwards }) {
             // isEditing을 false로 세팅함.
             setIsEditing(false);
         } catch (err) {
-            alert("수상정보를 수정하지 못했습니다.", err);
+            alert("기타활동을 수정하지 못했습니다.", err);
         }
     };
 
@@ -49,16 +48,16 @@ function AwardEditForm({ award, setIsEditing, setAwards }) {
         <Card className="mb-2">
             <Card.Body>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="awardEditTitle" className="mb-3">
+                    <Form.Group controlId="otherEditTitle" className="mb-3">
                         <Form.Control
                             type="text"
-                            placeholder="수상내역"
+                            placeholder="기타활동 제목"
                             value={title}
                             onChange={(event) => setTitle(event.target.value)}
                         />
                     </Form.Group>
 
-                    <Form.Group controlId="awardEditDescription">
+                    <Form.Group controlId="otherEditDescription">
                         <Form.Control
                             type="text"
                             placeholder="상세내역"
@@ -73,8 +72,14 @@ function AwardEditForm({ award, setIsEditing, setAwards }) {
                         <Row className="mt-3">
                             <Col xs="auto">
                                 <DatePicker
-                                    selected={awardDate}
-                                    onChange={(date) => setAwardDate(date)}
+                                    selected={fromDate}
+                                    onChange={(date) => setFromDate(date)}
+                                />
+                            </Col>
+                            <Col xs="auto">
+                                <DatePicker
+                                    selected={toDate}
+                                    onChange={(date) => setToDate(date)}
                                 />
                             </Col>
                         </Row>
@@ -102,5 +107,4 @@ function AwardEditForm({ award, setIsEditing, setAwards }) {
         </Card>
     );
 }
-
-export default AwardEditForm;
+export default OtherEditForm;

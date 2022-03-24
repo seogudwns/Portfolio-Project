@@ -20,7 +20,7 @@ const certificateSchema = new Schema(
         },
         expired_date: {
             type: String,
-            required: true,    //! 구글링을 통해 일단 Date를 쓰긴 했는데 이상하다 싶으면 다른걸로 바꿀 것.
+            required: false,
         },
     },
     {
