@@ -12,7 +12,7 @@ const OtherSchema = new Schema(
         },
         title: {
             type: String,
-            required: true,
+            required: false, //* 제목이 없는 경우까지 있을 수 있기 때문에.
         },
         description: {
             type: String,

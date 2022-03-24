@@ -43,16 +43,14 @@ otherRouter.post(
     },
 );
 
-//******************************************************** 4. user_id : user_id를 포함한 모든 other모델 가져오기. ~
+//************************ 4. user_id : user_id를 포함한 모든 other모델 가져오기.
 otherRouter.get(
     "/otherlist/:user_id",
     login_required,
     async (req, res, next) => {
         try {
             const user_id = req.params.user_id;
-            const currentOtherInfo = await otherService.getOtherInfo({
-                user_id,
-            });
+            const currentOtherInfo = await otherService.getOtherInfo({ user_id });
 
             if (currentOtherInfo.errorMessage) {
                 throw new Error(currentOtherInfo.errorMessage);
@@ -74,7 +72,8 @@ otherRouter.put(
             // req에서 데이터 가져오기
             const user_id = req.currentUserId;
             const other_id = req.params.id;
-            const title = req.body.title ?? null; //! 기타 활동 모델이기 때문에 제목이 없을 가능성이 충분히 존재함. 제목이 없거나 삭제시 null로 처리.
+            const title = req.body.title ?? null; 
+            //! 기타 활동 모델이기 때문에 제목이 없을 가능성이 충분히 존재함. 제목이 없거나 삭제시 null로 처리.
             const description = req.body.description ?? null; 
             const from_date = req.body.from_date ?? null;
             const to_date = req.body.to_date ?? null;
@@ -104,7 +103,7 @@ otherRouter.get("/others/:id", async (req, res, next) => {
     try {
         const other_id = req.params.id;
 
-        const searchOther = await otherService.getOther({other_id});
+        const searchOther = await otherService.getOther({ other_id });
 
         if (searchOther.errorMessage) {
             throw new Error(searchOther.errorMessage);
@@ -124,7 +123,7 @@ otherRouter.delete(
         try {
             const other_id = req.params.id;
 
-            const deleteOther = await otherService.deleteOther({other_id});
+            const deleteOther = await otherService.deleteOther({ other_id });
 
             if (deleteOther.errorMessage) {
                 throw new Error(deleteOther.errorMessage);
