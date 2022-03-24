@@ -50,7 +50,7 @@ certificateRouter.post(
     },
 );
 
-//******************************************************** 4. user_id : user_id를 포함한 모든 자격증 가져오기.
+//********************************** 4. user_id : user_id를 포함한 모든 자격증 가져오기.
 certificateRouter.get(
     "/certificatelist/:user_id",
     login_required,
@@ -58,10 +58,7 @@ certificateRouter.get(
         try {
             // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
             const user_id = req.params.user_id;
-            const currentCertificateInfo =
-                await certificateAuthService.getCertificateInfo({
-                    user_id,
-                });
+            const currentCertificateInfo = await certificateAuthService.getCertificateInfo({ user_id });
 
             if (currentCertificateInfo.errorMessage) {
                 throw new Error(currentCertificateInfo.errorMessage);
@@ -109,7 +106,7 @@ certificateRouter.put(
     },
 );
 
-//********************************************************************* delete 기능.
+//*************************************************************** delete 기능.
 certificateRouter.delete(
     "/certificates/:id",
     login_required,
@@ -117,8 +114,7 @@ certificateRouter.delete(
         try {
             const certificate_id = req.params.id;
 
-            const deleteCertificate =
-                await certificateAuthService.deleteCertificate({certificate_id});
+            const deleteCertificate = await certificateAuthService.deleteCertificate({ certificate_id });
 
             if (deleteCertificate.errorMessage) {
                 throw new Error(deleteCertificate.errorMessage);
@@ -136,9 +132,7 @@ certificateRouter.get("/certificates/:id", async (req, res, next) => {
     try {
         const certificate_id = req.params.id;
 
-        const searchCertificate = await certificateAuthService.getCertificate({
-            certificate_id,
-    });
+        const searchCertificate = await certificateAuthService.getCertificate({ certificate_id });
 
         if (searchCertificate.errorMessage) {
             throw new Error(searchCertificate.errorMessage);
@@ -151,7 +145,7 @@ certificateRouter.get("/certificates/:id", async (req, res, next) => {
 });
 
 //! 이거는 지금은 쓸 필요 없음.
-//날짜 갱신기능.. 갱신되는 날짜는 항상 기존의 날짜 뒤로.. //! 어떻게 써야 할 지 고민 필요!.. 넘겨받는 것이 Date(); 자료이면 대소비교로, 아니라면 고민 필요.
+//날짜 갱신기능.. 갱신되는 날짜는 항상 기존의 날짜 뒤로..
 certificateRouter.put(
     "/certificates/date_update",
     login_required,
