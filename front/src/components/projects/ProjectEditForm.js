@@ -64,7 +64,10 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
                         />
                     </Form.Group>
 
-                    <Form.Group controlId="projectEditDescription">
+                    <Form.Group
+                        controlId="projectEditDescription"
+                        className="mb-3"
+                    >
                         <Form.Control
                             type="text"
                             placeholder="상세내역"

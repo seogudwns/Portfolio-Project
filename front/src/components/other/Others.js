@@ -15,7 +15,13 @@ function Others({ portfolioOwnerId, isEditable }) {
     }, [portfolioOwnerId]);
 
     const otherlist = others.map((other) => {
-        <Other other={other} isEditable={isEditable} setOthers={setOthers} />;
+        return (
+            <Other
+                other={other}
+                isEditable={isEditable}
+                setOthers={setOthers}
+            />
+        );
     });
 
     return (
