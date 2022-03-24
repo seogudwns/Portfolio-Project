@@ -1,17 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AboutEditForm from "./AboutEditForm";
 import AboutCard from "./AboutCard";
 import * as Api from "../../api";
 
-function About({ portfolioOwnerId, isEditable }) {
+function About({ userAbout, setUserAbout, isEditable }) {
     const [isEditing, setIsEditing] = useState(false);
-    const [userAbout, setUserAbout] = useState(null);
-
-    useEffect(() => {
-        Api.get("abouts", portfolioOwnerId).then((res) =>
-            setUserAbout(res.data),
-        );
-    }, [portfolioOwnerId]);
 
     return (
         <>
