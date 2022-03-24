@@ -5,17 +5,11 @@ import DatePicker from "react-datepicker";
 import * as Api from "../../api";
 import dateToString from "../../utils/dateToString";
 
-function ProjectEditForm({ project, setIsEditing, setProjects }) {
-    //useState로 title 상태를 생성함.
-    const [title, setTitle] = useState(project.title);
-    //useState로 description 상태를 생성함.
-    const [description, setDescription] = useState(project.description);
-    //useState로 result 상태를 생성함.
-    const [result, setResult] = useState(project.result);
-    //useState로 fromDate 상태를 생성함.
-    const [fromDate, setFromDate] = useState(new Date(project.from_date));
-    //useState로 toDate 상태를 생성함.
-    const [toDate, setToDate] = useState(new Date(project.to_date));
+function OtherEditForm({ other, setIsEditing, setOthers }) {
+    const [title, setTitle] = useState(other.title);
+    const [description, setDescription] = useState(other.description);
+    const [fromDate, setFromDate] = useState(new Date(other.from_date));
+    const [toDate, setToDate] = useState(new Date(other.to_date));
 
     const from_date = dateToString(fromDate);
     const to_date = dateToString(toDate);
@@ -25,20 +19,19 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
 
         // "project/유저id" 엔드포인트로 PUT 요청함.
         try {
-            const res = await Api.put(`projects/${project.id}`, {
+            const res = await Api.put(`others/${other.id}`, {
                 title,
                 description,
-                result,
                 from_date,
                 to_date,
             });
             // 해당 유저 정보로 project를 세팅함.
-            const updatedProject = res.data;
+            const updatedOther = res.data;
 
-            setProjects((current) => {
+            setOthers((current) => {
                 return current.map((item) => {
-                    if (item.id === project.id) {
-                        return updatedProject;
+                    if (item.id === other.id) {
+                        return updatedOther;
                     }
                     return item;
                 });
@@ -47,7 +40,7 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
             // isEditing을 false로 세팅함.
             setIsEditing(false);
         } catch (err) {
-            alert("프로젝트를 수정하지 못했습니다.", err);
+            alert("기타활동을 수정하지 못했습니다.", err);
         }
     };
 
@@ -55,16 +48,16 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
         <Card className="mb-2">
             <Card.Body>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="projectEditTitle" className="mb-3">
+                    <Form.Group controlId="otherEditTitle" className="mb-3">
                         <Form.Control
                             type="text"
-                            placeholder="프로젝트 제목"
+                            placeholder="기타활동 제목"
                             value={title}
                             onChange={(event) => setTitle(event.target.value)}
                         />
                     </Form.Group>
 
-                    <Form.Group controlId="projectEditDescription">
+                    <Form.Group controlId="otherEditDescription">
                         <Form.Control
                             type="text"
                             placeholder="상세내역"
@@ -72,15 +65,6 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
                             onChange={(event) =>
                                 setDescription(event.target.value)
                             }
-                        />
-                    </Form.Group>
-
-                    <Form.Group controlId="projectEditResult">
-                        <Form.Control
-                            type="text"
-                            placeholder="결과물 및 링크"
-                            value={result}
-                            onChange={(event) => setResult(event.target.value)}
                         />
                     </Form.Group>
 
@@ -123,5 +107,4 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
         </Card>
     );
 }
-
-export default ProjectEditForm;
+export default OtherEditForm;
