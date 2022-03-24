@@ -54,27 +54,30 @@ class certificateAuthService {
         certificate_id, 
         toUpdate}) {
         let certificate = await Certificate.findById({certificate_id});
-        
+        let changecounter = 0;
+
         if (user_id !== certificate.user_id) {
             const errorMessage = "수정권한이 없는 게시글입니다.";
             return {errorMessage}   //! 다른 유저의 토큰을 가지고 글을 수정했을 때 수정이 가능함.... 
         }
-
-        let changecounter = 0;
         
-        // const isTitle = toUpdate.title;
-        // const isExist = await Certificate.findByTitle({
-        //     title: isTitle,
-        //     user_id,
-        // });
+        const isTitle = toUpdate.title;
+        const isExist = await Certificate.findByTitle({
+            title: isTitle,
+            user_id,
+        });
 
-        // if (isExist.length > 0) {   //! 같은 타이틀을 가진 게시물이 있으면 error처리.. 이거 자기 자신까지 count한다... 
-        // //! 어떻게 빼지? 내용만 수정하고 싶은 케이스에 대해 문제가 발생됨.
-        //     if (!certificate in isExist) { //! 작동 안함... 구현에 대한 조언 여쭤보기.
-        //         const errorMessage = "중복된 이름의 자격증이 존재합니다.";
-        //         return { errorMessage };
-        //     }
-        // } //! 나도 해깔리기에... 같은 이름의 다른 유저가 작성한 자격증이 존재할 수 있으므로 겹으로 처리함. .... 
+        if (isExist.length > 0) {
+            let isExist_id =[];
+            isExist.map(x=>isExist_id.push(x.id));
+            
+            if (isExist_id.length === 1 && isExist_id.includes(certificate.id)) {
+                //* 수정할 대상만 유일하게 존재하기 때문에 넘김.
+            } else {
+                const errorMessage = "중복된 이름의 자격증이 존재합니다.";
+                return {errorMessage}
+            }
+        }  //* 자격증별로 이름 하나만 가지게 만들기 완료.
 
         if (!certificate) {
             const errorMessage =
