@@ -28,7 +28,7 @@ function OtherAddForm({ portfolioOwnerId, setIsAdding, setOthers }) {
         //* 비동기통신
 
         try {
-            const res = await Api.post("others", newOther);
+            const res = await Api.post(`others`, newOther);
 
             setOthers((current) => [...current, res.data]);
             setIsAdding(false);
