@@ -15,7 +15,7 @@ const certificateRouter = Router();
 
 //************************************************************** 1. 자격증 생성. done
 certificateRouter.post(
-    "/certificates/create",
+    "/certificates",
     login_required,
     async (req, res, next) => {
         try {
@@ -25,7 +25,7 @@ certificateRouter.post(
                 );
             }
 
-            const user_id = req.body.user_id;
+            const user_id = req.currentUserId;
             const title = req.body.title;
             const description =
                 req.body.description ?? "내용 및 설명을 추가해주세요.";
@@ -52,7 +52,7 @@ certificateRouter.post(
 
 //******************************************************** 4. user_id : user_id를 포함한 모든 자격증 가져오기.
 certificateRouter.get(
-    "/certificatelists/:user_id",
+    "/certificatelist/:user_id",
     login_required,
     async (req, res, next) => {
         try {
@@ -153,7 +153,7 @@ certificateRouter.get("/certificates/:id", async (req, res, next) => {
 //! 이거는 지금은 쓸 필요 없음.
 //날짜 갱신기능.. 갱신되는 날짜는 항상 기존의 날짜 뒤로.. //! 어떻게 써야 할 지 고민 필요!.. 넘겨받는 것이 Date(); 자료이면 대소비교로, 아니라면 고민 필요.
 certificateRouter.put(
-    "/certificate/date_update",
+    "/certificates/date_update",
     login_required,
     async (req, res, next) => {
         try {
