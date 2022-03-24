@@ -25,7 +25,7 @@ certificateRouter.post(
                 );
             }
 
-            const user_id = req.currentUserId;
+            const user_id = req.body.user_id;
             const title = req.body.title;
             const description =
                 req.body.description ?? "내용 및 설명을 추가해주세요.";

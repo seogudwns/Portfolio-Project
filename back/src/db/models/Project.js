@@ -4,13 +4,12 @@ class Project {
     //*생성
     static async create({ newProject }) {
         const createdNewProject = await ProjectModel.create(newProject);
-
         return createdNewProject;
     }
 
     //*고유 아이디를 가진 project를 불러옴.
     static async findById({ project_id }) {
-        const project = await ProjectModel.findOne({ project_id });
+        const project = await ProjectModel.findOne({ id: project_id });
         
         return project;
     }
@@ -31,7 +30,7 @@ class Project {
     //* 선언된 user_id를 가진 ((모든)) project를 불러옴.
     static async findByUserId({ user_id }) {
         const projects = await ProjectModel.find({ user_id });
-
+        
         return projects;
     }
 

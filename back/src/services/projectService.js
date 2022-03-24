@@ -41,14 +41,14 @@ class projectService {
 
     // * 사용자와 동일한 user_id 정보를 가진 모든 프로젝트를 불러옴
     static async getProjectInfo({ user_id }) {
-        const project = await Project.findByUserId({ user_id });
-
-        if (project.length === 0) {
+        const projects = await Project.findByUserId({ user_id });
+        
+        if (projects.length === 0) {
             const errorMessage = "프로젝트를 등록해주세요.";
             return { errorMessage };
         }
 
-        return project;
+        return projects;
     }
 
     // 프로젝트 업데이트.
@@ -59,7 +59,7 @@ class projectService {
     }) {
         let project = await Project.findById({ project_id });
         let changecounter = 0;  //* 수정이 되는지 체크하는 counter.
-
+        
         if (user_id !== project.user_id) {
             const errorMessage = "수정권한이 없는 게시글입니다.";
             return { errorMessage };  //! 다른 유저의 토큰을 가지고 글을 수정했을 때 수정이 가능하기에 추가.
@@ -72,7 +72,7 @@ class projectService {
         } //나오면 안되는 메세지.
 
         // 차례대로 title, description, from_date, to_date 순으로 업뎃.
-        if (toUpdate.title !== null) {
+        if (toUpdate.title !== project.title) {
             changecounter++;
             const fieldToUpdate = "title";
             const newValue = toUpdate.title;
@@ -83,7 +83,7 @@ class projectService {
             });
         }
 
-        if (toUpdate.description !== null) {
+        if (toUpdate.description !== project.description) {
             changecounter++;
             const fieldToUpdate = "description";
             const newValue = toUpdate.description;
@@ -94,7 +94,7 @@ class projectService {
             });
         }
 
-        if (toUpdate.result !== null) {
+        if (toUpdate.result !== project.result) {
             changecounter++;
             const fieldToUpdate = "result";
             const newValue = toUpdate.result;

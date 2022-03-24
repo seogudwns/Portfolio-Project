@@ -4,7 +4,7 @@ import { userAuthRouter } from "./routers/userRouter";
 import { certificateRouter } from "./routers/certificateRouter";
 import { awardRouter } from "./routers/awardRouter";
 import { educationRouter } from "./routers/educationRouter";
-import { projectRouter } from "./routers/projectRouter"
+import { projectRouter } from "./routers/projectRouter";
 import { aboutRouter } from "./routers/aboutRouter";
 import { otherRouter } from "./routers/otherRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
