@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import AboutEditForm from "./AboutEditForm";
 import AboutCard from "./AboutCard";
-import * as Api from "../../api";
 
 function About({ userAbout, setUserAbout, isEditable }) {
     const [isEditing, setIsEditing] = useState(false);

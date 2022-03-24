@@ -3,36 +3,46 @@ import { Card } from "react-bootstrap";
 import About from "./About";
 import AboutAddForm from "./AboutAddForm";
 
-import * as Api from "../../api";
+// import * as Api from "../../api";
 
 function Abouts({ portfolioOwnerId, isEditable }) {
-    const [userAbout, setUserAbout] = useState(null);
-    cosnt[(isValidAbout, setIsValidAbout)] = useState(false);
+    //! 테스트용 더미
+    const dummy = {
+        blog: "http://elice-project.test",
+        skill: ["javascript", "node.js", "express", "react"],
+        position: "웹 백엔드",
+        hobby: "에러 디버깅",
+    };
 
-    useEffect(() => {
-        Api.get("abouts", portfolioOwnerId).then(
-            (res) => setUserAbout(res.data),
-            setIsValidAbout(true),
-        );
-    }, [portfolioOwnerId]);
+    const [userAbout, setUserAbout] = useState(dummy);
+
+    // useEffect(() => {
+    //     Api.get("abouts", portfolioOwnerId).then(
+    //         (res) => setUserAbout(res.data),
+    //     ).catch((err) => {
+    //          setUserAbout(null)
+    //     })
+    // }, [portfolioOwnerId]);
 
     return (
-        <Card>
+        <Card className="mb-2 ms-3 mr-5" style={{ width: "25rem" }}>
             <Card.Body>
-                {isValidAbout ? (
+                {userAbout ? (
                     <About
                         userAbout={userAbout}
                         setUserAbout={setUserAbout}
                         isEditable={isEditable}
                     />
                 ) : isEditable ? (
-                    <AboutAddForm />
+                    <AboutAddForm setUserAbout={setUserAbout} />
                 ) : (
                     <Card.Text className="text-center">
-                        아직 사용자가 설정하지 않았습니다.
+                        아직 설정하지 않았습니다.
                     </Card.Text>
                 )}
             </Card.Body>
         </Card>
     );
 }
+
+export default Abouts;
