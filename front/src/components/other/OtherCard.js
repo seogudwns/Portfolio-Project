@@ -2,7 +2,7 @@ import { Card, Row, Button, Col } from "react-bootstrap";
 import * as Api from "../../api";
 
 function OtherCard({ other, setIsEditing, isEditable, setOthers }) {
-    const { title, description, date, id } = other;
+    const { title, description, from_date, to_date, id } = other;
 
     const deleteHandler = async () => {
         try {
@@ -25,7 +25,7 @@ function OtherCard({ other, setIsEditing, isEditable, setOthers }) {
                     <br />
                     <span className="text-muted">{description}</span>
                     <br />
-                    <span className="text-muted">{date}</span>
+                    <span className="text-muted">{`${from_date} ~ ${to_date}`}</span>
                 </Col>
                 {isEditable && (
                     <Col lg={1} xs={true}>

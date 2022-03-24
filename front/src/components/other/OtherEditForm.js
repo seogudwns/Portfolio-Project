@@ -8,9 +8,11 @@ import dateToString from "../../utils/dateToString";
 function OtherEditForm({ other, setIsEditing, setOthers }) {
     const [title, setTitle] = useState(other.title);
     const [description, setDescription] = useState(other.description);
-    const [otherDate, setOtherDate] = useState(new Date(other.date));
+    const [fromDate, setFromDate] = useState(new Date(other.from_date));
+    const [toDate, setToDate] = useState(new Date(other.to_date));
 
-    const date = dateToString(otherDate);
+    const from_date = dateToString(fromDate);
+    const to_date = dateToString(toDate);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -20,7 +22,8 @@ function OtherEditForm({ other, setIsEditing, setOthers }) {
             const res = await Api.put(`others/${other.id}`, {
                 title,
                 description,
-                date,
+                from_date,
+                to_date,
             });
             // 해당 유저 정보로 project를 세팅함.
             const updatedOther = res.data;
@@ -69,8 +72,14 @@ function OtherEditForm({ other, setIsEditing, setOthers }) {
                         <Row className="mt-3">
                             <Col xs="auto">
                                 <DatePicker
-                                    selected={otherDate}
-                                    onChange={(date) => setOtherDate(date)}
+                                    selected={fromDate}
+                                    onChange={(date) => setFromDate(date)}
+                                />
+                            </Col>
+                            <Col xs="auto">
+                                <DatePicker
+                                    selected={toDate}
+                                    onChange={(date) => setToDate(date)}
                                 />
                             </Col>
                         </Row>

@@ -8,9 +8,11 @@ import dateToString from "../../utils/dateToString";
 function OtherAddForm({ portfolioOwnerId, setIsAdding, setOthers }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [otherDate, setOtherDate] = useState(new Date());
+    const [fromDate, setFromDate] = useState(new Date());
+    const [toDate, setToDate] = useState(new Date());
 
-    const date = dateToString(otherDate);
+    const from_date = dateToString(fromDate);
+    const to_date = dateToString(toDate);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -19,7 +21,8 @@ function OtherAddForm({ portfolioOwnerId, setIsAdding, setOthers }) {
             user_id: portfolioOwnerId,
             title,
             description,
-            date,
+            from_date,
+            to_date,
         };
 
         //* 비동기통신
@@ -57,8 +60,14 @@ function OtherAddForm({ portfolioOwnerId, setIsAdding, setOthers }) {
                 <Row className="mt-3">
                     <Col xs="auto">
                         <DatePicker
-                            selected={otherDate}
-                            onChange={(date) => setOtherDate(date)}
+                            selected={fromDate}
+                            onChange={(date) => setFromDate(date)}
+                        />
+                    </Col>
+                    <Col xs="auto">
+                        <DatePicker
+                            selected={toDate}
+                            onChange={(date) => setToDate(date)}
                         />
                     </Col>
                 </Row>
