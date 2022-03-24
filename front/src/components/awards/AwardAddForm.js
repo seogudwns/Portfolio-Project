@@ -45,7 +45,7 @@ function AwardAddForm({ portfolioOwnerId, setIsAdding, setAwards }) {
             <Form.Group controlId="awardAddDescription" className="mt-3">
                 <Form.Control
                     type="text"
-                    placeholder="상세내역 및 링크"
+                    placeholder="상세내역"
                     value={description}
                     onChange={(event) => setDescription(event.target.value)}
                 />

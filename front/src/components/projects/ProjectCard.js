@@ -17,23 +17,6 @@ function ProjectCard({ project, setIsEditing, isEditable, setProjects }) {
         }
     };
 
-    const URLCheck = (str) => {
-        const regex =
-            /(([a-zA-Z0-9]+:\/\/)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\.[A-Za-z]{2,4})(:[0-9]+)?(\/.*)?)/;
-
-        const resultURL = str.replace(
-            regex,
-            '<a target="_blank" href="$1">$1</a>',
-        );
-
-        return (
-            <span
-                className="text-muted"
-                dangerouslySetInnerHTML={{ __html: resultURL }}
-            ></span>
-        );
-    };
-
     return (
         <Card.Text>
             <Row className="align-items-center">
@@ -42,7 +25,7 @@ function ProjectCard({ project, setIsEditing, isEditable, setProjects }) {
                     <br />
                     <span className="text-muted">{description}</span>
                     <br />
-                    {result && URLCheck(result)}
+                    <span className="text-muted">{result}</span>
                     <br />
                     <span className="text-muted">{`${from_date} ~ ${to_date}`}</span>
                 </Col>

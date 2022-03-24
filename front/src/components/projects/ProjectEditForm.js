@@ -81,7 +81,7 @@ function ProjectEditForm({ project, setIsEditing, setProjects }) {
                     <Form.Group controlId="projectEditResult">
                         <Form.Control
                             type="text"
-                            placeholder="결과물 및 링크"
+                            placeholder="결과물"
                             value={result}
                             onChange={(event) => setResult(event.target.value)}
                         />

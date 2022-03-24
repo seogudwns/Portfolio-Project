@@ -61,7 +61,7 @@ function ProjectAddForm({ portfolioOwnerId, setIsAdding, setProjects }) {
             <Form.Group controlId="projectAddResult" className="mt-3">
                 <Form.Control
                     type="text"
-                    placeholder="결과물 및 링크"
+                    placeholder="결과물"
                     value={result}
                     onChange={(event) => setResult(event.target.value)}
                 />
