@@ -7,7 +7,7 @@ import dateToString from "../../utils/dateToString";
 function CertificateEditForm({ certificate, setCertificates, setIsEditing }) {
   const [title, setTitle] = useState(certificate.title);
   const [description, setDescription] = useState(certificate.description);
-  const [expired_date, setExpiredDate] = useState(certificate.expired_date);
+  const [expired_date, setExpiredDate] = useState(new Date(certificate.expired_date));
 
   const handleSubmit = async (event) => {
     event.preventDefault();
