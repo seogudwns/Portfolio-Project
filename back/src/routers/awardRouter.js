@@ -15,13 +15,7 @@ awardRouter.post("/awards", async (req, res, next) => {
             );
         }
 
-        const { user_id, title, description, when_date } = req.body;
-        const newAward = await AwardService.createAward({
-            user_id,
-            title,
-            description,
-            when_date,
-        });
+        const newAward = await AwardService.createAward(req.body);
 
         res.status(201).json(newAward);
     } catch (err) {
@@ -33,7 +27,7 @@ awardRouter.post("/awards", async (req, res, next) => {
 awardRouter.get("/awards/:id", async (req, res, next) => {
     try {
         const award_id = req.params.id;
-        const award = AwardService.getAwardById({ award_id });
+        const award = await AwardService.getAwardById({ award_id });
 
         if (award.errorMessage) {
             throw new Error(award.errorMessage);

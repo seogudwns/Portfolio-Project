@@ -12,8 +12,8 @@ function AwardAddForm({ portfolioOwnerId, setIsAdding, setAwards }) {
 
   const when_date = dateToString(awardDate);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     const newAward = {
       user_id: portfolioOwnerId,
@@ -27,8 +27,8 @@ function AwardAddForm({ portfolioOwnerId, setIsAdding, setAwards }) {
 
       setAwards((current) => [...current, res.data]);
       setIsAdding(false);
-    } catch (e) {
-      console.log("수상내역 등록에 실패하였습니다.", e);
+    } catch (err) {
+      console.log("수상내역 등록에 실패하였습니다.", err);
     }
   };
   return (
@@ -38,7 +38,7 @@ function AwardAddForm({ portfolioOwnerId, setIsAdding, setAwards }) {
           type="text"
           placeholder="수상내역"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(event) => setTitle(event.target.value)}
         />
       </Form.Group>
 
@@ -47,7 +47,7 @@ function AwardAddForm({ portfolioOwnerId, setIsAdding, setAwards }) {
           type="text"
           placeholder="상세내역 및 링크"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(event) => setDescription(event.target.value)}
         />
       </Form.Group>
 

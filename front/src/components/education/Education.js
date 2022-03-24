@@ -4,29 +4,29 @@ import EducationCard from "./EducationCard";
 import EducationEditForm from "./EducationEditForm";
 
 function Education({ education, isEditable, setEducations }) {
-  /**
-   * useState 훅으로 isEditing 상태를 생성하여, 편집 폼을 나타낼지 말지 결정
-   */
-  const [isEditing, setIsEditing] = useState(false);
+    /**
+     * useState 훅으로 isEditing 상태를 생성하여, 편집 폼을 나타낼지 말지 결정
+     */
+    const [isEditing, setIsEditing] = useState(false);
 
-  return (
-    <>
-      {!isEditing ? (
-        <EducationCard
-          education={education}
-          isEditable={isEditable}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-        />
-      ) : (
-        <EducationEditForm
-          setIsEditing={setIsEditing}
-          education={education}
-          setEducations={setEducations}
-        />
-      )}
-    </>
-  );
+    return (
+        <>
+            {!isEditing ? (
+                <EducationCard
+                    education={education}
+                    isEditable={isEditable}
+                    setIsEditing={setIsEditing}
+                    setEducations={setEducations}
+                />
+            ) : (
+                <EducationEditForm
+                    setIsEditing={setIsEditing}
+                    education={education}
+                    setEducations={setEducations}
+                />
+            )}
+        </>
+    );
 }
 
 export default Education;
