@@ -1,0 +1,45 @@
+/* 전역에 적용되는 CSS 파일입니다 */
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+@import "./variables.css";
+
+body {
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.component-name {
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
+.title {
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.description-1,
+.description-2 {
+    font-size: 18px;
+}
+
+.date {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: var(--date-gray-color);
+}
+
+.fontawesome-icon {
+    cursor: pointer;
+}
+
+.edit-pen {
+    margin-right: 15px;
+    font-size: 20px;
+    color: var(--main-color);
+}
+
+.delete-xmark {
+    font-size: 24px;
+    color: var(--main-red-color);
+}
