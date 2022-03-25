@@ -20,38 +20,61 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
     }
 
     return (
-        <div className="usercard">
-            <img
-                className="usercard-img"
-                src={user?.image_url}
-                alt="불러오기 실패"
-            />
-            <div className="usercard-name">{user?.name}</div>
-
-            {!isNetwork ? (
-                <Link to="#">
-                    <div className="usercard-email" onClick={EmailHandler}>
+        <div>
+            <Card.Body className="usercard">
+                <Row className="justify-content-md-center">
+                    <img
+                        style={{width: "10rem", height: "8rem"}}
+                        className="usercard-img"
+                        src={user?.image_url}
+                        alt="불러오기 실패"
+                    />
+                </Row>
+                <Card.Title className="usercard-name">{user?.name}</Card.Title>
+                {!isNetwork ? (
+                    <Card.Link className="usercard-email" href="#" onClick={EmailHandler}>
                         {user?.email}
-                    </div>
-                </Link>
-            ) : (
-                <div className="usercard-email">{user?.email}</div>
-            )}
-            <div className="usercard-description">{user?.description}</div>
-            <EmailForm
-                userEmail={user?.email}
-                toName={user?.name}
-                handleClose={handleClose}
-                show={showEmailForm}
-            />
+                    </Card.Link>
+                ) : (
+                    <Card.Subtitle className="mb-2 text-muted usercard-email">
+                        {user?.email}
+                    </Card.Subtitle>
+                )}
+                <Card.Text className="usercard-description">{user?.description}</Card.Text>
 
-            {isEditable && (
-                <FontAwesomeIcon
-                    className="fontawesome-icon edit-pen"
-                    onClick={() => setIsEditing(true)}
-                    icon={faPenToSquare}
+                <EmailForm
+                    userEmail={user?.email}
+                    toName={user?.name}
+                    handleClose={handleClose}
+                    show={showEmailForm}
                 />
-            )}
+
+                {isEditable && (
+                    <Col>
+                        <Row className="mt-3 text-center text-info">
+                            <Col sm={{ span: 20 }}>
+                                <Button
+                                    variant="outline-info"
+                                    size="sm"
+                                    onClick={() => setIsEditing(true)}
+                                >
+                                    편집
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Col>
+                )}
+
+                {isNetwork && (
+                    <Card.Link
+                        className="mt-3"
+                        href="#"
+                        onClick={() => navigate(`/users/${user.id}`)}
+                    >
+                        포트폴리오
+                    </Card.Link>
+                )}
+            </Card.Body>
         </div>
     );
 }

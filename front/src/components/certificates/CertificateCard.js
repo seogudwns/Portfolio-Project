@@ -1,12 +1,9 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 import * as Api from "../../api";
 
-function CertificateCard({
-  certificate,
-  isEditable,
-  setIsEditing,
-  setCertificates,
-}) {
+function CertificateCard({ certificate, isEditable, setIsEditing, setCertificates }) {
   const { id, title, description, expired_date } = certificate;
   const now = new Date();
 
@@ -50,24 +47,18 @@ function CertificateCard({
             )}
           </Col>
           {isEditable && (
-            <Col xs lg="1">
-              <Button
-                variant="outline-info"
-                size="sm"
-                onClick={() => setIsEditing((prev) => !prev)}
-                className="mr-3 mb-1"
-              >
-                편집
-              </Button>
-              <Button
-                variant="outline-danger"
-                size="sm"
-                className="mr-3"
-                onClick={() => deleteHandler()}
-              >
-                삭제
-              </Button>
-            </Col>
+              <Col lg={1} xs={true}>
+                  <FontAwesomeIcon
+                      className="fontawesome-icon edit-pen"
+                      onClick={() => setIsEditing((prev) => !prev)}
+                      icon={faPen}
+                  />
+                  <FontAwesomeIcon
+                      className="fontawesome-icon delete-xmark"
+                      onClick={() => deleteHandler()}
+                      icon={faXmark}
+                  />
+              </Col>
           )}
         </Row>
       </Card.Text>
