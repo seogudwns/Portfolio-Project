@@ -9,13 +9,13 @@ import { aboutRouter } from "./aboutRouter";
 import { otherRouter } from "./otherRouter";
 
 const router = (app) => {
-    app.use(userAuthRouter);
-    app.use(certificateRouter);
-    app.use(projectRouter);
-    app.use(educationRouter);
-    app.use(awardRouter);
-    app.use(aboutRouter);
-    app.use(otherRouter);
+    app.use("/users", userAuthRouter);
+    app.use("/certificates", certificateRouter);
+    app.use("/projects", projectRouter);
+    app.use("/educations", educationRouter);
+    app.use("/awards", awardRouter);
+    app.use("/abouts", aboutRouter);
+    app.use("/others", otherRouter);
 };
 
 export { router };

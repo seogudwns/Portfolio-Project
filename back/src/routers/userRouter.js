@@ -11,7 +11,7 @@ import { userAuthService } from "../services/userService";
 
 const userAuthRouter = Router();
 
-userAuthRouter.post("/users/register", async (req, res, next) => {
+userAuthRouter.post("/register", async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
             throw new Error(
@@ -41,7 +41,7 @@ userAuthRouter.post("/users/register", async (req, res, next) => {
     }
 });
 
-userAuthRouter.post("/users/login", async (req, res, next) => {
+userAuthRouter.post("/login", async (req, res, next) => {
     try {
         // req (request) 에서 데이터 가져오기
         const email = req.body.email;
@@ -60,7 +60,7 @@ userAuthRouter.post("/users/login", async (req, res, next) => {
     }
 });
 
-userAuthRouter.get("/userlist", login_required, async (req, res, next) => {
+userAuthRouter.get("/list", login_required, async (req, res, next) => {
     try {
         // 전체 사용자 목록을 얻음
         const users = await userAuthService.getUsers();
@@ -70,7 +70,7 @@ userAuthRouter.get("/userlist", login_required, async (req, res, next) => {
     }
 });
 
-userAuthRouter.get("/users/current", login_required, async (req, res, next) => {
+userAuthRouter.get("/current", login_required, async (req, res, next) => {
     try {
         // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
         const user_id = req.currentUserId;
@@ -88,7 +88,7 @@ userAuthRouter.get("/users/current", login_required, async (req, res, next) => {
     }
 });
 
-userAuthRouter.put("/users/:id", login_required, async (req, res, next) => {
+userAuthRouter.put("/:id", login_required, async (req, res, next) => {
     try {
         // URI로부터 사용자 id를 추출함.
         const user_id = req.params.id;
@@ -117,7 +117,7 @@ userAuthRouter.put("/users/:id", login_required, async (req, res, next) => {
     }
 });
 
-userAuthRouter.get("/users/:id", login_required, async (req, res, next) => {
+userAuthRouter.get("/:id", login_required, async (req, res, next) => {
     try {
         const user_id = req.params.id;
         const currentUserInfo = await userAuthService.getUserInfo({
@@ -134,8 +134,7 @@ userAuthRouter.get("/users/:id", login_required, async (req, res, next) => {
     }
 });
 
-userAuthRouter.get(
-    "/userlist/:type/:pieceword",
+userAuthRouter.get("/list/:type/:pieceword",
     login_required,
     async (req, res, next) => {
         try {
@@ -178,10 +177,10 @@ userAuthRouter.get(
         } catch (error) {
             next(error);
         }
-    },
+    }
 );
 
-userAuthRouter.delete("/users/:id", login_required, async (req, res, next) => {
+userAuthRouter.delete("/:id", login_required, async (req, res, next) => {
     try {
         const user_id = req.params.id;
         const deletdUser = await userAuthService.deleteUser({ user_id });

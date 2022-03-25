@@ -4,12 +4,10 @@ import { login_required } from "../middlewares/login_required";
 import { projectService } from "../services/projectService";
 
 const projectRouter = Router();
+projectRouter.use(login_required);
 
 //******************************************************** 1. project 생성
-projectRouter.post(
-    "/projects",
-    login_required,
-    async (req, res, next) => {
+projectRouter.post("/", async (req, res, next) => {
         try {
             if (is.emptyObject(req.body)) {
                 throw new Error(
@@ -47,10 +45,7 @@ projectRouter.post(
 );
 
 //*************************** 4. user_id : user_id를 포함한 모든 project 가져오기. ~
-projectRouter.get(
-    "/projectlist/:user_id",
-    login_required,
-    async (req, res, next) => {
+projectRouter.get("/list/:user_id", async (req, res, next) => {
         try {
             // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
             const user_id = req.params.user_id;
@@ -67,10 +62,7 @@ projectRouter.get(
 );
 
 //********************************************************************* 3. 수정기능
-projectRouter.put(
-    "/projects/:id",
-    login_required,
-    async (req, res, next) => {
+projectRouter.put("/:id", async (req, res, next) => {
         try {
             // req에서 데이터 가져오기
             const user_id = req.currentUserId;
@@ -102,10 +94,7 @@ projectRouter.put(
 );
 
 //**************************************** 삭제
-projectRouter.delete(
-    "/projects/:id",
-    login_required,
-    async (req, res, next) => {
+projectRouter.delete("/:id", async (req, res, next) => {
         try {
             const project_id = req.params.id;
 
@@ -123,7 +112,7 @@ projectRouter.delete(
 );
 
 //* project_id별 정보 가져오기.
-projectRouter.get("/projects/:id", async (req, res, next) => {
+projectRouter.get("/:id", async (req, res, next) => {
     try {
         const project_id = req.params.id;
 
