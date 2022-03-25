@@ -7,7 +7,7 @@ const awardRouter = Router();
 awardRouter.use(login_required);
 
 // 수상이력 생성
-awardRouter.post("/awards", async (req, res, next) => {
+awardRouter.post("/", async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
             throw new Error(
@@ -24,7 +24,7 @@ awardRouter.post("/awards", async (req, res, next) => {
 });
 
 // 수상이력 조회(id)
-awardRouter.get("/awards/:id", async (req, res, next) => {
+awardRouter.get("/:id", async (req, res, next) => {
     try {
         const award_id = req.params.id;
         const award = await AwardService.getAwardById({ award_id });
@@ -40,7 +40,7 @@ awardRouter.get("/awards/:id", async (req, res, next) => {
 });
 
 // 수상이력 수정
-awardRouter.put("/awards/:id", async (req, res, next) => {
+awardRouter.put("/:id", async (req, res, next) => {
     try {
         const award_id = req.params.id;
         const title = req.body.title ?? null;
@@ -63,10 +63,9 @@ awardRouter.put("/awards/:id", async (req, res, next) => {
 });
 
 // 수상이력 삭제
-awardRouter.delete("/awards/:id", async (req, res, next) => {
+awardRouter.delete("/:id", async (req, res, next) => {
     try {
         const award_id = req.params.id;
-        console.log(award_id);
         const deletedAward = await AwardService.deleteAward({ award_id });
 
         if (deletedAward.errorMessage) {
@@ -80,7 +79,7 @@ awardRouter.delete("/awards/:id", async (req, res, next) => {
 });
 
 // 특정 유저의 수상이력 리스트 조회
-awardRouter.get("/awardlist/:user_id", async (req, res, next) => {
+awardRouter.get("/list/:user_id", async (req, res, next) => {
     try {
         const user_id = req.params.user_id;
         const awardList = await AwardService.getAwardListByUserId({ user_id });

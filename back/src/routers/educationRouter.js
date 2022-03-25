@@ -6,7 +6,7 @@ import { EducationService } from "../services/educationService";
 const educationRouter = Router();
 educationRouter.use(login_required);
 
-educationRouter.post("/educations", async (req, res, next) => {
+educationRouter.post("/", async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
             throw new Error(
@@ -23,7 +23,7 @@ educationRouter.post("/educations", async (req, res, next) => {
 });
 
 // * education 상세정보 조회
-educationRouter.get("/educations/:id", async (req, res, next) => {
+educationRouter.get("/:id", async (req, res, next) => {
     try {
         const education_id = req.params.id;
         const education = await EducationService.getEduById({ education_id });
@@ -39,7 +39,7 @@ educationRouter.get("/educations/:id", async (req, res, next) => {
 });
 
 // * education 정보 삭제
-educationRouter.delete("/educations/:id", async (req, res, next) => {
+educationRouter.delete("/:id", async (req, res, next) => {
     try {
         const education_id = req.params.id;
         const deletedEducation = await EducationService.deleteEducation({
@@ -56,7 +56,7 @@ educationRouter.delete("/educations/:id", async (req, res, next) => {
     }
 });
 
-educationRouter.put("/educations/:id", async (req, res, next) => {
+educationRouter.put("/:id", async (req, res, next) => {
     try {
         const education_id = req.params.id;
         const school = req.body.school ?? null;
@@ -80,7 +80,7 @@ educationRouter.put("/educations/:id", async (req, res, next) => {
     }
 });
 
-educationRouter.get("/educationlist/:user_id", async (req, res, next) => {
+educationRouter.get("/list/:user_id", async (req, res, next) => {
     try {
         const user_id = req.params.user_id;
         const educationList = await EducationService.getEduListByUserId({

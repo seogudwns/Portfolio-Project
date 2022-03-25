@@ -6,7 +6,7 @@ import { AboutService } from "../services/aboutService";
 const aboutRouter = Router();
 aboutRouter.use(login_required);
 
-aboutRouter.post("/abouts", async (req, res, next) => {
+aboutRouter.post("/", async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
             throw new Error(
@@ -22,7 +22,7 @@ aboutRouter.post("/abouts", async (req, res, next) => {
     }
 });
 
-aboutRouter.get("/abouts/:id", async (req, res, next) => {
+aboutRouter.get("/:id", async (req, res, next) => {
     try {
         const about_id = req.params.id;
         const about = await AboutService.getAboutById({ about_id });
@@ -37,7 +37,7 @@ aboutRouter.get("/abouts/:id", async (req, res, next) => {
     }
 });
 
-aboutRouter.put("/abouts/:id", async (req, res, next) => {
+aboutRouter.put("/:id", async (req, res, next) => {
     try {
         const about_id = req.params.id;
         const blog = req.body.blog ?? null;
@@ -60,7 +60,7 @@ aboutRouter.put("/abouts/:id", async (req, res, next) => {
     }
 });
 
-aboutRouter.delete("/abouts/:id", async (req, res, next) => {
+aboutRouter.delete("/:id", async (req, res, next) => {
     try {
         const about_id = req.params.id;
         const deletedAbout = await AboutService.deleteAbout({ about_id });
@@ -75,7 +75,7 @@ aboutRouter.delete("/abouts/:id", async (req, res, next) => {
     }
 });
 
-aboutRouter.get("/aboutlist/:user_id", async (req, res, next) => {
+aboutRouter.get("/list/:user_id", async (req, res, next) => {
     try {
         const user_id = req.params.user_id;
         const aboutList = await AboutService.getAboutListByUserId({ user_id });
