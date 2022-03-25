@@ -21,7 +21,7 @@ class projectService {
         }
 
         const id = uuidv4();
-        const newProject = {
+        const ProjectData = {
             user_id,
             id,
             title,
@@ -31,9 +31,9 @@ class projectService {
             to_date,
         };
 
-        const newproject = await Project.create({ newProject });
+        const newProject = await Project.create({ ProjectData });
 
-        return newproject;
+        return newProject;
     }
 
     static async getProjectByUserId({ user_id }) {
@@ -44,20 +44,19 @@ class projectService {
     // 프로젝트 업데이트.
     static async updateProject({ user_id, project_id, toUpdate }) {
         let project = await Project.findById({ project_id });
-        let changecounter = 0; //* 수정이 되는지 체크하는 counter.
+        let changecounter = 0;
 
         if (user_id !== project.user_id) {
             const errorMessage = "수정권한이 없는 게시글입니다.";
-            return { errorMessage }; //! 다른 유저의 토큰을 가지고 글을 수정했을 때 수정이 가능하기에 추가.
+            return { errorMessage };
         }
 
         if (!project) {
             const errorMessage =
                 "잘못 등록된 자격증입니다. 관리자에게 문의해주세요.";
             return { errorMessage };
-        } //나오면 안되는 메세지.
+        }
 
-        // 차례대로 title, description, from_date, to_date 순으로 업뎃.
         if (toUpdate.title !== project.title) {
             changecounter++;
             const fieldToUpdate = "title";
@@ -134,14 +133,14 @@ class projectService {
     }
 
     static async deleteProject({ project_id }) {
-        const deleteone = await Project.delete({ project_id });
+        const deletedProject = await Project.delete({ project_id });
 
-        if (!deleteone) {
+        if (!deletedProject) {
             const errorMessage = "해당 프로젝트가 존재하지 않습니다.";
             return { errorMessage };
         }
 
-        return deleteone;
+        return deletedProject;
     }
 }
 

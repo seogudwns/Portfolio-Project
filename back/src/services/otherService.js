@@ -10,7 +10,7 @@ class otherService {
         to_date,
     }) {
         const id = uuidv4();
-        const newOther = {
+        const otherData = {
             user_id,
             id,
             title,
@@ -18,13 +18,10 @@ class otherService {
             from_date,
             to_date,
         };
-        //고유 아이디 생성 및 req로부터 받은 데이터 묶기
 
-        const newother = await Other.create({ newOther });
-        newother.errorMessage = null;
-        // 프로젝트 등록
+        const newOther = await Other.create({ otherData });
 
-        return newother;
+        return newOther;
     }
 
     static async getOtherListByUserId({ user_id }) {
@@ -47,14 +44,13 @@ class otherService {
             const errorMessage =
                 "잘못 등록된 자격증입니다. 관리자에게 문의해주세요.";
             return { errorMessage };
-        } //나오면 안되는 메세지.
+        }
 
         if (other.user_id !== user_id) {
             const errorMessage = "수정권한이 없습니다.";
             return { errorMessage };
-        } //다른 유저의 토큰으로 수정을 할 경우 애러메세지 출력.
+        }
 
-        // 차례대로 title, description, from_date, to_date 순으로 업뎃.
         if (toUpdate.title !== other.title) {
             changecounter++;
             const fieldToUpdate = "title";
@@ -107,7 +103,6 @@ class otherService {
         return other;
     }
 
-    //! 예시에서 구현 안된거
     static async getOther({ other_id }) {
         const other = await Other.findById({ other_id });
 
@@ -121,14 +116,14 @@ class otherService {
     }
 
     static async deleteOther({ other_id }) {
-        const deleteone = await Other.delete({ other_id });
+        const deletedOther = await Other.delete({ other_id });
 
-        if (!deleteone) {
+        if (!deletedOther) {
             const errorMessage = "해당 프로젝트가 존재하지 않습니다.";
             return { errorMessage };
         }
 
-        return deleteone;
+        return deletedOther;
     }
 }
 
