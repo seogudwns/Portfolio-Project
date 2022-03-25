@@ -129,6 +129,28 @@ class userAuthService {
         return user;
     }
 
+    static async getUsersWithRestrict({ pieceword }) {
+        const searchingUser = await User.searchingByPiece({ pieceword });
+
+        if (!searchingUser) {
+            const errorMessage = "검색조건에 부합하는 유저가 없습니다.";
+            return { errorMessage };
+        }  //* 이름으로 검색.
+        
+        return searchingUser;
+    }
+
+    static async getUsersWithRestrict2({ pieceword }) {
+        const searchingUser = await User.searchingByPiece2({ pieceword });
+
+        if (!searchingUser) {
+            const errorMessage = "검색조건에 부합하는 유저가 없습니다.";
+            return { errorMessage };
+        }  //* 이메일로 검색.
+        
+        return searchingUser;
+    }
+
     static async deleteUser({ user_id }) {
         const deletedUser = await User.deleteById({ user_id });
 

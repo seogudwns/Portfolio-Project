@@ -1,7 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
-import { AboutService } from "../services/aboutService";
 import { login_required } from "../middlewares/login_required";
+import { AboutService } from "../services/aboutService";
 
 const aboutRouter = Router();
 aboutRouter.use(login_required);
