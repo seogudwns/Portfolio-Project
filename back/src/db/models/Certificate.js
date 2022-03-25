@@ -17,8 +17,6 @@ class Certificate {
         return certificate;
     }
 
-    //참조 링크 : "https://masteringjs.io/tutorials/mongoose/find"
-    //* 유저가 이미 만들었던 선언된 title을 가진 ((모든)) 자격증을 불러옴.... 생성과정중에 쓰이므로 주석처리 x
     static async findByTitle({ title, user_id }) {
         const certificates = await CertificateModel.find({
             title,
@@ -33,7 +31,6 @@ class Certificate {
         return certificate;
     }
 
-    //* 고유 id를 통해 자격증 업데이트.
     static async update({ certificate_id, fieldToUpdate, newValue }) {
         const filteredById = { id: certificate_id };
         const updateData = { [fieldToUpdate]: newValue };

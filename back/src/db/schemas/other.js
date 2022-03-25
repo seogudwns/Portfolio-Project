@@ -4,7 +4,7 @@ const OtherSchema = new Schema(
     {
         id: {
             type: String,
-            required: true,  //model의 아이디.. 여기선 other_id
+            required: true,
         },
         user_id: {
             type: String,
@@ -12,7 +12,7 @@ const OtherSchema = new Schema(
         },
         title: {
             type: String,
-            required: false, //* 제목이 없는 경우까지 있을 수 있기 때문에.
+            required: false,
         },
         description: {
             type: String,
@@ -30,7 +30,7 @@ const OtherSchema = new Schema(
     },
     {
         timestamps: true,
-    }
+    },
 );
 
 const OtherModel = model("Other", OtherSchema);
