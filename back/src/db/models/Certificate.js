@@ -1,5 +1,3 @@
-// 서버 구동 issue로 인해 조금 늦게 시작했습니다.
-
 import { CertificateModel } from "../schemas/certificate";
 
 class Certificate {
@@ -60,9 +58,13 @@ class Certificate {
 
     static async removeById({ certificate_id }) {
         const deleteone = await CertificateModel.deleteOne({ id: certificate_id });
-
         return deleteone;
     }
+
+    static async removeAllByUserId({ user_id }) {
+        const deleteall = await CertificateModel.deleteMany({ user_id });
+        return deleteall;
+    }  //* 유저가 아이디 삭제시 user_id를 포함한 모든 게시물 제거.
 }
 
 export { Certificate };

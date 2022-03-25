@@ -58,6 +58,11 @@ class Project {
 
         return deleteone;
     }
+
+    static async removeAllByUserId({ user_id }) {
+        const deleteall = await ProjectModel.deleteMany({ user_id });
+        return deleteall;
+    }  //* 유저가 아이디 삭제시 user_id를 포함한 모든 게시물 제거.
 }
 
 export { Project };

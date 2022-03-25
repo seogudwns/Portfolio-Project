@@ -86,4 +86,13 @@ aboutRouter.get("/list/:user_id", async (req, res, next) => {
     }
 });
 
+aboutRouter.delete("/clear/:user_id", async (req, res, next) => {  
+    try {
+        const user_id = req.params.user_id;
+        await AboutService.clearAboutListByUserId({ user_id });
+    } catch (err) {
+        next(err);
+    }
+});  //! 임시로 만들어 놓은 라우터.. 해당 user_id를 가진 모든 about이 삭제되므로 주의..!
+
 export { aboutRouter };

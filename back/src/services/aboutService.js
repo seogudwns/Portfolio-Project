@@ -79,6 +79,10 @@ class AboutService {
         const aboutList = await About.findByUserId({ user_id });
         return aboutList;
     }
+
+    static async clearAboutListByUserId({ user_id }) {
+        await About.removeAllByUserId({ user_id });
+    }  //! 라우터로부터 임시로 만들어놓은 서비스.
 }
 
 export { AboutService };
