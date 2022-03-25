@@ -10,6 +10,7 @@ import Awards from "./awards/Awards";
 import Certificates from "./certificates/Certificates";
 import Projects from "./projects/Projects";
 import Others from "./other/Others";
+import "./Portfolio.css";
 
 function Portfolio() {
     const navigate = useNavigate();
@@ -57,14 +58,14 @@ function Portfolio() {
     }
 
     return (
-        <Container fluid>
-            <Row>
-                <Col md="3" lg="3">
-                    <User
-                        portfolioOwnerId={portfolioOwner.id}
-                        isEditable={portfolioOwner.id === userState.user?.id}
-                    />
-                </Col>
+        <Container className="container" fluid>
+            <Col md="3" lg="3">
+                <User
+                    portfolioOwnerId={portfolioOwner.id}
+                    isEditable={portfolioOwner.id === userState.user?.id}
+                />
+            </Col>
+            <Row className="component-box">
                 <Col>
                     <Educations
                         portfolioOwnerId={portfolioOwner.id}

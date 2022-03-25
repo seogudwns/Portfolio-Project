@@ -1,0 +1,28 @@
+@import "../../variables.css";
+
+.usercard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.usercard-img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+}
+
+.usercard-name {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.usercard-email,
+.usercard-description {
+    font-size: 16px;
+}
+
+.usercard-description {
+    margin: 18px 0;
+    color: var(--hard-gray-color);
+}
