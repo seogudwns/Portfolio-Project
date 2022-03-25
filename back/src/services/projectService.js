@@ -42,14 +42,9 @@ class projectService {
     }
 
     // 프로젝트 업데이트.
-    static async updateProject({ user_id, project_id, toUpdate }) {
+    static async updateProject({ project_id, toUpdate }) {
         let project = await Project.findById({ project_id });
         let changecounter = 0;
-
-        if (user_id !== project.user_id) {
-            const errorMessage = "수정권한이 없는 게시글입니다.";
-            return { errorMessage };
-        }
 
         if (!project) {
             const errorMessage =
@@ -120,7 +115,7 @@ class projectService {
         return project;
     }
 
-    static async getProject({ project_id }) {
+    static async getProjectById({ project_id }) {
         const project = await Project.findById({ project_id });
 
         if (!project) {

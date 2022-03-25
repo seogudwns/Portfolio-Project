@@ -50,11 +50,6 @@ class certificateService {
         let certificate = await Certificate.findById({ certificate_id });
         let changecounter = 0;
 
-        if (user_id !== certificate.user_id) {
-            const errorMessage = "수정권한이 없는 게시글입니다.";
-            return { errorMessage };
-        }
-
         const isTitle = toUpdate.title;
         const isExist = await Certificate.findByTitle({
             title: isTitle,
@@ -141,7 +136,7 @@ class certificateService {
         return certificate;
     }
 
-    static async getCertificate({ certificate_id }) {
+    static async getCertificateById({ certificate_id }) {
         const certificate = await Certificate.findById({ certificate_id });
 
         if (!certificate) {

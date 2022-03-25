@@ -21,6 +21,10 @@ projectRouter.post("/", async (req, res, next) => {
         const from_date = req.body.from_date ?? null;
         const to_date = req.body.to_date ?? null;
 
+        if (user_id !== req.currentUserId) {
+            throw new Error("접근권한이 없는 유저입니다.");
+        }
+
         const newProject = await projectService.createProject({
             user_id,
             title,
@@ -39,7 +43,7 @@ projectRouter.post("/", async (req, res, next) => {
 projectRouter.get("/:id", async (req, res, next) => {
     try {
         const project_id = req.params.id;
-        const project = await projectService.getProject({ project_id });
+        const project = await projectService.getProjectById({ project_id });
 
         if (project.errorMessage) {
             throw new Error(project.errorMessage);
@@ -69,8 +73,13 @@ projectRouter.get("/list/:user_id", async (req, res, next) => {
 
 projectRouter.put("/:id", async (req, res, next) => {
     try {
-        const user_id = req.currentUserId;
         const project_id = req.params.id;
+        const project = await projectService.getProjectById({ project_id });
+
+        if (project.user_id !== req.currentUserId) {
+            throw new Error("접근권한이 없는 유저입니다.");
+        }
+
         const title = req.body.title ?? null;
         const description = req.body.description ?? null;
         const result = req.body.result ?? null;
@@ -79,7 +88,6 @@ projectRouter.put("/:id", async (req, res, next) => {
 
         const toUpdate = { title, description, result, from_date, to_date };
         const updatedProject = await projectService.updateProject({
-            user_id,
             project_id,
             toUpdate,
         });
@@ -97,6 +105,12 @@ projectRouter.put("/:id", async (req, res, next) => {
 projectRouter.delete("/:id", async (req, res, next) => {
     try {
         const project_id = req.params.id;
+        const project = await projectService.getProjectById({ project_id });
+
+        if (project.user_id !== req.currentUserId) {
+            throw new Error("접근권한이 없는 유저입니다.");
+        }
+
         const deletedProject = await projectService.deleteProject({
             project_id,
         });

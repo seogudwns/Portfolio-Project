@@ -14,7 +14,18 @@ awardRouter.post("/", async (req, res, next) => {
             );
         }
 
-        const newAward = await AwardService.createAward(req.body);
+        const { user_id, title, description, when_date } = req.body;
+
+        if (user_id !== req.currentUserId) {
+            throw new Error("접근권한이 없는 유저입니다.");
+        }
+
+        const newAward = await AwardService.createAward({
+            user_id,
+            title,
+            description,
+            when_date,
+        });
 
         res.status(201).json(newAward);
     } catch (err) {
@@ -40,6 +51,12 @@ awardRouter.get("/:id", async (req, res, next) => {
 awardRouter.put("/:id", async (req, res, next) => {
     try {
         const award_id = req.params.id;
+        const award = await AwardService.getAwardById({ award_id });
+
+        if (award.user_id !== req.currentUserId) {
+            throw new Error("접근권한이 없는 유저입니다.");
+        }
+
         const title = req.body.title ?? null;
         const description = req.body.description ?? null;
         const when_date = req.body.when_date ?? null;
@@ -62,6 +79,11 @@ awardRouter.put("/:id", async (req, res, next) => {
 awardRouter.delete("/:id", async (req, res, next) => {
     try {
         const award_id = req.params.id;
+        const award = await AwardService.getAwardById({ award_id });
+        if (award.user_id !== req.currentUserId) {
+            throw new Error("접근권한이 없는 유저입니다.");
+        }
+
         const deletedAward = await AwardService.deleteAward({ award_id });
 
         if (deletedAward.errorMessage) {

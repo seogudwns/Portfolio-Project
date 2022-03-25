@@ -19,6 +19,10 @@ certificateRouter.post("/", async (req, res, next) => {
         const description = req.body.description ?? null;
         const expired_date = req.body.expired_date ?? null;
 
+        if (user_id !== req.currentUserId) {
+            throw new Error("접근권한이 없는 유저입니다.");
+        }
+
         const newCertificate = await certificateService.createCertificate({
             user_id,
             title,
@@ -39,8 +43,7 @@ certificateRouter.post("/", async (req, res, next) => {
 certificateRouter.get("/:id", async (req, res, next) => {
     try {
         const certificate_id = req.params.id;
-
-        const certificate = await certificateService.getCertificate({
+        const certificate = await certificateService.getCertificateById({
             certificate_id,
         });
 
@@ -72,8 +75,15 @@ certificateRouter.get("/list/:user_id", async (req, res, next) => {
 
 certificateRouter.put("/:id", async (req, res, next) => {
     try {
-        const user_id = req.currentUserId;
         const certificate_id = req.params.id;
+        const certificate = await certificateService.getCertificateById({
+            certificate_id,
+        });
+        if (certificate.user_id !== req.currentUserId) {
+            throw new Error("접근권한이 없는 유저입니다.");
+        }
+
+        const user_id = req.currentUserId;
         const title = req.body.title ?? null;
         const description = req.body.description ?? null;
         const expired_date = req.body.expired_date ?? null;
@@ -97,6 +107,13 @@ certificateRouter.put("/:id", async (req, res, next) => {
 certificateRouter.delete("/:id", async (req, res, next) => {
     try {
         const certificate_id = req.params.id;
+        const certificate = await certificateService.getCertificateById({
+            certificate_id,
+        });
+        if (certificate.user_id !== req.currentUserId) {
+            throw new Error("접근권한이 없는 유저입니다.");
+        }
+
         const deleteCertificate = await certificateService.deleteCertificate({
             certificate_id,
         });

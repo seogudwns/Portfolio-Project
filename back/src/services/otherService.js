@@ -46,11 +46,6 @@ class otherService {
             return { errorMessage };
         }
 
-        if (other.user_id !== user_id) {
-            const errorMessage = "수정권한이 없습니다.";
-            return { errorMessage };
-        }
-
         if (toUpdate.title !== other.title) {
             changecounter++;
             const fieldToUpdate = "title";
@@ -103,7 +98,7 @@ class otherService {
         return other;
     }
 
-    static async getOther({ other_id }) {
+    static async getOtherById({ other_id }) {
         const other = await Other.findById({ other_id });
 
         if (!other) {
