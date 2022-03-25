@@ -1,8 +1,18 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
+import EmailForm from "./EmailForm";
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
+    const [showEmailForm, setShowEmailForm] = useState(false);
     const navigate = useNavigate();
+    const handleClose = () => setShowEmailForm(false);
+
+    function EmailHandler(event) {
+        event.preventDefault();
+
+        setShowEmailForm(true);
+    }
 
     return (
         <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
@@ -16,10 +26,23 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
                     />
                 </Row>
                 <Card.Title>{user?.name}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                    {user?.email}
-                </Card.Subtitle>
+                {!isNetwork ? (
+                    <Card.Link href="#" onClick={EmailHandler}>
+                        {user?.email}
+                    </Card.Link>
+                ) : (
+                    <Card.Subtitle className="mb-2 text-muted">
+                        {user?.email}
+                    </Card.Subtitle>
+                )}
                 <Card.Text>{user?.description}</Card.Text>
+
+                <EmailForm
+                    userEmail={user?.email}
+                    toName={user?.name}
+                    handleClose={handleClose}
+                    show={showEmailForm}
+                />
 
                 {isEditable && (
                     <Col>
