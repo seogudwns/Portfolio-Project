@@ -17,7 +17,6 @@
   "rules": {
     "no-unused-vars": ["warn"],
     "quotes": ["warn", "double"],
-    "semi": ["error", "always"],
     "prefer-const": [
       "warn",
       {
@@ -67,7 +66,6 @@
         "functions": "never"
       }
     ],
-    "id-length": ["error"],
     "camelcase": ["warn", { "ignoreImports": true, "ignoreGlobals": true }],
     "new-cap": ["warn", { "capIsNew": false }]
   }
