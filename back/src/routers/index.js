@@ -1,5 +1,3 @@
-// import { Router } from "express";
-
 import { userAuthRouter } from "./userRouter";
 import { certificateRouter } from "./certificateRouter";
 import { awardRouter } from "./awardRouter";

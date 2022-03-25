@@ -3,7 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 
 class certificateService {
     //* 자격증 생성.
-    static async addCertificate({ user_id, title, description, expired_date }) {
+    static async createCertificate({
+        user_id,
+        title,
+        description,
+        expired_date,
+    }) {
         const existCertificate = await Certificate.findByTitle({
             title,
             user_id,
@@ -38,7 +43,7 @@ class certificateService {
     }
 
     // * 사용자와 동일한 user_id 정보를 가진 모든 자격증을 불러옴
-    static async getCertificateInfo({ user_id }) {
+    static async getCertificateListByUserId({ user_id }) {
         const certificate = await Certificate.findByUserId({ user_id });
 
         if (!certificate) {
@@ -50,7 +55,7 @@ class certificateService {
     }
 
     //* 자격증 업데이트... toUpdate = {title, description, expired_date }
-    static async setCertificate({ user_id, certificate_id, toUpdate }) {
+    static async updateCertificate({ user_id, certificate_id, toUpdate }) {
         let certificate = await Certificate.findById({ certificate_id });
         let changecounter = 0;
 

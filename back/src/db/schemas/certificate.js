@@ -17,10 +17,12 @@ const certificateSchema = new Schema(
         description: {
             type: String,
             required: false,
+            default: null,
         },
         expired_date: {
             type: String,
             required: false,
+            default: null,
         },
     },
     {

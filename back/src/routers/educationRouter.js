@@ -14,19 +14,20 @@ educationRouter.post("/", async (req, res, next) => {
             );
         }
 
-        const newEdu = await EducationService.createEdu(req.body);
+        const newEducation = await EducationService.createEducation(req.body);
 
-        res.status(201).json(newEdu);
+        res.status(201).json(newEducation);
     } catch (err) {
         next(err);
     }
 });
 
-// * education 상세정보 조회
 educationRouter.get("/:id", async (req, res, next) => {
     try {
         const education_id = req.params.id;
-        const education = await EducationService.getEduById({ education_id });
+        const education = await EducationService.getEducationById({
+            education_id,
+        });
 
         if (education.errorMessage) {
             throw new Error(education.errorMessage);
@@ -38,7 +39,6 @@ educationRouter.get("/:id", async (req, res, next) => {
     }
 });
 
-// * education 정보 삭제
 educationRouter.delete("/:id", async (req, res, next) => {
     try {
         const education_id = req.params.id;
@@ -65,16 +65,16 @@ educationRouter.put("/:id", async (req, res, next) => {
         const from_date = req.body.from_date ?? null;
         const to_date = req.body.to_date ?? null;
         const updateValue = { school, major, position, from_date, to_date };
-        const updatedEdu = await EducationService.updateEdu({
+        const updatedEducation = await EducationService.updateEducation({
             education_id,
             updateValue,
         });
 
-        if (updatedEdu.errorMessage) {
-            throw new Error(updatedEdu.errorMessage);
+        if (updatedEducation.errorMessage) {
+            throw new Error(updatedEducation.errorMessage);
         }
 
-        res.status(200).json(updatedEdu);
+        res.status(200).json(updatedEducation);
     } catch (err) {
         next(err);
     }

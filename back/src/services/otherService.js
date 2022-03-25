@@ -2,7 +2,13 @@ import { Other } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class otherService {
-    static async addOther({ user_id, title, description, from_date, to_date }) {
+    static async createOther({
+        user_id,
+        title,
+        description,
+        from_date,
+        to_date,
+    }) {
         const id = uuidv4();
         const newOther = {
             user_id,
@@ -21,8 +27,7 @@ class otherService {
         return newother;
     }
 
-    // * 사용자와 동일한 user_id 정보를 가진 모든 프로젝트를 불러옴
-    static async getOtherInfo({ user_id }) {
+    static async getOtherListByUserId({ user_id }) {
         const other = await Other.findByUserId({ user_id });
 
         if (other.length === 0) {
@@ -34,7 +39,7 @@ class otherService {
     }
 
     // 프로젝트 수정 관련.
-    static async setOther({ user_id, other_id, toUpdate }) {
+    static async updateOther({ user_id, other_id, toUpdate }) {
         let other = await Other.findById({ other_id });
         let changecounter = 0;
 
@@ -97,7 +102,7 @@ class otherService {
         if (changecounter === 0) {
             const errorMessage = "변경사항이 없습니다.";
             return { errorMessage };
-        } //
+        }
 
         return other;
     }
