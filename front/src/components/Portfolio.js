@@ -11,6 +11,7 @@ import Certificates from "./certificates/Certificates";
 import Projects from "./projects/Projects";
 import Others from "./other/Others";
 import Abouts from "./about/Abouts";
+import Intro from "./Intro";
 
 import "./Portfolio.css";
 
