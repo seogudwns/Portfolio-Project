@@ -22,27 +22,32 @@ class User {
     }
 
     static async update({ user_id, fieldToUpdate, newValue }) {
-        const filter = { id: user_id };
-        const update = { [fieldToUpdate]: newValue };
+        const filteredById = { id: user_id };
+        const updateData = { [fieldToUpdate]: newValue };
         const option = { returnOriginal: false };
 
         const updatedUser = await UserModel.findOneAndUpdate(
-            filter,
-            update,
+            filteredById,
+            updateData,
             option,
         );
+
         return updatedUser;
     }
 
     static async searchingByPiece({ pieceword }) {
-        const searchingUser = await (await UserModel.find()).filter(data => data.name.includes(pieceword));
-        
+        const searchingUser = await (
+            await UserModel.find()
+        ).filter((data) => data.name.includes(pieceword));
+
         return searchingUser;
     }
 
     static async searchingByPiece2({ pieceword }) {
-        const searchingUser = await (await UserModel.find()).filter(data => data.email.includes(pieceword));
-        
+        const searchingUser = await (
+            await UserModel.find()
+        ).filter((data) => data.email.includes(pieceword));
+
         return searchingUser;
     }
 

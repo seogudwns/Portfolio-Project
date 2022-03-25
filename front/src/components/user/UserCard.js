@@ -23,8 +23,8 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         <div className="usercard">
             <img
                 className="usercard-img"
-                src="http://placekitten.com/200/200"
-                alt="랜덤 고양이 사진 (http://placekitten.com API 사용)"
+                src={user?.image_url}
+                alt="불러오기 실패"
             />
             <div className="usercard-name">{user?.name}</div>
 

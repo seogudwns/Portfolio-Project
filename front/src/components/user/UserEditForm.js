@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import { v4 as uuidv4 } from "uuid";
+import AWS from "aws-sdk";
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 name 상태를 생성함.
@@ -9,21 +11,66 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const [email, setEmail] = useState(user.email);
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(user.description);
+  //useState로 image_url 상태를 생성함.
+  const [imageUrl, setImageUrl] = useState(user.image_url); 
+  
+  const [image, setImage] = useState(user.image_url); 
+  const [progress , setProgress] = useState(0);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const region = "ap-northeast-2";
+  const bucket = "portfolio-10team";
+
+  AWS.config.update({
+    region: region,
+    accessKeyId: "AKIAXTQ5B3SEERVAQOFP ",
+    secretAccessKey: "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",
+  });
+
+  const changeImageHandler = (event) => {
+    const file = event.target.files[0];
+    setImage(URL.createObjectURL(file));
+
+    // 이미지에 넣을 고유 id
+    const image_id = uuidv4();
+    const ext = "." + file.name.split(".")[1];
+    const fileName = image_id + ext;
+
+    const params = {
+      Bucket: bucket,
+      Key: "userImage/" + fileName, // 폴더경로 + uuid + 확장자명
+      Body: file,
+    };
+
+    const upload = new AWS.S3({
+      params: { Bucket: bucket },
+      region: region,
+    });
+
+    upload.putObject(params)
+      .on('httpUploadProgress', (data) => {
+          setProgress(Math.round((data.loaded / data.total) * 100));
+      })
+      .send((err) => {
+          if (err) console.log(err);
+      });
+
+    setImageUrl(`https://${bucket}.s3.${region}.amazonaws.com/userImage/${fileName}`);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     // "users/유저id" 엔드포인트로 PUT 요청함.
     const res = await Api.put(`users/${user.id}`, {
       name,
       email,
       description,
+      image_url: imageUrl,
     });
     // 유저 정보는 response의 data임.
     const updatedUser = res.data;
     // 해당 유저 정보로 user을 세팅함.
     setUser(updatedUser);
-
     // isEditing을 false로 세팅함.
     setIsEditing(false);
   };
@@ -32,12 +79,27 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     <Card className="mb-2">
       <Card.Body>
         <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="userEditImage" className="mb-3">
+            <Card.Img
+              style={{ width: "10rem", height: "8rem" }}
+              className="mb-3"
+              src={image}
+            />
+            <input
+              id="imageFile"
+              type="file"
+              accept="image/*"
+              onChange={changeImageHandler}
+            />
+            <div>{progress}%</div>
+          </Form.Group>
+
           <Form.Group controlId="useEditName" className="mb-3">
             <Form.Control
               type="text"
               placeholder="이름"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(event) => setName(event.target.value)}
             />
           </Form.Group>
 
@@ -46,7 +108,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               type="email"
               placeholder="이메일"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
             />
           </Form.Group>
 
@@ -55,7 +117,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               type="text"
               placeholder="정보, 인사말"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(event) => setDescription(event.target.value)}
             />
           </Form.Group>
 

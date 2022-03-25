@@ -31,8 +31,8 @@ function LoginForm() {
     // 이메일과 비밀번호 조건이 동시에 만족되는지 확인함.
     const isFormValid = isEmailValid && isPasswordValid;
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
         try {
             // "users/login" 엔드포인트로 post요청함.
@@ -70,7 +70,7 @@ function LoginForm() {
                                 type="email"
                                 autoComplete="on"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(event) => setEmail(event.target.value)}
                             />
                             {!isEmailValid && (
                                 <Form.Text className="text-success">
@@ -85,7 +85,7 @@ function LoginForm() {
                                 type="password"
                                 autoComplete="on"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(event) => setPassword(event.target.value)}
                             />
                             {!isPasswordValid && (
                                 <Form.Text className="text-success">

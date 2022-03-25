@@ -26,7 +26,7 @@ const UserSchema = new Schema(
         image_url: {
             type: String,
             required: false,
-            default: null,
+            default: "http://placekitten.com/200/200",
         },
     },
     {
