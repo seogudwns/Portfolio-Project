@@ -4,12 +4,10 @@ import { login_required } from "../middlewares/login_required";
 import { otherService } from "../services/otherService";
 
 const otherRouter = Router();
+otherRouter.use(login_required);
 
 //******************************************************** 1. other모델 생성
-otherRouter.post(
-    "/others",
-    login_required,
-    async (req, res, next) => {
+otherRouter.post("/", async (req, res, next) => {
         try {
             if (is.emptyObject(req.body)) {
                 throw new Error(
@@ -44,10 +42,7 @@ otherRouter.post(
 );
 
 //************************ 4. user_id : user_id를 포함한 모든 other모델 가져오기.
-otherRouter.get(
-    "/otherlist/:user_id",
-    login_required,
-    async (req, res, next) => {
+otherRouter.get("/list/:user_id", async (req, res, next) => {
         try {
             const user_id = req.params.user_id;
             const currentOtherInfo = await otherService.getOtherInfo({ user_id });
@@ -64,10 +59,7 @@ otherRouter.get(
 );
 
 //********************************************************************* 3. 수정기능
-otherRouter.put(
-    "/others/:id",
-    login_required,
-    async (req, res, next) => {
+otherRouter.put("/:id", async (req, res, next) => {
         try {
             // req에서 데이터 가져오기
             const user_id = req.currentUserId;
@@ -99,7 +91,7 @@ otherRouter.put(
 );
 
 //! other_id를 가진 게시물 개별검색..... 첫 게시물만 검색이 된다??
-otherRouter.get("/others/:id", async (req, res, next) => {
+otherRouter.get("/:id", async (req, res, next) => {
     try {
         const other_id = req.params.id;
 
@@ -116,10 +108,7 @@ otherRouter.get("/others/:id", async (req, res, next) => {
 });
 
 //! 나중에 delete front로 사용하시면 뭘 뜨게 하면 좋을지 아이디어 주세요오~~~~ 구현만 해놓음
-otherRouter.delete(
-    "/others/:id",
-    login_required,
-    async (req, res, next) => {
+otherRouter.delete("/:id", async (req, res, next) => {
         try {
             const other_id = req.params.id;
 

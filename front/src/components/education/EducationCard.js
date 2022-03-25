@@ -4,6 +4,8 @@ import React from "react";
 import { Card, Row, Col, Button } from "react-bootstrap";
 
 import * as Api from "../../api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function EducationCard({ education, isEditable, setIsEditing, setEducations }) {
     const deleteHandler = async () => {
@@ -23,35 +25,27 @@ function EducationCard({ education, isEditable, setIsEditing, setEducations }) {
             <Card.Text>
                 <Row className="align-items-center">
                     <Col>
-                        <span>{education?.school}</span>
-                        <br />
-                        <span className="text-muted">
+                        <div className="title">{education?.school}</div>
+                        <div className="description-1">
                             {education?.major} ({education?.position})
-                        </span>
-                        <br />
-                        <span>
+                        </div>
+                        <div className="date">
                             {`${education?.from_date.substr(0, 7)} ~ 
                             ${education?.to_date.substr(0, 7)}`}
-                        </span>
+                        </div>
                     </Col>
                     {isEditable && (
                         <Col lg={1} xs={true}>
-                            <Button
-                                variant="outline-info"
-                                size="sm"
+                            <FontAwesomeIcon
+                                className="fontawesome-icon edit-pen"
                                 onClick={() => setIsEditing(true)}
-                                className="mr-3"
-                            >
-                                편집
-                            </Button>
-                            <Button
-                                variant="outline-danger"
-                                size="sm"
-                                className="mr-3 mt-1"
+                                icon={faPen}
+                            />
+                            <FontAwesomeIcon
+                                className="fontawesome-icon delete-xmark"
                                 onClick={() => deleteHandler()}
-                            >
-                                삭제
-                            </Button>
+                                icon={faXmark}
+                            />
                         </Col>
                     )}
                 </Row>
