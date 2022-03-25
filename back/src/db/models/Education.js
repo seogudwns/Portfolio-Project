@@ -2,8 +2,8 @@ import { EducationModel } from "../schemas/education";
 
 class Education {
     static async create({ educationData }) {
-        const createdNewEdu = await EducationModel.create(educationData);
-        return createdNewEdu;
+        const createdNewEducation = await EducationModel.create(educationData);
+        return createdNewEducation;
     }
 
     static async findById({ education_id }) {
@@ -12,12 +12,12 @@ class Education {
     }
 
     static async update({ education_id, fieldToUpdate, value }) {
-        const filter = { id: education_id };
-        const update = { [fieldToUpdate]: value };
+        const filteredById = { id: education_id };
+        const updateData = { [fieldToUpdate]: value };
         const option = { returnOriginal: false }; // * 새롭게 업데이트 된 객체를 반환하는 옵션
         const updateEdu = EducationModel.findOneAndUpdate(
-            filter,
-            update,
+            filteredById,
+            updateData,
             option,
         );
 

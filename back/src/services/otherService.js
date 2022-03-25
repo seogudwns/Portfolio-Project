@@ -2,13 +2,7 @@ import { Other } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class otherService {
-    static async addOther({
-        user_id,
-        title,
-        description,
-        from_date,
-        to_date,
-    }) {
+    static async addOther({ user_id, title, description, from_date, to_date }) {
         const id = uuidv4();
         const newOther = {
             user_id,
@@ -23,7 +17,7 @@ class otherService {
         const newother = await Other.create({ newOther });
         newother.errorMessage = null;
         // 프로젝트 등록
-        
+
         return newother;
     }
 
@@ -45,7 +39,8 @@ class otherService {
         let changecounter = 0;
 
         if (!other) {
-            const errorMessage = "잘못 등록된 자격증입니다. 관리자에게 문의해주세요.";
+            const errorMessage =
+                "잘못 등록된 자격증입니다. 관리자에게 문의해주세요.";
             return { errorMessage };
         } //나오면 안되는 메세지.
 
@@ -60,8 +55,8 @@ class otherService {
             const fieldToUpdate = "title";
             const newValue = toUpdate.title;
             other = await Other.update({
-                other_id, 
-                fieldToUpdate, 
+                other_id,
+                fieldToUpdate,
                 newValue,
             });
         }
@@ -71,8 +66,8 @@ class otherService {
             const fieldToUpdate = "description";
             const newValue = toUpdate.description;
             other = await Other.update({
-                other_id, 
-                fieldToUpdate, 
+                other_id,
+                fieldToUpdate,
                 newValue,
             });
         }
@@ -82,8 +77,8 @@ class otherService {
             const fieldToUpdate = "from_date";
             const newValue = toUpdate.from_date;
             other = await Other.update({
-                other_id, 
-                fieldToUpdate, 
+                other_id,
+                fieldToUpdate,
                 newValue,
             });
         }
@@ -93,8 +88,8 @@ class otherService {
             const fieldToUpdate = "to_date";
             const newValue = toUpdate.to_date;
             other = await Other.update({
-                other_id, 
-                fieldToUpdate, 
+                other_id,
+                fieldToUpdate,
                 newValue,
             });
         }
@@ -112,7 +107,8 @@ class otherService {
         const other = await Other.findById({ other_id });
 
         if (!other) {
-            const errorMessage = "이 애러가 났다면 관리자가 글삭을 한 것일 가능성이 매우 높습니다.";
+            const errorMessage =
+                "이 애러가 났다면 관리자가 글삭을 한 것일 가능성이 매우 높습니다.";
             return { errorMessage };
         }
 
@@ -120,10 +116,10 @@ class otherService {
     }
 
     static async deleteOther({ other_id }) {
-        const deleteone = await Other.removeById({ other_id });
+        const deleteone = await Other.delete({ other_id });
 
         if (!deleteone) {
-            const errorMessage = '해당 프로젝트가 존재하지 않습니다.';
+            const errorMessage = "해당 프로젝트가 존재하지 않습니다.";
             return { errorMessage };
         }
 

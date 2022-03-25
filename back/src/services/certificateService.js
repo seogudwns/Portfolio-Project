@@ -3,24 +3,20 @@ import { v4 as uuidv4 } from "uuid";
 
 class certificateService {
     //* 자격증 생성.
-    static async addCertificate({ 
-        user_id, 
-        title, 
-        description, 
-        expired_date,
-    }) {
+    static async addCertificate({ user_id, title, description, expired_date }) {
         const existCertificate = await Certificate.findByTitle({
             title,
             user_id,
         }); //! typeof certificate === object
-        //! object의 길이를 통해 해결, 검색은 유저의 아이디와 제목이 둘 다 같은 경우 되게 함.  
+        //! object의 길이를 통해 해결, 검색은 유저의 아이디와 제목이 둘 다 같은 경우 되게 함.
 
         if (existCertificate.length > 0) {
-            const errorMessage = "중복된 이름의 자격증이 있습니다. 해당 자격증을 삭제 혹은 변경 바랍니다.";
+            const errorMessage =
+                "중복된 이름의 자격증이 있습니다. 해당 자격증을 삭제 혹은 변경 바랍니다.";
             return { errorMessage };
         }
 
-        const id = uuidv4();  //! _id를 이걸로 교체할 방법을 찾지 못함...ㅠㅠ
+        const id = uuidv4(); //! _id를 이걸로 교체할 방법을 찾지 못함...ㅠㅠ
         const newCertificate = {
             user_id,
             id,
@@ -54,19 +50,15 @@ class certificateService {
     }
 
     //* 자격증 업데이트... toUpdate = {title, description, expired_date }
-    static async setCertificate({
-        user_id, 
-        certificate_id, 
-        toUpdate,
-    }) {
+    static async setCertificate({ user_id, certificate_id, toUpdate }) {
         let certificate = await Certificate.findById({ certificate_id });
         let changecounter = 0;
 
         if (user_id !== certificate.user_id) {
             const errorMessage = "수정권한이 없는 게시글입니다.";
-            return { errorMessage };   //! 다른 유저의 토큰을 가지고 글을 수정했을 때 수정이 가능함.... 
+            return { errorMessage }; //! 다른 유저의 토큰을 가지고 글을 수정했을 때 수정이 가능함....
         }
-        
+
         const isTitle = toUpdate.title;
         const isExist = await Certificate.findByTitle({
             title: isTitle,
@@ -75,15 +67,18 @@ class certificateService {
 
         if (isExist.length > 0) {
             let isExist_id = [];
-            isExist.map(data => isExist_id.push(data.id));
-            
-            if (isExist_id.length === 1 && isExist_id.includes(certificate.id)) {
+            isExist.map((data) => isExist_id.push(data.id));
+
+            if (
+                isExist_id.length === 1 &&
+                isExist_id.includes(certificate.id)
+            ) {
                 //* 수정할 대상만 유일하게 존재하기 때문에 넘김.
             } else {
                 const errorMessage = "중복된 이름의 자격증이 존재합니다.";
                 return { errorMessage };
             }
-        }  //* 자격증별로 이름 하나만 가지게 만들기 완료.
+        } //* 자격증별로 이름 하나만 가지게 만들기 완료.
 
         if (!certificate) {
             const errorMessage =
@@ -124,7 +119,7 @@ class certificateService {
                 newValue,
             });
         }
-        
+
         if (changecounter === 0) {
             const errorMessage = "변경사항이 없습니다.";
             return { errorMessage };
@@ -134,10 +129,7 @@ class certificateService {
     }
 
     //* 자격증 만기일 갱신
-    static async set2Certificate({
-        certificate_id, 
-        newExpiredDate,
-    }) {
+    static async set2Certificate({ certificate_id, newExpiredDate }) {
         let certificate = await Certificate.findById({ certificate_id });
 
         if (certificate.expired_date === newExpiredDate) {
@@ -170,7 +162,7 @@ class certificateService {
 
     // * 삭제설정.
     static async deleteCertificate({ certificate_id }) {
-        const deleteone = await Certificate.removeById({ certificate_id });
+        const deleteone = await Certificate.delete({ certificate_id });
 
         if (!deleteone) {
             const errorMessage = "해당 자격증이 존재하지 않습니다.";
