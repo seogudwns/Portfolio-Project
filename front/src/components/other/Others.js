@@ -9,7 +9,7 @@ function Others({ portfolioOwnerId, isEditable }) {
     const [others, setOthers] = useState([]);
 
     useEffect(() => {
-        Api.get("otherlist", portfolioOwnerId).then((res) => {
+        Api.get("others/list", portfolioOwnerId).then((res) => {
             setOthers(res.data);
         });
     }, [portfolioOwnerId]);

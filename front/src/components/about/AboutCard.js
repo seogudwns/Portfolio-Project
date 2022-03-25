@@ -7,7 +7,7 @@ function AboutCard({ userAbout, setIsEditing, isEditable }) {
             <Card.Link href={userAbout.blog}>{userAbout?.blog}</Card.Link>
             <Card.Subtitle className="mt-2">주요 기술</Card.Subtitle>
             <Card.Text className="mb-2 text-muted">
-                {userAbout?.skill.join()}
+                {userAbout?.skill.join(", ")}
             </Card.Text>
             <Card.Subtitle>희망 직무</Card.Subtitle>
             <Card.Text className="mb-2 text-muted">

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
 
 import EmailForm from "./EmailForm";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import "./UserCard.css";
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
@@ -18,62 +20,39 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
     }
 
     return (
-        <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
-            <Card.Body>
-                <Row className="justify-content-md-center">
-                    <Card.Img
-                        style={{ width: "10rem", height: "8rem" }}
-                        className="mb-3"
-                        src={user?.image_url}
-                        alt="불러오기 실패"
-                    />
-                </Row>
-                <Card.Title>{user?.name}</Card.Title>
-                {!isNetwork ? (
-                    <Card.Link href="#" onClick={EmailHandler}>
-                        {user?.email}
-                    </Card.Link>
-                ) : (
-                    <Card.Subtitle className="mb-2 text-muted">
-                        {user?.email}
-                    </Card.Subtitle>
-                )}
-                <Card.Text>{user?.description}</Card.Text>
+        <div className="usercard">
+            <img
+                className="usercard-img"
+                src={user?.image_url}
+                alt="불러오기 실패"
+            />
+            <div className="usercard-name">{user?.name}</div>
 
-                <EmailForm
-                    userEmail={user?.email}
-                    toName={user?.name}
-                    handleClose={handleClose}
-                    show={showEmailForm}
+            {!isNetwork ? (
+                <Link to="#">
+                    <div className="usercard-email" onClick={EmailHandler}>
+                        {user?.email}
+                    </div>
+                </Link>
+            ) : (
+                <div className="usercard-email">{user?.email}</div>
+            )}
+            <div className="usercard-description">{user?.description}</div>
+            <EmailForm
+                userEmail={user?.email}
+                toName={user?.name}
+                handleClose={handleClose}
+                show={showEmailForm}
+            />
+
+            {isEditable && (
+                <FontAwesomeIcon
+                    className="fontawesome-icon edit-pen"
+                    onClick={() => setIsEditing(true)}
+                    icon={faPenToSquare}
                 />
-
-                {isEditable && (
-                    <Col>
-                        <Row className="mt-3 text-center text-info">
-                            <Col sm={{ span: 20 }}>
-                                <Button
-                                    variant="outline-info"
-                                    size="sm"
-                                    onClick={() => setIsEditing(true)}
-                                >
-                                    편집
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Col>
-                )}
-
-                {isNetwork && (
-                    <Card.Link
-                        className="mt-3"
-                        href="#"
-                        onClick={() => navigate(`/users/${user.id}`)}
-                    >
-                        포트폴리오
-                    </Card.Link>
-                )}
-            </Card.Body>
-        </Card>
+            )}
+        </div>
     );
 }
 

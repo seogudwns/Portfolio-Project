@@ -8,9 +8,20 @@ import * as Api from "../../api";
 function Abouts({ portfolioOwnerId, isEditable }) {
     const [userAbout, setUserAbout] = useState(null);
 
+    function isEmptyArray(arr) {
+        if (Array.isArray(arr) && arr.legnth === 0) {
+            return false;
+        }
+        return true;
+    }
+
     useEffect(() => {
-        Api.get("abouts", portfolioOwnerId)
-            .then((res) => setUserAbout(res.data))
+        Api.get("abouts/list", portfolioOwnerId)
+            .then((res) => {
+                isEmptyArray(res.data)
+                    ? setUserAbout(res.data.at(-1))
+                    : setUserAbout(null);
+            })
             .catch((err) => {
                 setUserAbout(null);
             });
