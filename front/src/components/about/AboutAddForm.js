@@ -4,9 +4,9 @@ import { Typeahead } from "react-bootstrap-typeahead";
 
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
-// import * as Api from "../../api";
+import * as Api from "../../api";
 
-function AboutAddForm({ setUserAbout }) {
+function AboutAddForm({ setUserAbout, userId }) {
     const [blog, setBlog] = useState("");
     const [skill, setSkill] = useState([]);
     const [position, setPosition] = useState("");
@@ -35,21 +35,19 @@ function AboutAddForm({ setUserAbout }) {
         event.preventDefault();
 
         const newAbout = {
+            user_id: userId,
             blog,
             skill,
             position,
             hobby,
         };
-        // try {
-        //     const res = await Api.post("abouts", newAbout);
+        try {
+            const res = await Api.post(`abouts`, newAbout);
 
-        //     setUserAbout(res.data);
-        // } catch (err) {
-        //     console.log("관련사항 등록에 실패하였습니다.", err);
-        // }
-
-        //! 테스트용
-        setUserAbout(newAbout);
+            setUserAbout(res.data);
+        } catch (err) {
+            console.log("관련사항 등록에 실패하였습니다.", err);
+        }
     };
 
     return (
@@ -80,7 +78,7 @@ function AboutAddForm({ setUserAbout }) {
             <Form.Group controlId="aboutAddPosition" className="mb-3">
                 <Form.Control
                     type="text"
-                    placeholder="포지션"
+                    placeholder="희망 직무"
                     value={position}
                     onChange={(event) => setPosition(event.target.value)}
                     size="sm"

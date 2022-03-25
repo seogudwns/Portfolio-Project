@@ -4,13 +4,14 @@ import { Typeahead } from "react-bootstrap-typeahead";
 
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
-// import * as Api from "../../api";
+import * as Api from "../../api";
 
 function AboutEditForm({ userAbout, setIsEditing, setUserAbout }) {
     const [blog, setBlog] = useState(userAbout.blog);
     const [skill, setSkill] = useState(userAbout.skill);
     const [position, setPosition] = useState(userAbout.position);
     const [hobby, setHobby] = useState(userAbout.hobby);
+    const userId = userAbout.id;
 
     const options = [
         "Java",
@@ -40,16 +41,14 @@ function AboutEditForm({ userAbout, setIsEditing, setUserAbout }) {
             position,
             hobby,
         };
-        // try {
-        //     const res = await Api.put("abouts", newAbout);
+        try {
+            const res = await Api.put(`abouts/${userId}`, updatedAbout);
 
-        //     setUserAbout(res.data);
-        // } catch (err) {
-        //     console.log("관련사항 수정에 실패하였습니다.", err);
-        // }
+            setUserAbout(res.data);
+        } catch (err) {
+            console.log("관련사항 수정에 실패하였습니다.", err);
+        }
 
-        //! 테스트용
-        setUserAbout(updatedAbout);
         setIsEditing(false);
     };
 
@@ -81,7 +80,7 @@ function AboutEditForm({ userAbout, setIsEditing, setUserAbout }) {
             <Form.Group controlId="aboutEditPosition" className="mb-3">
                 <Form.Control
                     type="text"
-                    placeholder="포지션"
+                    placeholder="희망 직무"
                     value={position}
                     onChange={(event) => setPosition(event.target.value)}
                     size="sm"
