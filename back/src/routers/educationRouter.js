@@ -9,7 +9,7 @@ educationRouter.use(login_required);
 educationRouter.post("/educations", async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
-            throw new Erorr(
+            throw new Error(
                 "Content-Type을 application/json으로 설정해주세요.",
             );
         }

@@ -18,8 +18,17 @@ function login_required(req, res, next) {
     try {
         const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
         const jwtDecoded = jwt.verify(userToken, secretKey);
-        const user_id = jwtDecoded.user_id;
-        req.currentUserId = user_id;
+
+        console.log(req.user);
+        console.log(jwtDecoded.user_id);
+
+        if (jwtDecoded.user_id !== req.user) {
+            const errorMessage =
+                "JWT 토큰 정보와 현재 로그인 유저가 일치하지 않습니다.";
+            return { errorMessage };
+        }
+
+        req.currentUserId = jwtDecoded.user_id;
         next();
     } catch (error) {
         res.status(400).json({ errorMessage: error.message }); // 토큰 만료시, { "jwt expired" } 객체 반환
