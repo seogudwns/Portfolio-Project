@@ -5,6 +5,7 @@ import { certificateAuthService } from "../services/certificateService";
 
 // 자격증 라우터
 const certificateRouter = Router();
+certificateRouter.use(login_required);
 
 // !
 // ?
@@ -58,7 +59,8 @@ certificateRouter.get(
         try {
             // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
             const user_id = req.params.user_id;
-            const currentCertificateInfo = await certificateAuthService.getCertificateInfo({ user_id });
+            const currentCertificateInfo =
+                await certificateAuthService.getCertificateInfo({ user_id });
 
             if (currentCertificateInfo.errorMessage) {
                 throw new Error(currentCertificateInfo.errorMessage);
@@ -114,7 +116,10 @@ certificateRouter.delete(
         try {
             const certificate_id = req.params.id;
 
-            const deleteCertificate = await certificateAuthService.deleteCertificate({ certificate_id });
+            const deleteCertificate =
+                await certificateAuthService.deleteCertificate({
+                    certificate_id,
+                });
 
             if (deleteCertificate.errorMessage) {
                 throw new Error(deleteCertificate.errorMessage);
@@ -132,7 +137,9 @@ certificateRouter.get("/certificates/:id", async (req, res, next) => {
     try {
         const certificate_id = req.params.id;
 
-        const searchCertificate = await certificateAuthService.getCertificate({ certificate_id });
+        const searchCertificate = await certificateAuthService.getCertificate({
+            certificate_id,
+        });
 
         if (searchCertificate.errorMessage) {
             throw new Error(searchCertificate.errorMessage);

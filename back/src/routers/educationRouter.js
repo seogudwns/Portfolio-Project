@@ -9,7 +9,7 @@ educationRouter.use(login_required);
 educationRouter.post("/educations", async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
-            throw new Erorr(
+            throw new Error(
                 "Content-Type을 application/json으로 설정해주세요.",
             );
         }
@@ -80,7 +80,7 @@ educationRouter.put("/educations/:id", async (req, res, next) => {
     }
 });
 
-educationRouter.get("/educationlist/:user_id", async (req, res, next) => {
+educationRouter.get("/educations/:user_id", async (req, res, next) => {
     try {
         const user_id = req.params.user_id;
         const educationList = await EducationService.getEduListByUserId({
