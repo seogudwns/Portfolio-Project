@@ -6,7 +6,7 @@ import { projectRouter } from "./projectRouter";
 import { aboutRouter } from "./aboutRouter";
 import { otherRouter } from "./otherRouter";
 
-const router = (app) => {
+const indexRouter = (app) => {
     app.use("/users", userAuthRouter);
     app.use("/certificates", certificateRouter);
     app.use("/projects", projectRouter);
@@ -16,4 +16,4 @@ const router = (app) => {
     app.use("/others", otherRouter);
 };
 
-export { router };
+export { indexRouter };
