@@ -5,11 +5,25 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    margin-bottom: 2px;
+    width: 300px;
 }
+
+.userform {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 280px;
+}
+
 .usercard-img {
-    width: 170px;
-    height: 170px;
+    width: 10rem;
+    height: 8rem;
     border-radius: 50%;
+    margin-bottom: 1rem;
+    object-fit: cover;
 }
 
 .usercard-name {
@@ -20,6 +34,8 @@
 .usercard-email,
 .usercard-description {
     font-size: 16px;
+    width: 300px;
+    text-align: center;
 }
 
 .usercard-description {

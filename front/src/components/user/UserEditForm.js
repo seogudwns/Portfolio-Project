@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
+import "./UserCard.css"
 import * as Api from "../../api";
 import { v4 as uuidv4 } from "uuid";
 import AWS from "aws-sdk";
@@ -22,8 +23,8 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
   AWS.config.update({
     region: region,
-    accessKeyId: "AKIAXTQ5B3SEERVAQOFP ",
-    secretAccessKey: "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",
+    accessKeyId: "AKIAXTQ5B3SEERVAQOFP",//process.env.S3_ACCESS_KEY_ID,
+    secretAccessKey: "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"//process.env.S3_SECRET_ACCESS_KEY,
   });
 
   const changeImageHandler = (event) => {
@@ -76,25 +77,26 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   };
 
   return (
-    <Card className="mb-2">
-      <Card.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="userEditImage" className="mb-3">
-            <Card.Img
-              style={{ width: "10rem", height: "8rem" }}
-              className="mb-3"
+    <div>
+      <Card.Body >
+        <Form onSubmit={handleSubmit} className="usercard">
+          <Form.Group controlId="userEditImage" className="mb-3 userform">
+            <img
+              className="usercard-img"
               src={image}
             />
-            <input
+            <Form.Control
               id="imageFile"
               type="file"
               accept="image/*"
               onChange={changeImageHandler}
             />
-            <div>{progress}%</div>
+            {progress === 0 || progress === 100 ? 
+              <span></span> : <span>{progress}%</span>
+            }
           </Form.Group>
 
-          <Form.Group controlId="useEditName" className="mb-3">
+          <Form.Group controlId="useEditName" className="mb-3 userform">
             <Form.Control
               type="text"
               placeholder="이름"
@@ -103,7 +105,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
             />
           </Form.Group>
 
-          <Form.Group controlId="userEditEmail" className="mb-3">
+          <Form.Group controlId="userEditEmail" className="mb-3 userform">
             <Form.Control
               type="email"
               placeholder="이메일"
@@ -112,7 +114,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
             />
           </Form.Group>
 
-          <Form.Group controlId="userEditDescription">
+          <Form.Group controlId="userEditDescription" className="userform">
             <Form.Control
               type="text"
               placeholder="정보, 인사말"
@@ -133,7 +135,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
           </Form.Group>
         </Form>
       </Card.Body>
-    </Card>
+    </div>
   );
 }
 

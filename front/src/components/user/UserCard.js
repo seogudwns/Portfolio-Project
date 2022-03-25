@@ -18,27 +18,27 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
     }
 
     return (
-        <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
-            <Card.Body>
+        <div>
+            <Card.Body className="usercard">
                 <Row className="justify-content-md-center">
-                    <Card.Img
-                        style={{ width: "10rem", height: "8rem" }}
-                        className="mb-3"
+                    <img
+                        style={{width: "10rem", height: "8rem"}}
+                        className="usercard-img"
                         src={user?.image_url}
                         alt="불러오기 실패"
                     />
                 </Row>
-                <Card.Title>{user?.name}</Card.Title>
+                <Card.Title className="usercard-name">{user?.name}</Card.Title>
                 {!isNetwork ? (
-                    <Card.Link href="#" onClick={EmailHandler}>
+                    <Card.Link className="usercard-email" href="#" onClick={EmailHandler}>
                         {user?.email}
                     </Card.Link>
                 ) : (
-                    <Card.Subtitle className="mb-2 text-muted">
+                    <Card.Subtitle className="mb-2 text-muted usercard-email">
                         {user?.email}
                     </Card.Subtitle>
                 )}
-                <Card.Text>{user?.description}</Card.Text>
+                <Card.Text className="usercard-description">{user?.description}</Card.Text>
 
                 <EmailForm
                     userEmail={user?.email}
@@ -73,7 +73,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
                     </Card.Link>
                 )}
             </Card.Body>
-        </Card>
+        </div>
     );
 }
 
