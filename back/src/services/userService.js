@@ -59,6 +59,7 @@ class userAuthService {
         const id = user.id;
         const name = user.name;
         const description = user.description;
+        const image_url = user.image_url;
 
         const loginUser = {
             token,
@@ -66,6 +67,7 @@ class userAuthService {
             email,
             name,
             description,
+            image_url,
             errorMessage: null,
         };
 
@@ -112,6 +114,12 @@ class userAuthService {
             const newValue = toUpdate.description;
             user = await User.update({ user_id, fieldToUpdate, newValue });
         }
+
+        if (toUpdate.image_url) {
+            const fieldToUpdate = "image_url";
+            const newValue = toUpdate.image_url;
+            user = await User.update({ user_id, fieldToUpdate, newValue });
+          }
 
         return user;
     }

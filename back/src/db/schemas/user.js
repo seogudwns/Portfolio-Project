@@ -23,6 +23,11 @@ const UserSchema = new Schema(
             required: false,
             default: "설명이 아직 없습니다. 추가해 주세요.",
         },
+        image_url: {
+            type: String,
+            required: false,
+            default: "http://placekitten.com/200/200",
+        },
     },
     {
         timestamps: true,

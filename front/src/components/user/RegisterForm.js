@@ -38,8 +38,8 @@ function RegisterForm() {
     const isFormValid =
         isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
         try {
             // "user/register" 엔드포인트로 post요청함.
@@ -67,7 +67,7 @@ function RegisterForm() {
                                 type="email"
                                 autoComplete="off"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(event) => setEmail(event.target.value)}
                             />
                             {!isEmailValid && (
                                 <Form.Text className="text-success">
@@ -85,7 +85,7 @@ function RegisterForm() {
                                 type="password"
                                 autoComplete="off"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(event) => setPassword(event.target.value)}
                             />
                             {!isPasswordValid && (
                                 <Form.Text className="text-success">
@@ -103,8 +103,8 @@ function RegisterForm() {
                                 type="password"
                                 autoComplete="off"
                                 value={confirmPassword}
-                                onChange={(e) =>
-                                    setConfirmPassword(e.target.value)
+                                onChange={(event) =>
+                                    setConfirmPassword(event.target.value)
                                 }
                             />
                             {!isPasswordSame && (
@@ -120,7 +120,7 @@ function RegisterForm() {
                                 type="text"
                                 autoComplete="off"
                                 value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                onChange={(event) => setName(event.target.value)}
                             />
                             {!isNameValid && (
                                 <Form.Text className="text-success">
