@@ -7,9 +7,12 @@ import {
     faCircleUser,
     faUsersBetweenLines,
     faRightFromBracket,
+    faMoon,
+    faSun,
 } from "@fortawesome/free-solid-svg-icons";
 import { ReactComponent as LogoGray } from "../img/logo_gray.svg";
 import "./Header.css";
+import ThemeContext  from "./Theme"
 
 function Header() {
     const navigate = useNavigate();
@@ -17,6 +20,7 @@ function Header() {
 
     const userState = useContext(UserStateContext);
     const dispatch = useContext(DispatchContext);
+    const { theme, toggleTheme } = useContext(ThemeContext);
 
     // 전역상태에서 user가 null이 아니라면 로그인 성공 상태임.
     const isLogin = !!userState.user;
@@ -35,6 +39,21 @@ function Header() {
         <Nav activeKey={location.pathname} className="nav">
             <LogoGray className="nav-logo" />
             <div className="nav-icons">
+                {/* <button onClick={() => toggleTheme()}>
+                    {theme}
+                </button> */}
+                {theme === "light" ? 
+                    <FontAwesomeIcon 
+                        className="fontawesome-icon nav-icons__icon"
+                        icon={faMoon}
+                        onClick={() => toggleTheme()} 
+                    /> : 
+                    <FontAwesomeIcon 
+                        className="fontawesome-icon nav-icons__icon"
+                        icon={faSun}
+                        onClick={() => toggleTheme()} 
+                    />
+                }
                 <FontAwesomeIcon
                     className="fontawesome-icon nav-icons__icon"
                     icon={faCircleUser}

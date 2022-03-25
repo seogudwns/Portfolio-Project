@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import * as Api from "../../api";
 import Certificate from "./Certificate";
 import CertificateAddForm from "./CertificateAddForm";
+import ThemeContext  from "../Theme";
 
 function Certificates({ portfolioOwnerId, isEditable }) {
   const [certificates, setCertificates] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   const handleAddClick = () => {
     setIsAdding((current) => !current);
@@ -21,7 +23,7 @@ function Certificates({ portfolioOwnerId, isEditable }) {
 
   return (
       <Card className="mb-2">
-        <Card.Body>
+        <Card.Body className={`${theme}`}>
           <Card.Title className="component-name">자격증</Card.Title>
           {certificates.map(certificate => (
             <Certificate

@@ -1,14 +1,25 @@
 @import "../variables.css";
 
 .container {
-    margin-top: 50px;
+    padding-top: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0;
 }
 
 .component-box {
     width: 800px;
     height: 500px;
+}
+
+.dark {
+    background: var(--dark-background-color);
+    color: var(--dark-color);
+}
+
+.light {
+    background-color:  var(--light-background-color);
+    color: var(--light-color);
 }
