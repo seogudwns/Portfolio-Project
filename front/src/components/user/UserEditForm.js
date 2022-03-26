@@ -105,14 +105,14 @@ function UserEditForm({ user, setIsEditing, setUser }) {
             />
           </Form.Group>
 
-          <Form.Group controlId="userEditEmail" className="mb-3 userform">
+          {/* <Form.Group controlId="userEditEmail" className="mb-3 userform">
             <Form.Control
               type="email"
               placeholder="이메일"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
-          </Form.Group>
+          </Form.Group> */}
 
           <Form.Group controlId="userEditDescription" className="userform">
             <Form.Control
