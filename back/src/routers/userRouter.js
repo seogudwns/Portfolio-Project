@@ -81,7 +81,6 @@ userAuthRouter.put("/:id", login_required, async (req, res, next) => {
     try {
         const user_id = req.params.id;
         const name = req.body.name ?? null;
-        const email = req.body.email ?? null;
         const password = req.body.password ?? null;
         const description = req.body.description ?? null;
         const image_url = req.body.image_url ?? null;
@@ -90,7 +89,7 @@ userAuthRouter.put("/:id", login_required, async (req, res, next) => {
             throw new Error("접근권한이 없습니다.");
         }
 
-        const toUpdate = { name, email, password, description, image_url };
+        const toUpdate = { name, password, description, image_url };
         const updatedUser = await userAuthService.setUser({
             user_id,
             toUpdate,
