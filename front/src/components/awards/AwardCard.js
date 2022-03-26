@@ -24,11 +24,11 @@ function AwardCard({ award, setIsEditing, isEditable, setAwards }) {
             <Card.Text>
                 <Row className="align-items-center">
                     <Col>
-                        <span>{title}</span>
+                        <span className="title">{title}</span>
                         <br />
-                        <span className="text-muted">{description}</span>
+                        <span className="description-1">{description}</span>
                         <br />
-                        <span className="text-muted">{when_date}</span>
+                        <span className="date">{when_date}</span>
                     </Col>
                     {isEditable && (
                         <Col lg={1} xs={true}>

@@ -44,6 +44,9 @@
 .usercard-description {
     text-align: center;
 }
+.network-usercard__email {
+    margin: 18px 0;
+}
 
 .usercard-description,
 .network-usercard__description {
