@@ -23,7 +23,7 @@ function Certificates({ portfolioOwnerId, isEditable }) {
 
   return (
       <Card className="mb-2">
-        <Card.Body className={`${theme}`}>
+        <Card.Body className={`${theme}`} style={{borderRadius:"0.25rem"}}>
           <Card.Title className="component-name">자격증</Card.Title>
           {certificates.map(certificate => (
             <Certificate

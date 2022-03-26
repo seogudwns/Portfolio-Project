@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Card } from "react-bootstrap";
 import About from "./About";
 import AboutAddForm from "./AboutAddForm";
 
 import * as Api from "../../api";
+import ThemeContext  from "../Theme";
 
 function Abouts({ portfolioOwnerId, isEditable }) {
     const [userAbout, setUserAbout] = useState(null);
+    const { theme } = useContext(ThemeContext);
 
     function isEmptyArray(arr) {
         if (Array.isArray(arr) && arr.legnth === 0) {
@@ -29,7 +31,7 @@ function Abouts({ portfolioOwnerId, isEditable }) {
 
     return (
         <Card className="mb-2 ms-3 mr-5" style={{ width: "25rem" }}>
-            <Card.Body>
+            <Card.Body className={`${theme}`} style={{borderRadius:"0.25rem"}}>
                 {userAbout ? (
                     <About
                         userAbout={userAbout}
