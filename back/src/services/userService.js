@@ -1,8 +1,11 @@
 import { User } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
 import { Checker } from "../utils/checker"; //*New!
+import { addBlockedToken, deleteBlockedToken } from "../middlewares/TokenBlackList"; //*New!
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
+
+
 
 class userAuthService {
     static async addUser({ name, email, password }) {
@@ -152,17 +155,26 @@ class userAuthService {
         return searchingUser;
     }
 
-    static async deleteUser({ user_id }) {
+    static async deleteUser({ userToken, user_id }) {
         const deletedUser = await User.deleteById({ user_id });
-        await Checker.deleteChild({ user_id });  //* user가 아닌 각각의 mvp별로 user_id를 가진 모든 게시글을 삭제하는 기능.
+        await Checker.deleteChild({ user_id });  
+        //* user가 아닌 각각의 mvp별로 user_id를 가진 모든 게시글을 삭제하는 기능.
 
         if (!deletedUser) {
             const errorMessage = "일치하는 유저가 없습니다.";
             return { errorMessage };
         }
 
+        await addBlockedToken({ userToken }); 
+        //! 애러메시지 뒤에 냅둔 이유는 쓸모없는 데이터소모량을 줄이기 위함.
+
         return deletedUser;
     }
-}
 
+    static async logoutUser({ userToken }) {
+        const registerBlockedToken = await addBlockedToken({ userToken });
+
+        return registerBlockedToken;
+    }
+}
 export { userAuthService };

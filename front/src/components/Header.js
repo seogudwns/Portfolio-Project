@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
+
+import * as Api from "../api";
 import { UserStateContext, DispatchContext } from "../App";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,7 +29,9 @@ function Header() {
     const isLogin = !!userState.user;
 
     // 로그아웃 클릭 시 실행되는 함수
-    const logout = () => {
+    const logout = async () => {
+        await Api.post("users/logout", {});
+
         // sessionStorage 에 저장했던 JWT 토큰을 삭제함.
         sessionStorage.removeItem("userToken");
         // dispatch 함수를 이용해 로그아웃함.
