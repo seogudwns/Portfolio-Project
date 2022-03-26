@@ -13,7 +13,7 @@ function EducationCard({ education, isEditable, setIsEditing, setEducations }) {
 
         await Api.delete(`educations/${id}`);
 
-        if (window.confirm("Are you sure you want to delete this project?")) {
+        if (window.confirm("정말로 학력 정보를 삭제하시겠습니까?")) {
             setEducations((current) => {
                 return current.filter((edu) => edu.id !== id);
             });
