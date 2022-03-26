@@ -39,7 +39,10 @@ function Share({ portfolioOwnerId, isMyPage }) {
 
     return (
         <Card className="mb-2 ms-3 mr-5" style={{ width: "25rem" }}>
-            <Card.Body className={`${theme}`} style={{borderRadius:"0.25rem"}}>
+            <Card.Body
+                className={`${theme}`}
+                style={{ borderRadius: "0.25rem" }}
+            >
                 <Row>
                     <Card.Title className="text-center">공유하기</Card.Title>
                 </Row>
