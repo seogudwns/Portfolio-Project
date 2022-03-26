@@ -3,7 +3,7 @@ import { Card, Row, Button, Col } from "react-bootstrap";
 import Project from "./Project";
 import ProjectAddForm from "./ProjectAddForm";
 import * as Api from "../../api";
-import ThemeContext  from "../Theme";
+import ThemeContext from "../Theme";
 
 function Projects({ portfolioOwnerId, isEditable }) {
     const [isAdding, setIsAdding] = useState(false);
@@ -26,8 +26,11 @@ function Projects({ portfolioOwnerId, isEditable }) {
 
     return (
         <Card className="mb-2">
-            <Card.Body className={`${theme}`} style={{borderRadius:"0.25rem"}}>
-                <Card.Title>프로젝트</Card.Title>
+            <Card.Body
+                className={`${theme}`}
+                style={{ borderRadius: "0.25rem" }}
+            >
+                <Card.Title className="component-name">프로젝트</Card.Title>
                 {projectlist}
                 {isEditable && (
                     <Col>

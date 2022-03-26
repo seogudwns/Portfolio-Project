@@ -20,33 +20,32 @@ function ProjectCard({ project, setIsEditing, isEditable, setProjects }) {
     };
 
     return (
-        <Card.Text>
-            <Row className="align-items-center">
-                <Col>
-                    <span className="title">{title}</span>
-                    <br />
-                    <span className="description-1">{description}</span>
-                    <br />
-                    <span className="description-2">{result}</span>
-                    <br />
-                    <span className="date">{`${from_date} ~ ${to_date}`}</span>
-                </Col>
-                {isEditable && (
-                    <Col lg={1} xs={true}>
-                        <FontAwesomeIcon
-                            className="fontawesome-icon edit-pen"
-                            onClick={() => setIsEditing(true)}
-                            icon={faPen}
-                        />
-                        <FontAwesomeIcon
-                            className="fontawesome-icon delete-xmark"
-                            onClick={() => deleteHandler()}
-                            icon={faXmark}
-                        />
+        <>
+            <Card.Text>
+                <Row className="align-items-center">
+                    <Col>
+                        <div className="title">{title}</div>
+                        <div className="description-1">{description}</div>
+                        <div className="description-2">{result}</div>
+                        <div className="date">{`${from_date} ~ ${to_date}`}</div>
                     </Col>
-                )}
-            </Row>
-        </Card.Text>
+                    {isEditable && (
+                        <Col lg={1} xs={true}>
+                            <FontAwesomeIcon
+                                className="fontawesome-icon edit-pen"
+                                onClick={() => setIsEditing(true)}
+                                icon={faPen}
+                            />
+                            <FontAwesomeIcon
+                                className="fontawesome-icon delete-xmark"
+                                onClick={() => deleteHandler()}
+                                icon={faXmark}
+                            />
+                        </Col>
+                    )}
+                </Row>
+            </Card.Text>
+        </>
     );
 }
 

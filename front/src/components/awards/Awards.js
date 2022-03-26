@@ -3,7 +3,7 @@ import { Card, Row, Button, Col } from "react-bootstrap";
 import AwardAddForm from "./AwardAddForm";
 import Award from "./Award";
 import * as Api from "../../api";
-import ThemeContext  from "../Theme";
+import ThemeContext from "../Theme";
 
 function Awards({ portfolioOwnerId, isEditable }) {
     const [isAdding, setIsAdding] = useState(false);
@@ -22,8 +22,11 @@ function Awards({ portfolioOwnerId, isEditable }) {
 
     return (
         <Card className="mb-2">
-            <Card.Body className={`${theme}`} style={{borderRadius:"0.25rem"}}>
-                <Card.Title>수상이력</Card.Title>
+            <Card.Body
+                className={`${theme}`}
+                style={{ borderRadius: "0.25rem" }}
+            >
+                <Card.Title className="component-name">수상이력</Card.Title>
                 {awardList}
                 {isEditable && (
                     <Col>

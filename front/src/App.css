@@ -13,19 +13,20 @@ body {
 }
 
 .title {
-    margin-bottom: 10px;
+    margin-bottom: 7px;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 22px;
 }
 
 .description-1,
 .description-2 {
-    font-size: 18px;
+    font-size: 16px;
+    margin-bottom: 5px;
 }
 
 .date {
-    margin-bottom: 10px;
-    font-size: 16px;
+    margin-bottom: 25px;
+    font-size: 15px;
     color: var(--date-gray-color);
 }
 
