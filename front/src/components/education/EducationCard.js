@@ -1,7 +1,7 @@
 // TODO: 하나의 학력 카드 보여주기 구현
 // 본인 id 일 경우 편집 버튼 보이기
 import React from "react";
-import { Card, Row, Col, Button } from "react-bootstrap";
+import { Card, Row, Col } from "react-bootstrap";
 
 import * as Api from "../../api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
