@@ -15,7 +15,7 @@ function AboutCard({ userAbout, setIsEditing, isEditable }) {
             </Card.Text>
             <Card.Subtitle>취미</Card.Subtitle>
             <Card.Text className="mb-2 text-muted">
-                {userAbout?.hobby}
+                {userAbout?.hobby.join(", ")}
             </Card.Text>
 
             {isEditable && (
