@@ -1,9 +1,9 @@
 import { CertificateModel } from "../schemas/certificate";
 
 class Certificate {
-    static async create({ newCertificate }) {
+    static async create({ CertificateData }) {
         const createdNewCertificate = await CertificateModel.create(
-            newCertificate,
+            CertificateData,
         );
 
         return createdNewCertificate;
@@ -56,7 +56,7 @@ class Certificate {
     static async removeAllByUserId({ user_id }) {
         const deleteall = await CertificateModel.deleteMany({ user_id });
         return deleteall;
-    }  //* 유저가 아이디 삭제시 user_id를 포함한 모든 게시물 제거.
+    } //* 유저가 아이디 삭제시 user_id를 포함한 모든 게시물 제거.
 }
 
 export { Certificate };

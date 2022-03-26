@@ -1,8 +1,8 @@
 import { OtherModel } from "../schemas/other";
 
 class Other {
-    static async create({ newOther }) {
-        const createdNewOther = await OtherModel.create(newOther);
+    static async create({ otherData }) {
+        const createdNewOther = await OtherModel.create(otherData);
         return createdNewOther;
     }
 
@@ -47,7 +47,7 @@ class Other {
     static async removeAllByUserId({ user_id }) {
         const deleteall = await OtherModel.deleteMany({ user_id });
         return deleteall;
-    }  //* 유저가 아이디 삭제시 user_id를 포함한 모든 게시물 제거.
+    } //* 유저가 아이디 삭제시 user_id를 포함한 모든 게시물 제거.
 }
 
 export { Other };
