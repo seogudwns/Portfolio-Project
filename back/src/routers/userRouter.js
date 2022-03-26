@@ -43,7 +43,7 @@ userAuthRouter.post("/login", async (req, res, next) => {
         if (user.errorMessage) {
             throw new Error(user.errorMessage);
         }
-        
+
         res.status(200).json(user);
     } catch (error) {
         next(error);
@@ -51,7 +51,6 @@ userAuthRouter.post("/login", async (req, res, next) => {
 });
 
 userAuthRouter.get("/list", login_required, async (req, res, next) => {
-    
     try {
         const users = await userAuthService.getUsers();
         res.status(200).json(users);
@@ -122,6 +121,26 @@ userAuthRouter.get("/:id", login_required, async (req, res, next) => {
     }
 });
 
+userAuthRouter.delete("/:id", login_required, async (req, res, next) => {
+    try {
+        const user_id = req.params.id;
+
+        if (req.currentUserId !== user_id) {
+            throw new Error("접근권한이 없습니다.");
+        }
+
+        const deletdUser = await userAuthService.deleteUser({ user_id });
+
+        if (deletdUser.errorMessage) {
+            throw new Error(deletdUser.errorMessage);
+        }
+
+        res.status(200).json(deletdUser);
+    } catch (err) {
+        next(err);
+    }
+});
+
 userAuthRouter.get(
     "/list/:type/:pieceword",
     login_required,
@@ -131,7 +150,14 @@ userAuthRouter.get(
             const pieceword = req.params.pieceword;
 
             let resultList;
-            const modelName = ["Other", "Eaducation", "Certificate", "Award", "Project", "About"];
+            const modelName = [
+                "Other",
+                "Eaducation",
+                "Certificate",
+                "Award",
+                "Project",
+                "About",
+            ];
             if (Model === "user_name") {
                 resultList = await userAuthService.getUsersWithRestrict({
                     pieceword,
@@ -152,27 +178,7 @@ userAuthRouter.get(
         } catch (error) {
             next(error);
         }
-    }
+    },
 );
-
-userAuthRouter.delete("/:id", login_required, async (req, res, next) => {
-    try {
-        const user_id = req.params.id;
-
-        if (req.currentUserId !== user_id) {
-            throw new Error("접근권한이 없습니다.");
-        }
-
-        const deletdUser = await userAuthService.deleteUser({ user_id });
-
-        if (deletdUser.errorMessage) {
-            throw new Error(deletdUser.errorMessage);
-        }
-
-        res.status(200).json(deletdUser);
-    } catch (err) {
-        next(err);
-    }
-});
 
 export { userAuthRouter };
