@@ -68,7 +68,7 @@ userAuthRouter.post("/logout", addTokenBlackList, async (req, res, next) => {
 });
 
 
-userAuthRouter.get("/list", login_required, async (req, res, next) => {
+userAuthRouter.get("/list", login_required, addTokenBlackList, async (req, res, next) => {
     
     try {
         const users = await userAuthService.getUsers();
@@ -78,7 +78,7 @@ userAuthRouter.get("/list", login_required, async (req, res, next) => {
     }
 });
 
-userAuthRouter.get("/current", login_required, async (req, res, next) => {
+userAuthRouter.get("/current", login_required, addTokenBlackList, async (req, res, next) => {
     try {
         const user_id = req.currentUserId;
         const currentUserInfo = await userAuthService.getUserInfo({
@@ -95,7 +95,7 @@ userAuthRouter.get("/current", login_required, async (req, res, next) => {
     }
 });
 
-userAuthRouter.put("/:id", login_required, async (req, res, next) => {
+userAuthRouter.put("/:id", login_required, addTokenBlackList, async (req, res, next) => {
     try {
         const user_id = req.params.id;
         const name = req.body.name ?? null;
@@ -123,7 +123,7 @@ userAuthRouter.put("/:id", login_required, async (req, res, next) => {
     }
 });
 
-userAuthRouter.get("/:id", login_required, async (req, res, next) => {
+userAuthRouter.get("/:id", login_required, addTokenBlackList, async (req, res, next) => {
     try {
         const user_id = req.params.id;
         const currentUserInfo = await userAuthService.getUserInfo({

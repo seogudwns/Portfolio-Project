@@ -2,9 +2,11 @@ import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { AwardService } from "../services/awardService";
+import { addTokenBlackList } from "../middlewares/TokenBlackList";
 
 const awardRouter = Router();
 awardRouter.use(login_required);
+awardRouter.use(addTokenBlackList);
 
 awardRouter.post("/", async (req, res, next) => {
     try {

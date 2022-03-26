@@ -12,7 +12,7 @@ const tokenList = new Schema({
     },
 });
 
-const TokenModel = new model("About", tokenList);
+const TokenModel = new model("token", tokenList);
 
 //===========================================================
 async function findByToken({ userToken }) {
@@ -21,7 +21,7 @@ async function findByToken({ userToken }) {
 }
 
 async function addBlockedToken({ userToken }) {
-    const token = await TokenModel.create({ token: userToken });
+    const token = await TokenModel.create({ Token: userToken });
     return token;
 }
 
