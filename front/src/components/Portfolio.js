@@ -14,6 +14,7 @@ import Abouts from "./about/Abouts";
 import Intro from "./Intro";
 
 import "./Portfolio.css";
+import ThemeContext  from "./Theme"
 
 function Portfolio() {
     const navigate = useNavigate();
@@ -24,6 +25,7 @@ function Portfolio() {
     // 아래 코드를 보면, isFetchCompleted가 false이면 "loading..."만 반환되어서, 화면에 이 로딩 문구만 뜨게 됨.
     const [isFetchCompleted, setIsFetchCompleted] = useState(false);
     const userState = useContext(UserStateContext);
+    const { theme } = useContext(ThemeContext);
 
     const fetchPorfolioOwner = async (ownerId) => {
         // 유저 id를 가지고 "/users/유저id" 엔드포인트로 요청해 사용자 정보를 불러옴.
@@ -61,8 +63,9 @@ function Portfolio() {
     }
 
     return (
-        <div className="user-container">
+        <div className={`user-container ${theme}`}>
             <Row>
+
                 <User
                     portfolioOwnerId={portfolioOwner.id}
                     isEditable={portfolioOwner.id === userState.user?.id}

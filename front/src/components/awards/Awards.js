@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import AwardAddForm from "./AwardAddForm";
 import Award from "./Award";
 import * as Api from "../../api";
+import ThemeContext  from "../Theme";
 
 function Awards({ portfolioOwnerId, isEditable }) {
     const [isAdding, setIsAdding] = useState(false);
     const [awards, setAwards] = useState([]);
+    const { theme } = useContext(ThemeContext);
 
     useEffect(() => {
         Api.get(`awards/list`, portfolioOwnerId).then((res) => {
@@ -19,8 +21,8 @@ function Awards({ portfolioOwnerId, isEditable }) {
     ));
 
     return (
-        <Card>
-            <Card.Body>
+        <Card className="mb-2">
+            <Card.Body className={`${theme}`} style={{borderRadius:"0.25rem"}}>
                 <Card.Title>수상이력</Card.Title>
                 {awardList}
                 {isEditable && (

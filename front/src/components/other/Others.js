@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import Other from "./Other";
 import OtherAddForm from "./OtherAddForm";
 import * as Api from "../../api";
+import ThemeContext  from "../Theme";
 
 function Others({ portfolioOwnerId, isEditable }) {
     const [isAdding, setIsAdding] = useState(false);
     const [others, setOthers] = useState([]);
+    const { theme } = useContext(ThemeContext);
 
     useEffect(() => {
         Api.get("others/list", portfolioOwnerId).then((res) => {
@@ -26,7 +28,7 @@ function Others({ portfolioOwnerId, isEditable }) {
 
     return (
         <Card>
-            <Card.Body>
+            <Card.Body className={`${theme}`} style={{borderRadius:"0.25rem"}}>
                 <Card.Title>기타활동</Card.Title>
                 {otherlist}
                 {isEditable && (
