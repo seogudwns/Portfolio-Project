@@ -1,7 +1,7 @@
 @import "../variables.css";
 
-.container {
-    padding-top: 50px;
+.user-container {
+    margin: 50px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,9 +9,20 @@
     margin: 0;
 }
 
+.portfolio-container {
+    margin-top: 50px;
+}
+
 .component-box {
-    width: 800px;
-    height: 500px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.portfolio-line {
+    margin-top: 70px;
+    width: 70%;
+    height: 1px;
+    background-color: var(--soft-gray-color);
 }
 
 .dark {

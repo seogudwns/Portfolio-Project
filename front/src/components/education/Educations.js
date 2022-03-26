@@ -17,9 +17,9 @@ function Educations({ portfolioOwnerId, isEditable }) {
         setIsAdding((current) => !current);
     };
 
-    // "educationlist/유저id" 엔드포인트로 GET 요청
+    // "educations/list/유저id" 엔드포인트로 GET 요청
     useEffect(() => {
-        Api.get("educationlist", portfolioOwnerId).then((res) => {
+        Api.get("educations/list", portfolioOwnerId).then((res) => {
             setEducations(res.data);
         });
     }, [portfolioOwnerId]);

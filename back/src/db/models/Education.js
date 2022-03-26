@@ -2,8 +2,8 @@ import { EducationModel } from "../schemas/education";
 
 class Education {
     static async create({ educationData }) {
-        const createdNewEdu = await EducationModel.create(educationData);
-        return createdNewEdu;
+        const createdNewEducation = await EducationModel.create(educationData);
+        return createdNewEducation;
     }
 
     static async findById({ education_id }) {
@@ -12,12 +12,12 @@ class Education {
     }
 
     static async update({ education_id, fieldToUpdate, value }) {
-        const filter = { id: education_id };
-        const update = { [fieldToUpdate]: value };
+        const filteredById = { id: education_id };
+        const updateData = { [fieldToUpdate]: value };
         const option = { returnOriginal: false }; // * 새롭게 업데이트 된 객체를 반환하는 옵션
         const updateEdu = EducationModel.findOneAndUpdate(
-            filter,
-            update,
+            filteredById,
+            updateData,
             option,
         );
 
@@ -36,6 +36,11 @@ class Education {
 
         return deletedEducation;
     }
+
+    static async removeAllByUserId({ user_id }) {
+        const deleteall = await EducationModel.deleteMany({ user_id });
+        return deleteall;
+    }  //* 유저가 아이디 삭제시 user_id를 포함한 모든 게시물 제거.
 }
 
 export { Education };

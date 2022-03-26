@@ -13,8 +13,19 @@ aboutRouter.post("/", async (req, res, next) => {
                 "Content-Type을 application/json으로 설정해주세요.",
             );
         }
+        const { user_id, blog, skill, position, hobby } = req.body;
 
-        const newAbout = await AboutService.createAbout(req.body);
+        if (user_id !== req.currentUserId) {
+            throw new Error("접근권한이 없는 유저입니다.");
+        }
+
+        const newAbout = await AboutService.createAbout({
+            user_id,
+            blog,
+            skill,
+            position,
+            hobby,
+        });
 
         res.status(201).json(newAbout);
     } catch (err) {
@@ -40,6 +51,11 @@ aboutRouter.get("/:id", async (req, res, next) => {
 aboutRouter.put("/:id", async (req, res, next) => {
     try {
         const about_id = req.params.id;
+        const about = await AboutService.getAboutById({ about_id });
+        if (about.user_id !== req.currentUserId) {
+            throw new Error("접근권한이 없는 유저입니다.");
+        }
+
         const blog = req.body.blog ?? null;
         const skill = req.body.skill ?? null;
         const position = req.body.position ?? null;
@@ -63,6 +79,11 @@ aboutRouter.put("/:id", async (req, res, next) => {
 aboutRouter.delete("/:id", async (req, res, next) => {
     try {
         const about_id = req.params.id;
+        const about = await AboutService.getAboutById({ about_id });
+        if (about.user_id !== req.currentUserId) {
+            throw new Error("접근권한이 없는 유저입니다.");
+        }
+
         const deletedAbout = await AboutService.deleteAbout({ about_id });
 
         if (deletedAbout.errorMessage) {
@@ -85,5 +106,14 @@ aboutRouter.get("/list/:user_id", async (req, res, next) => {
         next(err);
     }
 });
+
+aboutRouter.delete("/clear/:user_id", async (req, res, next) => {  
+    try {
+        const user_id = req.params.user_id;
+        await AboutService.clearAboutListByUserId({ user_id });
+    } catch (err) {
+        next(err);
+    }
+});  //! 임시로 만들어 놓은 라우터.. 해당 user_id를 가진 모든 about이 삭제되므로 주의..!
 
 export { aboutRouter };

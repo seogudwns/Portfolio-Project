@@ -10,6 +10,8 @@ import Network from "./components/user/Network";
 import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
 import { ThemeProvider } from "./components/Theme";
+import Intro from "./components/Intro";
+
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);

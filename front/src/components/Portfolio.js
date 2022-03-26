@@ -11,6 +11,7 @@ import Certificates from "./certificates/Certificates";
 import Projects from "./projects/Projects";
 import Others from "./other/Others";
 import Abouts from "./about/Abouts";
+import Intro from "./Intro";
 
 import "./Portfolio.css";
 import ThemeContext  from "./Theme"
@@ -62,42 +63,60 @@ function Portfolio() {
     }
 
     return (
-        <Container className={`container ${theme}`} fluid>
-            <Col md="3" lg="3">
+        <div className={`user-container ${theme}`}>
+            <Row>
+
                 <User
                     portfolioOwnerId={portfolioOwner.id}
                     isEditable={portfolioOwner.id === userState.user?.id}
                 />
-                <Abouts
-                    portfolioOwnerId={portfolioOwner.id}
-                    isEditable={portfolioOwner.id === userState.user?.id}
-                />
-            </Col>
-            <Row className="component-box">
-                <Col>
-                    <Educations
-                        portfolioOwnerId={portfolioOwner.id}
-                        isEditable={portfolioOwner.id === userState.user?.id}
-                    />
-                    <Awards
-                        portfolioOwnerId={portfolioOwner.id}
-                        isEditable={portfolioOwner.id === userState.user?.id}
-                    />
-                    <Certificates
-                        portfolioOwnerId={portfolioOwner.id}
-                        isEditable={portfolioOwner.id === userState.user?.id}
-                    />
-                    <Projects
-                        portfolioOwnerId={portfolioOwner.id}
-                        isEditable={portfolioOwner.id === userState.user?.id}
-                    />
-                    <Others
-                        portfolioOwnerId={portfolioOwner.id}
-                        isEditable={portfolioOwner.id === userState.user?.id}
-                    />
-                </Col>
             </Row>
-        </Container>
+            <div className="portfolio-line"></div>
+            <Container className="portfolio-container">
+                <Row className="component-box">
+                    <Col md="3" lg="4">
+                        <Abouts
+                            portfolioOwnerId={portfolioOwner.id}
+                            isEditable={
+                                portfolioOwner.id === userState.user?.id
+                            }
+                        />
+                    </Col>
+                    <Col>
+                        <Educations
+                            portfolioOwnerId={portfolioOwner.id}
+                            isEditable={
+                                portfolioOwner.id === userState.user?.id
+                            }
+                        />
+                        <Awards
+                            portfolioOwnerId={portfolioOwner.id}
+                            isEditable={
+                                portfolioOwner.id === userState.user?.id
+                            }
+                        />
+                        <Certificates
+                            portfolioOwnerId={portfolioOwner.id}
+                            isEditable={
+                                portfolioOwner.id === userState.user?.id
+                            }
+                        />
+                        <Projects
+                            portfolioOwnerId={portfolioOwner.id}
+                            isEditable={
+                                portfolioOwner.id === userState.user?.id
+                            }
+                        />
+                        <Others
+                            portfolioOwnerId={portfolioOwner.id}
+                            isEditable={
+                                portfolioOwner.id === userState.user?.id
+                            }
+                        />
+                    </Col>
+                </Row>
+            </Container>
+        </div>
     );
 }
 

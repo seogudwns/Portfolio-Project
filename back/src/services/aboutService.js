@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 class AboutService {
     static async createAbout({ user_id, blog, skill, position, hobby }) {
         const about_id = uuidv4();
-
         const AboutData = {
             id: about_id,
             user_id,
@@ -79,6 +78,10 @@ class AboutService {
         const aboutList = await About.findByUserId({ user_id });
         return aboutList;
     }
+
+    static async clearAboutListByUserId({ user_id }) {
+        await About.removeAllByUserId({ user_id });
+    }  //! 라우터로부터 임시로 만들어놓은 서비스.
 }
 
 export { AboutService };

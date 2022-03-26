@@ -26,13 +26,13 @@ function Network() {
     }, [userState, navigate]);
 
     return (
-        <>
+        <div style={{ marginBottom: 100 }}>
             {users.length !== 0 ? (
                 <NetworkScroll users={users} />
             ) : (
                 <span>Loading...</span>
             )}
-        </>
+        </div>
     );
 }
 

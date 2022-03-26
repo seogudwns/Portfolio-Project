@@ -5,7 +5,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid rgba(0,0,0,.125);
     margin-bottom: 2px;
     width: 300px;
 }
@@ -20,25 +19,76 @@
 
 .usercard-img {
     width: 10rem;
-    height: 8rem;
+    height: 10rem;
     border-radius: 50%;
     margin-bottom: 1rem;
     object-fit: cover;
 }
 
-.usercard-name {
+.usercard-name,
+.network-usercard__name {
+    margin-top: 10px;
     font-size: 20px;
     font-weight: 600;
 }
 
 .usercard-email,
-.usercard-description {
+.usercard-description,
+.network-usercard__email,
+.network-usercard__description {
     font-size: 16px;
     width: 300px;
+}
+
+.usercard-email,
+.usercard-description {
     text-align: center;
 }
 
-.usercard-description {
+.usercard-description,
+.network-usercard__description {
     margin: 18px 0;
     color: var(--hard-gray-color);
+}
+
+.network-usercard-box {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.network-usercard-box:first-child {
+    margin-top: 200px;
+}
+
+.network-usercard {
+    margin: 25px 0 0 25px;
+    display: flex;
+    align-items: center;
+}
+
+.network-usercard img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+}
+
+.network-usercard__texts {
+    margin-left: 25px;
+}
+
+.network-usercard__port-link {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 800px;
+    width: 130px;
+    height: 45px;
+    border-radius: 20px;
+    background-color: var(--main-color);
+    color: white;
+    cursor: pointer;
+    font-weight: 300;
 }
