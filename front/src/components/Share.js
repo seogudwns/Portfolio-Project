@@ -7,7 +7,8 @@ import {
 import { Card, Row, Col } from "react-bootstrap";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useScript } from "./user/hooks/useScript";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import ThemeContext from "./Theme";
 import kakaoLogo from "../img/kakao.png";
 
 import "./Share.css";
@@ -18,6 +19,7 @@ function Share({ portfolioOwnerId, isMyPage }) {
         ? `${window.location.href}users/${portfolioOwnerId}`
         : window.location.href;
     const status = useScript("https://developers.kakao.com/sdk/js/kakao.js");
+    const { theme } = useContext(ThemeContext);
 
     useEffect(() => {
         if (status === "ready" && window.Kakao) {
@@ -37,7 +39,7 @@ function Share({ portfolioOwnerId, isMyPage }) {
 
     return (
         <Card className="mb-2 ms-3 mr-5" style={{ width: "25rem" }}>
-            <Card.Body>
+            <Card.Body className={`${theme}`} style={{borderRadius:"0.25rem"}}>
                 <Row>
                     <Card.Title className="text-center">공유하기</Card.Title>
                 </Row>
