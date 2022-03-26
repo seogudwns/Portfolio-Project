@@ -3,7 +3,7 @@ import { Card, Row, Button, Col } from "react-bootstrap";
 import Other from "./Other";
 import OtherAddForm from "./OtherAddForm";
 import * as Api from "../../api";
-import ThemeContext  from "../Theme";
+import ThemeContext from "../Theme";
 
 function Others({ portfolioOwnerId, isEditable }) {
     const [isAdding, setIsAdding] = useState(false);
@@ -28,8 +28,11 @@ function Others({ portfolioOwnerId, isEditable }) {
 
     return (
         <Card>
-            <Card.Body className={`${theme}`} style={{borderRadius:"0.25rem"}}>
-                <Card.Title>기타활동</Card.Title>
+            <Card.Body
+                className={`${theme}`}
+                style={{ borderRadius: "0.25rem" }}
+            >
+                <Card.Title className="component-name">기타활동</Card.Title>
                 {otherlist}
                 {isEditable && (
                     <Col>

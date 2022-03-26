@@ -23,11 +23,9 @@ function OtherCard({ other, setIsEditing, isEditable, setOthers }) {
         <Card.Text>
             <Row className="align-items-center">
                 <Col>
-                    <span className="title">{title}</span>
-                    <br />
-                    <span className="description-1">{description}</span>
-                    <br />
-                    <span className="date">{`${from_date} ~ ${to_date}`}</span>
+                    <div className="title">{title}</div>
+                    <div className="description-1">{description}</div>
+                    <div className="date">{`${from_date} ~ ${to_date}`}</div>
                 </Col>
                 {isEditable && (
                     <Col lg={1} xs={true}>
