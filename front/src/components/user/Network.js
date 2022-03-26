@@ -31,7 +31,7 @@ function Network() {
     return (
         <>
             <Header />
-            <div className={`${theme}`} style={{ marginBottom: 100 }}>
+            <div className={`${theme}`} style={{ paddingBottom: 100 }}>
                 {users.length !== 0 ? (
                     <NetworkScroll users={users} />
                 ) : (

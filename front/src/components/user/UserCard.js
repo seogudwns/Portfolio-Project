@@ -78,7 +78,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
                                     {user?.name}
                                 </div>
 
-                                <div className="usercard-email">
+                                <div className="network-usercard__email">
                                     {user?.email}
                                 </div>
 
