@@ -15,7 +15,7 @@ import Intro from "./Intro";
 import Share from "./Share";
 
 import "./Portfolio.css";
-import ThemeContext  from "./Theme"
+import ThemeContext from "./Theme";
 
 function Portfolio() {
     const navigate = useNavigate();
@@ -42,6 +42,13 @@ function Portfolio() {
     useEffect(() => {
         // 전역 상태의 user가 null이라면 로그인이 안 된 상태이므로, 로그인 페이지로 돌림.
         if (!userState.user) {
+            if (params.userId) {
+                navigate("/login", {
+                    state: { from: `/users/${params.userId}` },
+                    replace: true,
+                });
+                return;
+            }
             navigate("/login", { replace: true });
             return;
         }
@@ -66,7 +73,6 @@ function Portfolio() {
     return (
         <div className={`user-container ${theme}`}>
             <Row>
-
                 <User
                     portfolioOwnerId={portfolioOwner.id}
                     isEditable={portfolioOwner.id === userState.user?.id}

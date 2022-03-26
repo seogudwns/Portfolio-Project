@@ -1,13 +1,14 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
 
 import * as Api from "../../api";
 import { DispatchContext } from "../../App";
-import ThemeContext  from "../Theme";
+import ThemeContext from "../Theme";
 
 function LoginForm() {
     const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useContext(DispatchContext);
     const { theme } = useContext(ThemeContext);
 
@@ -53,15 +54,19 @@ function LoginForm() {
                 payload: user,
             });
 
-            // 기본 페이지로 이동함.
-            navigate("/", { replace: true });
+            // location의 state가 없다면 기본 페이지로 이동하고 있다면 이전페이지인 state.from으로 이동함
+            if (!location.state?.from) {
+                navigate("/", { replace: true });
+            } else {
+                navigate(location.state.from, { replace: true });
+            }
         } catch (err) {
             alert("로그인에 실패하였습니다.\n", err);
         }
     };
 
     return (
-        <div className={`${theme}`} style={{height:"100vh"}}>
+        <div className={`${theme}`} style={{ height: "100vh" }}>
             <Container>
                 <Row className="justify-content-md-center pt-5">
                     <Col lg={8}>
@@ -83,7 +88,10 @@ function LoginForm() {
                                 )}
                             </Form.Group>
 
-                            <Form.Group controlId="loginPassword" className="mt-3">
+                            <Form.Group
+                                controlId="loginPassword"
+                                className="mt-3"
+                            >
                                 <Form.Label>비밀번호</Form.Label>
                                 <Form.Control
                                     type="password"
