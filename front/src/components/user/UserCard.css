@@ -25,20 +25,28 @@
     object-fit: cover;
 }
 
-.usercard-name {
+.usercard-name,
+.network-usercard__name {
     margin-top: 10px;
     font-size: 20px;
     font-weight: 600;
 }
 
 .usercard-email,
-.usercard-description {
+.usercard-description,
+.network-usercard__email,
+.network-usercard__description {
     font-size: 16px;
     width: 300px;
+}
+
+.usercard-email,
+.usercard-description {
     text-align: center;
 }
 
-.usercard-description {
+.usercard-description,
+.network-usercard__description {
     margin: 18px 0;
     color: var(--hard-gray-color);
 }

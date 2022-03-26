@@ -55,21 +55,23 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
                             />
 
                             <div className="network-usercard__texts">
-                                <div className="usercard-name">
+                                <div className="network-usercard__name">
                                     {user?.name}
                                 </div>
+
                                 <a href="#">
                                     <div
-                                        className="usercard-email"
+                                        className="network-usercard__email"
                                         onClick={EmailHandler}
                                     >
                                         {user?.email}
                                     </div>
                                 </a>
 
-                                <div className="usercard-description">
+                                <div className="network-usercard__description">
                                     {user?.description}
                                 </div>
+
                                 <EmailForm
                                     userEmail={user?.email}
                                     toName={user?.name}
@@ -77,6 +79,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
                                     show={showEmailForm}
                                 />
                             </div>
+
                             <div
                                 className="network-usercard__port-link"
                                 onClick={() => navigate(`/users/${user.id}`)}
