@@ -6,10 +6,12 @@ import * as Api from "../../api";
 import UserCard from "./UserCard";
 import { UserStateContext } from "../../App";
 import NetworkScroll from "./NetworkScroll";
+import ThemeContext  from "../Theme";
 
 function Network() {
     const navigate = useNavigate();
     const userState = useContext(UserStateContext);
+    const { theme } = useContext(ThemeContext);
     // useState 훅을 통해 users 상태를 생성함.
     const [users, setUsers] = useState([]);
 
@@ -26,7 +28,7 @@ function Network() {
     }, [userState, navigate]);
 
     return (
-        <div style={{ marginBottom: 100 }}>
+        <div className={`${theme}`} style={{ marginBottom: 100 }}>
             {users.length !== 0 ? (
                 <NetworkScroll users={users} />
             ) : (

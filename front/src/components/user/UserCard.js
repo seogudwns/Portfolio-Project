@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Card, Row, Col } from "react-bootstrap";
 
 import EmailForm from "./EmailForm";
+import ThemeContext  from "../Theme";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +11,7 @@ import "./UserCard.css";
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
     const [showEmailForm, setShowEmailForm] = useState(false);
+    const { theme } = useContext(ThemeContext);
     const navigate = useNavigate();
     const handleClose = () => setShowEmailForm(false);
 
@@ -47,7 +49,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
             ) : (
                 <div className="network-usercard-box">
                     <Card style={{ height: "200px", width: "1000px" }}>
-                        <div className="network-usercard">
+                        <div className={`network-usercard ${theme}`}>
                             <img
                                 className="usercard-img"
                                 src={user?.image_url}
