@@ -48,14 +48,20 @@ function Share({ portfolioOwnerId, isMyPage }) {
                 </Row>
                 <Row>
                     <Col className="text-center text-info">
-                        <FacebookShareButton url={currentUrl}>
+                        <FacebookShareButton
+                            url={currentUrl}
+                            className="facebookShareButton"
+                        >
                             <FacebookIcon
                                 size={48}
                                 round={true}
                                 borderRadius={24}
                             ></FacebookIcon>
                         </FacebookShareButton>
-                        <TwitterShareButton url={currentUrl}>
+                        <TwitterShareButton
+                            url={currentUrl}
+                            className="twitterShareButton"
+                        >
                             <TwitterIcon
                                 size={48}
                                 round={true}
