@@ -11,8 +11,8 @@ import Certificates from "./certificates/Certificates";
 import Projects from "./projects/Projects";
 import Others from "./other/Others";
 import Abouts from "./about/Abouts";
-import Intro from "./Intro";
 import Share from "./Share";
+import Header from "./Header";
 
 import "./Portfolio.css";
 import ThemeContext from "./Theme";
@@ -50,7 +50,7 @@ function Portfolio() {
                 });
                 return;
             }
-            navigate("/login", { replace: true });
+            navigate("/intro", { replace: true });
             return;
         }
 
@@ -73,63 +73,66 @@ function Portfolio() {
     }
 
     return (
-        <div className={`user-container ${theme}`}>
-            <Row>
-                <User
-                    portfolioOwnerId={portfolioOwner.id}
-                    isEditable={portfolioOwner.id === userState.user?.id}
-                />
-            </Row>
-            <div className="portfolio-line"></div>
-            <Container className="portfolio-container">
-                <Row className="component-box">
-                    <Col md="3" lg="4">
-                        <Abouts
-                            portfolioOwnerId={portfolioOwner.id}
-                            isEditable={
-                                portfolioOwner.id === userState.user?.id
-                            }
-                        />
-                        <Share
-                            portfolioOwnerId={portfolioOwner.id}
-                            isMyPage={isMyPage}
-                        />
-                    </Col>
-                    <Col>
-                        <Educations
-                            portfolioOwnerId={portfolioOwner.id}
-                            isEditable={
-                                portfolioOwner.id === userState.user?.id
-                            }
-                        />
-                        <Awards
-                            portfolioOwnerId={portfolioOwner.id}
-                            isEditable={
-                                portfolioOwner.id === userState.user?.id
-                            }
-                        />
-                        <Certificates
-                            portfolioOwnerId={portfolioOwner.id}
-                            isEditable={
-                                portfolioOwner.id === userState.user?.id
-                            }
-                        />
-                        <Projects
-                            portfolioOwnerId={portfolioOwner.id}
-                            isEditable={
-                                portfolioOwner.id === userState.user?.id
-                            }
-                        />
-                        <Others
-                            portfolioOwnerId={portfolioOwner.id}
-                            isEditable={
-                                portfolioOwner.id === userState.user?.id
-                            }
-                        />
-                    </Col>
+        <>
+            <Header />
+            <div className={`user-container ${theme}`}>
+                <Row>
+                    <User
+                        portfolioOwnerId={portfolioOwner.id}
+                        isEditable={portfolioOwner.id === userState.user?.id}
+                    />
                 </Row>
-            </Container>
-        </div>
+                <div className="portfolio-line"></div>
+                <Container className="portfolio-container">
+                    <Row className="component-box">
+                        <Col md="3" lg="4">
+                            <Abouts
+                                portfolioOwnerId={portfolioOwner.id}
+                                isEditable={
+                                    portfolioOwner.id === userState.user?.id
+                                }
+                            />
+                            <Share
+                                portfolioOwnerId={portfolioOwner.id}
+                                isMyPage={isMyPage}
+                            />
+                        </Col>
+                        <Col>
+                            <Educations
+                                portfolioOwnerId={portfolioOwner.id}
+                                isEditable={
+                                    portfolioOwner.id === userState.user?.id
+                                }
+                            />
+                            <Awards
+                                portfolioOwnerId={portfolioOwner.id}
+                                isEditable={
+                                    portfolioOwner.id === userState.user?.id
+                                }
+                            />
+                            <Certificates
+                                portfolioOwnerId={portfolioOwner.id}
+                                isEditable={
+                                    portfolioOwner.id === userState.user?.id
+                                }
+                            />
+                            <Projects
+                                portfolioOwnerId={portfolioOwner.id}
+                                isEditable={
+                                    portfolioOwner.id === userState.user?.id
+                                }
+                            />
+                            <Others
+                                portfolioOwnerId={portfolioOwner.id}
+                                isEditable={
+                                    portfolioOwner.id === userState.user?.id
+                                }
+                            />
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        </>
     );
 }
 
