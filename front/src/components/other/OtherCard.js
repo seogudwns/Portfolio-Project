@@ -1,5 +1,7 @@
 import { Card, Row, Button, Col } from "react-bootstrap";
 import * as Api from "../../api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function OtherCard({ other, setIsEditing, isEditable, setOthers }) {
     const { title, description, from_date, to_date, id } = other;
@@ -29,22 +31,16 @@ function OtherCard({ other, setIsEditing, isEditable, setOthers }) {
                 </Col>
                 {isEditable && (
                     <Col lg={1} xs={true}>
-                        <Button
-                            variant="outline-info"
-                            size="sm"
+                        <FontAwesomeIcon
+                            className="fontawesome-icon edit-pen"
                             onClick={() => setIsEditing(true)}
-                            className="mr-3"
-                        >
-                            편집
-                        </Button>
-                        <Button
-                            variant="outline-danger"
-                            size="sm"
-                            className="mr-3 mt-1"
+                            icon={faPen}
+                        />
+                        <FontAwesomeIcon
+                            className="fontawesome-icon delete-xmark"
                             onClick={() => deleteHandler()}
-                        >
-                            삭제
-                        </Button>
+                            icon={faXmark}
+                        />
                     </Col>
                 )}
             </Row>
