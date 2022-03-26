@@ -7,16 +7,16 @@ function AboutCard({ userAbout, setIsEditing, isEditable }) {
         <>
             <Card.Subtitle>블로그</Card.Subtitle>
             <Card.Link href={userAbout.blog}>{userAbout?.blog}</Card.Link>
-            <Card.Subtitle className="mt-2">주요 기술</Card.Subtitle>
-            <Card.Text className="mb-2 text-muted">
+            <Card.Subtitle className="mt-3">주요 기술</Card.Subtitle>
+            <Card.Text className="mb-4 text-muted">
                 {userAbout?.skill.join(", ")}
             </Card.Text>
             <Card.Subtitle>희망 직무</Card.Subtitle>
-            <Card.Text className="mb-2 text-muted">
+            <Card.Text className="mb-4 text-muted">
                 {userAbout?.position}
             </Card.Text>
             <Card.Subtitle>취미</Card.Subtitle>
-            <Card.Text className="mb-2 text-muted">
+            <Card.Text className="text-muted">
                 {userAbout?.hobby.join(", ")}
             </Card.Text>
 
