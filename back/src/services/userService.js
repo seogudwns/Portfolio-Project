@@ -158,17 +158,6 @@ class userAuthService {
         return searchingUser;
     }
 
-    static async getUsersWithRestrict3({ Model, pieceword }) {
-        //! const searchingUser = await Checker.PickUsers({ Model, pieceword });
-
-        // if (!searchingUser) {
-        //     const errorMessage = "검색조건에 부합하는 유저가 없습니다.";
-        //     return { errorMessage };
-        // } //! 제발 작동하면 좋겠다....
-
-        return "아직 구현되지 않은 기능입니다.";
-    }
-
     static async deleteUser({ user_id }) {
         const deletedUser = await User.deleteById({ user_id });
         await Checker.deleteChild({ user_id });  //* user가 아닌 각각의 mvp별로 user_id를 가진 모든 게시글을 삭제하는 기능.
