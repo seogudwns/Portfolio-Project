@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCircleUser,
@@ -49,6 +50,7 @@ function Header() {
                     <FontAwesomeIcon
                         className="fontawesome-icon nav-icons__icon"
                         icon={faRightFromBracket}
+                        onClick={logout}
                     />
                 )}
             </div>

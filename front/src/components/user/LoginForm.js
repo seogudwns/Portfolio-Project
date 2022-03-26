@@ -27,7 +27,6 @@ function LoginForm() {
     const isEmailValid = validateEmail(email);
     // 비밀번호가 4글자 이상인지 여부를 확인함.
     const isPasswordValid = password.length >= 4;
-    //
     // 이메일과 비밀번호 조건이 동시에 만족되는지 확인함.
     const isFormValid = isEmailValid && isPasswordValid;
 
@@ -70,7 +69,9 @@ function LoginForm() {
                                 type="email"
                                 autoComplete="on"
                                 value={email}
-                                onChange={(event) => setEmail(event.target.value)}
+                                onChange={(event) =>
+                                    setEmail(event.target.value)
+                                }
                             />
                             {!isEmailValid && (
                                 <Form.Text className="text-success">
@@ -85,7 +86,9 @@ function LoginForm() {
                                 type="password"
                                 autoComplete="on"
                                 value={password}
-                                onChange={(event) => setPassword(event.target.value)}
+                                onChange={(event) =>
+                                    setPassword(event.target.value)
+                                }
                             />
                             {!isPasswordValid && (
                                 <Form.Text className="text-success">

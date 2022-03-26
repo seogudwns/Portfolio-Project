@@ -1,0 +1,60 @@
+@import "../variables.css";
+
+.intro {
+    background-image: url("../img/bg-main.jpg");
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 100px 0;
+    color: white;
+}
+
+.intro-logo {
+    width: 170px;
+    height: 75px;
+}
+
+.intro-text,
+.intro-inbox,
+.intro-inbox__register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.intro-inbox {
+    font-weight: 300;
+}
+
+.intro-inbox__register {
+    width: 270px;
+    height: 70px;
+    background-color: var(--main-color);
+    color: var(--nav-white-color);
+    border-radius: 40px;
+    font-size: 24px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.intro-text span:first-child {
+    font-size: 54px;
+}
+
+.intro-text span:last-child {
+    font-size: 16px;
+    font-weight: 200;
+}
+
+.intro-inbox__login {
+    font-size: 18px;
+}
+
+.intro-inbox__login span {
+    font-weight: 500;
+    cursor: pointer;
+}
