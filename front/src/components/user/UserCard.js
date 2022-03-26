@@ -30,11 +30,28 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
                     />
                     <div className="usercard-name">{user?.name}</div>
 
-                    <div className="usercard-email">{user?.email}</div>
+                    {isEditable ? (
+                        <div className="usercard-email">{user?.email}</div>
+                    ) : (
+                        <a
+                            className="usercard-email"
+                            href="#"
+                            onClick={EmailHandler}
+                        >
+                            {user?.email}
+                        </a>
+                    )}
 
                     <div className="usercard-description">
                         {user?.description}
                     </div>
+
+                    <EmailForm
+                        userEmail={user?.email}
+                        toName={user?.name}
+                        handleClose={handleClose}
+                        show={showEmailForm}
+                    />
 
                     {isEditable && (
                         <FontAwesomeIcon
@@ -59,25 +76,13 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
                                     {user?.name}
                                 </div>
 
-                                <a href="#">
-                                    <div
-                                        className="network-usercard__email"
-                                        onClick={EmailHandler}
-                                    >
-                                        {user?.email}
-                                    </div>
-                                </a>
+                                <div className="usercard-email">
+                                    {user?.email}
+                                </div>
 
                                 <div className="network-usercard__description">
                                     {user?.description}
                                 </div>
-
-                                <EmailForm
-                                    userEmail={user?.email}
-                                    toName={user?.name}
-                                    handleClose={handleClose}
-                                    show={showEmailForm}
-                                />
                             </div>
 
                             <div

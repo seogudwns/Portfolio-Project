@@ -12,6 +12,7 @@ import Projects from "./projects/Projects";
 import Others from "./other/Others";
 import Abouts from "./about/Abouts";
 import Intro from "./Intro";
+import Share from "./Share";
 
 import "./Portfolio.css";
 
@@ -77,6 +78,10 @@ function Portfolio() {
                             isEditable={
                                 portfolioOwner.id === userState.user?.id
                             }
+                        />
+                        <Share
+                            portfolioOwnerId={portfolioOwner.id}
+                            isMyPage={portfolioOwner.id === userState.user?.id}
                         />
                     </Col>
                     <Col>
