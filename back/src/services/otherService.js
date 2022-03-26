@@ -26,16 +26,9 @@ class otherService {
 
     static async getOtherListByUserId({ user_id }) {
         const other = await Other.findByUserId({ user_id });
-
-        if (other.length === 0) {
-            const errorMessage = "프로젝트를 등록해주세요.";
-            return { errorMessage };
-        }
-
         return other;
     }
 
-    // 프로젝트 수정 관련.
     static async updateOther({ user_id, other_id, toUpdate }) {
         let other = await Other.findById({ other_id });
         let changecounter = 0;
