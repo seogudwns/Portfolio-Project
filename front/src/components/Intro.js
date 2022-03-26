@@ -24,7 +24,7 @@ function Intro() {
                 </div>
                 <div className="intro-inbox__login">
                     이미 회원이라면?
-                    <span onClick={() => navigate("/login")}>로그인</span>
+                    <span onClick={() => navigate("/login")}> 로그인</span>
                 </div>
             </div>
         </div>

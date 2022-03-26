@@ -44,7 +44,7 @@ userAuthRouter.post("/login", async (req, res, next) => {
         if (user.errorMessage) {
             throw new Error(user.errorMessage);
         }
-        
+
         res.status(200).json(user);
     } catch (error) {
         next(error);
@@ -67,9 +67,7 @@ userAuthRouter.post("/logout", addTokenBlackList, async (req, res, next) => {
     }
 });
 
-
 userAuthRouter.get("/list", login_required, addTokenBlackList, async (req, res, next) => {
-    
     try {
         const users = await userAuthService.getUsers();
         res.status(200).json(users);
@@ -193,5 +191,45 @@ userAuthRouter.delete("/:id", login_required, addTokenBlackList, async (req, res
         next(err);
     }
 });
+
+userAuthRouter.get(
+    "/list/:type/:pieceword",
+    login_required,
+    async (req, res, next) => {
+        try {
+            const Model = req.params.type;
+            const pieceword = req.params.pieceword;
+
+            let resultList;
+            const modelName = [
+                "Other",
+                "Eaducation",
+                "Certificate",
+                "Award",
+                "Project",
+                "About",
+            ];
+            if (Model === "user_name") {
+                resultList = await userAuthService.getUsersWithRestrict({
+                    pieceword,
+                }); //* 이름검색 완료
+            } else if (Model === "user_email") {
+                resultList = await userAuthService.getUsersWithRestrict2({
+                    pieceword,
+                }); //* 이메일검색 완료
+            } else if (modelName.includes(Model)) {
+                const errorMessage = " 추후 구현할 예정입니다.";
+                res.status.json(errorMessage);
+            } else {
+                const errorMessage = "검색하려는 정확한 타입을 골라주세요.";
+                res.status(400).json(errorMessage);
+            }
+
+            res.status(200).json(resultList);
+        } catch (error) {
+            next(error);
+        }
+    },
+);
 
 export { userAuthRouter };

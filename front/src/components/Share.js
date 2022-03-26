@@ -39,20 +39,29 @@ function Share({ portfolioOwnerId, isMyPage }) {
 
     return (
         <Card className="mb-2 ms-3 mr-5" style={{ width: "25rem" }}>
-            <Card.Body className={`${theme}`} style={{borderRadius:"0.25rem"}}>
+            <Card.Body
+                className={`${theme}`}
+                style={{ borderRadius: "0.25rem" }}
+            >
                 <Row>
                     <Card.Title className="text-center">공유하기</Card.Title>
                 </Row>
                 <Row>
                     <Col className="text-center text-info">
-                        <FacebookShareButton url={currentUrl}>
+                        <FacebookShareButton
+                            url={currentUrl}
+                            className="facebookShareButton"
+                        >
                             <FacebookIcon
                                 size={48}
                                 round={true}
                                 borderRadius={24}
                             ></FacebookIcon>
                         </FacebookShareButton>
-                        <TwitterShareButton url={currentUrl}>
+                        <TwitterShareButton
+                            url={currentUrl}
+                            className="twitterShareButton"
+                        >
                             <TwitterIcon
                                 size={48}
                                 round={true}

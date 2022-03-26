@@ -23,7 +23,6 @@ function EducationAddForm({ portfolioOwnerId, setIsAdding, setEducations }) {
 
     const handleAddSubmit = async (event) => {
         event.preventDefault();
-
         try {
             const res = await Api.post("educations", {
                 user_id: portfolioOwnerId,

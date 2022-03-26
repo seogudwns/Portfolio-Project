@@ -1,5 +1,7 @@
 import { Card, Row, Button, Col } from "react-bootstrap";
 import * as Api from "../../api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function AwardCard({ award, setIsEditing, isEditable, setAwards }) {
     const { title, description, id, when_date } = award;
@@ -30,22 +32,16 @@ function AwardCard({ award, setIsEditing, isEditable, setAwards }) {
                     </Col>
                     {isEditable && (
                         <Col lg={1} xs={true}>
-                            <Button
-                                variant="outline-info"
-                                size="sm"
+                            <FontAwesomeIcon
+                                className="fontawesome-icon edit-pen"
                                 onClick={() => setIsEditing(true)}
-                                className="mr-3"
-                            >
-                                편집
-                            </Button>
-                            <Button
-                                variant="outline-danger"
-                                size="sm"
-                                className="mr-3 mt-1"
+                                icon={faPen}
+                            />
+                            <FontAwesomeIcon
+                                className="fontawesome-icon delete-xmark"
                                 onClick={() => deleteHandler()}
-                            >
-                                삭제
-                            </Button>
+                                icon={faXmark}
+                            />
                         </Col>
                     )}
                 </Row>

@@ -6,7 +6,8 @@ import * as Api from "../../api";
 import UserCard from "./UserCard";
 import { UserStateContext } from "../../App";
 import NetworkScroll from "./NetworkScroll";
-import ThemeContext  from "../Theme";
+import ThemeContext from "../Theme";
+import Header from "../Header";
 
 function Network() {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ function Network() {
     useEffect(() => {
         // 만약 전역 상태의 user가 null이라면, 로그인 페이지로 이동함.
         if (!userState.user) {
-            navigate("/login");
+            navigate("/intro");
             return;
         }
         // "userlist" 엔드포인트로 GET 요청을 하고, users를 response의 data로 세팅함.
@@ -28,13 +29,16 @@ function Network() {
     }, [userState, navigate]);
 
     return (
-        <div className={`${theme}`} style={{ marginBottom: 100 }}>
-            {users.length !== 0 ? (
-                <NetworkScroll users={users} />
-            ) : (
-                <span>Loading...</span>
-            )}
-        </div>
+        <>
+            <Header />
+            <div className={`${theme}`} style={{ marginBottom: 100 }}>
+                {users.length !== 0 ? (
+                    <NetworkScroll users={users} />
+                ) : (
+                    <span>Loading...</span>
+                )}
+            </div>
+        </>
     );
 }
 

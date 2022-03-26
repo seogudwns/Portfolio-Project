@@ -7,7 +7,7 @@ function useFetch(users, index) {
     const [hasMore, setHasMore] = useState(false);
 
     const sendQuery = useCallback(async () => {
-        const url = `users/${users[index].id}`;
+        const url = `users/${users[index]?.id}`;
 
         try {
             setIsLoading(true);
@@ -17,7 +17,7 @@ function useFetch(users, index) {
             if (!data) {
                 throw new Error("서버에 오류가 있습니다!");
             }
-            console.log(data);
+
             setUsersForScroll((current) => [...current, data]);
             setHasMore(data !== undefined);
             setIsLoading(false);
@@ -27,7 +27,10 @@ function useFetch(users, index) {
     }, [index]);
 
     useEffect(() => {
-        sendQuery();
+        // index가 users크기보다 클 때 실행하면 오류
+        if (index < users.length) {
+            sendQuery();
+        }
     }, [sendQuery, index]);
 
     return { usersForScroll, hasMore, isLoading };

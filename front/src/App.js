@@ -12,7 +12,6 @@ import Portfolio from "./components/Portfolio";
 import { ThemeProvider } from "./components/Theme";
 import Intro from "./components/Intro";
 
-
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
 
@@ -60,12 +59,19 @@ function App() {
             <UserStateContext.Provider value={userState}>
                 <ThemeProvider>
                     <Router>
-                        <Header />
+                        {/* <Header /> */}
                         <Routes>
+                            <Route path="/intro" element={<Intro />} />
                             <Route path="/" exact element={<Portfolio />} />
                             <Route path="/login" element={<LoginForm />} />
-                            <Route path="/register" element={<RegisterForm />} />
-                            <Route path="/users/:userId" element={<Portfolio />} />
+                            <Route
+                                path="/register"
+                                element={<RegisterForm />}
+                            />
+                            <Route
+                                path="/users/:userId"
+                                element={<Portfolio />}
+                            />
                             <Route path="/network" element={<Network />} />
                             <Route path="*" element={<Portfolio />} />
                         </Routes>
