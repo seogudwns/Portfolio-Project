@@ -3,13 +3,21 @@ import { useNavigate, Link } from "react-router-dom";
 import { Card, Row, Col } from "react-bootstrap";
 
 import EmailForm from "./EmailForm";
-import ThemeContext  from "../Theme";
+import ThemeContext from "../Theme";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faUserSlash } from "@fortawesome/free-solid-svg-icons";
 import "./UserCard.css";
 
-function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
+import * as Api from "../../api";
+
+function UserCard({
+    user,
+    setIsEditing,
+    isEditable,
+    portfolioOwnerId,
+    isNetwork,
+}) {
     const [showEmailForm, setShowEmailForm] = useState(false);
     const { theme } = useContext(ThemeContext);
     const navigate = useNavigate();
@@ -20,6 +28,20 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
 
         setShowEmailForm(true);
     }
+
+    // Delete /users/:id
+    const deleteUser = async () => {
+        try {
+            if (window.confirm("회원 탈퇴를 진행하시겠습니까?")) {
+                const res = await Api.delete("users", portfolioOwnerId);
+
+                console.log(res.status);
+                navigate("/intro", { replace: true });
+            }
+        } catch (err) {
+            alert("회원 탈퇴 과정에 문제가 발생했습니다.", err);
+        }
+    };
 
     return (
         <>
@@ -56,11 +78,19 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
                     />
 
                     {isEditable && (
-                        <FontAwesomeIcon
-                            className="fontawesome-icon edit-pen"
-                            onClick={() => setIsEditing(true)}
-                            icon={faPenToSquare}
-                        />
+                        <div>
+                            <FontAwesomeIcon
+                                className="fontawesome-icon edit-pen"
+                                onClick={() => setIsEditing(true)}
+                                icon={faPenToSquare}
+                            />
+                            {/* 유저 탈퇴 기능 */}
+                            <FontAwesomeIcon
+                                className="fontawesome-icon delete-user"
+                                onClick={deleteUser}
+                                icon={faUserSlash}
+                            />
+                        </div>
                     )}
                 </div>
             ) : (

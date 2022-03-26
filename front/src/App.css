@@ -44,3 +44,8 @@ body {
     font-size: 24px;
     color: var(--main-red-color);
 }
+
+.delete-user {
+    font-size: 20px;
+    color: var(--main-red-color);
+}

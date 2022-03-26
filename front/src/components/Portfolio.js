@@ -16,6 +16,8 @@ import Header from "./Header";
 
 import "./Portfolio.css";
 import ThemeContext from "./Theme";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserSlash } from "@fortawesome/free-solid-svg-icons";
 
 function Portfolio() {
     const navigate = useNavigate();
