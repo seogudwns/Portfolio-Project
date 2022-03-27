@@ -36,6 +36,7 @@ function UserCard({
                 const res = await Api.delete("users", portfolioOwnerId);
 
                 console.log(res.status);
+                // ! 탈퇴 후 페이지에서 Portfolio 페이지 접속 시도할 때 Id가 남아 있어서 진행됨
                 navigate("/intro", { replace: true });
             }
         } catch (err) {

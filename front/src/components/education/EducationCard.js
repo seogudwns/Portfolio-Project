@@ -11,12 +11,15 @@ function EducationCard({ education, isEditable, setIsEditing, setEducations }) {
     const deleteHandler = async () => {
         const { id } = education;
 
-        await Api.delete(`educations/${id}`);
-
-        if (window.confirm("정말로 학력 정보를 삭제하시겠습니까?")) {
-            setEducations((current) => {
-                return current.filter((edu) => edu.id !== id);
-            });
+        try {
+            if (window.confirm("정말로 학력 정보를 삭제하시겠습니까?")) {
+                await Api.delete(`educations/${id}`);
+                setEducations((current) => {
+                    return current.filter((edu) => edu.id !== id);
+                });
+            }
+        } catch (err) {
+            alert("학력 정보를 삭제하지 못했습니다.", err);
         }
     };
 
