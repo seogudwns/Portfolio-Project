@@ -1,0 +1,11 @@
+## 일일 스크럼
+- [3/15 (화) 오후 스크럼](https://kdt-gitlab.elice.io/ai_track/class_04/web_project/team10/portfolio-project/-/wikis/3/15(%ED%99%94)-%EC%8A%A4%ED%81%AC%EB%9F%BC-%ED%9A%8C%EC%9D%98%EB%A1%9D)   
+- [3/16 (수) 오전 스크럼](https://kdt-gitlab.elice.io/ai_track/class_04/web_project/team10/portfolio-project/-/wikis/3/16(%EC%88%98)-%EC%8A%A4%ED%81%AC%EB%9F%BC-%ED%9A%8C%EC%9D%98%EB%A1%9D)   
+- [3/17 (목) 오전 스크럼](https://kdt-gitlab.elice.io/ai_track/class_04/web_project/team10/portfolio-project/-/wikis/3/17(%EB%AA%A9)-%EC%8A%A4%ED%81%AC%EB%9F%BC-%ED%9A%8C%EC%9D%98%EB%A1%9D)
+- [3/18 (금) 오전 스크럼](https://kdt-gitlab.elice.io/ai_track/class_04/web_project/team10/portfolio-project/-/wikis/3/18(%EA%B8%88)-%EC%8A%A4%ED%81%AC%EB%9F%BC-%ED%9A%8C%EC%9D%98%EB%A1%9D)
+- [3/19 (토) 오전 스크럼](https://kdt-gitlab.elice.io/ai_track/class_04/web_project/team10/portfolio-project/-/wikis/3/19(%ED%86%A0)-%EC%8A%A4%ED%81%AC%EB%9F%BC-%ED%9A%8C%EC%9D%98%EB%A1%9D)
+- [3/22 (화) 오전 스크럼](https://kdt-gitlab.elice.io/ai_track/class_04/web_project/team10/portfolio-project/-/wikis/3/22(%ED%99%94)-%EC%8A%A4%ED%81%AC%EB%9F%BC-%ED%9A%8C%EC%9D%98%EB%A1%9D)
+- [3/23 (수) 오전 스크럼](https://kdt-gitlab.elice.io/ai_track/class_04/web_project/team10/portfolio-project/-/wikis/3/23(%EC%88%98)-%EC%8A%A4%ED%81%AC%EB%9F%BC-%ED%9A%8C%EC%9D%98%EB%A1%9D)
+- [3/24 (목) 오전 스크럼](https://kdt-gitlab.elice.io/ai_track/class_04/web_project/team10/portfolio-project/-/wikis/3/24(%EB%AA%A9)-%EC%8A%A4%ED%81%AC%EB%9F%BC-%ED%9A%8C%EC%9D%98%EB%A1%9D)
+- [3/25 (금) 오전 스크럼](https://kdt-gitlab.elice.io/ai_track/class_04/web_project/team10/portfolio-project/-/wikis/3/25(%EA%B8%88)-%EC%8A%A4%ED%81%AC%EB%9F%BC-%ED%9A%8C%EC%9D%98%EB%A1%9D)
+- [3/26 (토) 오전 스크럼](https://kdt-gitlab.elice.io/ai_track/class_04/web_project/team10/portfolio-project/-/wikis/3/26(%ED%86%A0)-%EC%8A%A4%ED%81%AC%EB%9F%BC-%ED%9A%8C%EC%9D%98%EB%A1%9D)
